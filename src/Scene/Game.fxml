@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Scene.Navigator">
+   <children>
+      <ImageView fitHeight="737.0" fitWidth="1374.0" layoutX="-80.0" layoutY="-7.0" onMouseClicked="#drawDice" opacity="0.6">
+         <image>
+            <Image url="@../res/castleBg.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff2d1f" height="524.0" layoutX="31.0" layoutY="26.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="795.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="313.0" layoutX="842.0" layoutY="29.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="395.0" AnchorPane.rightAnchor="57.40000000000009" AnchorPane.topAnchor="29.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="29.0" layoutX="902.0" layoutY="42.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="315.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="29.0" layoutX="861.0" layoutY="42.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="29.0" />
+      <ImageView fx:id="drawDice" fitHeight="114.0" fitWidth="114.0" layoutX="1065.0" layoutY="562.0" onMouseClicked="#drawDice">
+         <image>
+            <Image url="@../res/dice.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="drawBg" arcHeight="5.0" arcWidth="5.0" fill="#e5ff00" height="328.0" layoutY="169.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="1290.0" />
+      <Label fx:id="drawValue" layoutX="584.0" layoutY="275.0" text="Label" visible="false">
+         <font>
+            <Font size="72.0" />
+         </font>
+      </Label>
+      <GridPane fx:id="layoutContainer" gridLinesVisible="true" layoutX="64.0" layoutY="51.0" prefHeight="504.0" prefWidth="726.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="86.0" prefHeight="86.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="86.0" prefHeight="86.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="86.0" prefHeight="86.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="86.0" prefHeight="86.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="86.0" prefHeight="86.0" vgrow="ALWAYS" />
+         </rowConstraints>
+      </GridPane>
+
+   </children>
+</AnchorPane>
