@@ -43,7 +43,7 @@
             <RowConstraints minHeight="86.0" prefHeight="86.0" vgrow="ALWAYS" />
          </rowConstraints>
          <children>
-            <Rectangle fx:id="player" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="94.0" stroke="BLACK" strokeType="INSIDE" width="94.0" >
+            <Rectangle fx:id="player" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="94.0" stroke="BLACK" strokeType="INSIDE" width="94.0">
                <GridPane.columnIndex>0</GridPane.columnIndex>
                <GridPane.rowIndex>0</GridPane.rowIndex>
             </Rectangle>
@@ -58,6 +58,7 @@
       <Rectangle fx:id="up" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="44.0" layoutX="1027.0" layoutY="362.0" onMouseClicked="#UP" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
       <Rectangle fx:id="down" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="44.0" layoutX="1027.0" layoutY="412.0" onMouseClicked="#DOWN" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
       <Rectangle fx:id="right" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="94.0" layoutX="1151.0" layoutY="362.0" onMouseClicked="#RIGHT" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
+      <Rectangle fx:id="countdown" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="22.0" layoutY="707.0" stroke="BLACK" strokeType="INSIDE" width="1290.0" />
    </children>
 
 </AnchorPane>

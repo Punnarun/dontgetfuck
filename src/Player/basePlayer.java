@@ -5,6 +5,7 @@ public class basePlayer {
     private String name;
     private int hp;
     private int atk;
+    private int diceValue = -1;
 
     public basePlayer(String name, int hp, int atk) {
         this.name = name;
@@ -34,5 +35,13 @@ public class basePlayer {
 
     public void setAtk(int atk) {
         this.atk = atk;
+    }
+
+    public int getDiceValue() {
+        return diceValue;
+    }
+
+    public void setDiceValue(int diceValue) {
+        this.diceValue = diceValue;
     }
 }

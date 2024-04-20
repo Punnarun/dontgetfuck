@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import Scene.Navigator;
 
 //import javax.print.attribute.standard.Media;
 import java.io.File;
@@ -27,7 +28,6 @@ public class Home extends Application {
 
             // Set the music to loop indefinitely
             mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-
             // Play the music
             mediaPlayer.play();
         } catch (Exception e) {

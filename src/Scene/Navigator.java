@@ -1,18 +1,27 @@
 package Scene;
 
+import Player.basePlayer;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.Random;
+import Controller.gameState;
 
 public class Navigator {
+
+    private gameState gameState;
 
     @FXML
     private Label drawValue;
@@ -23,27 +32,25 @@ public class Navigator {
     @FXML
     private GridPane layoutContainer;
 
+    private boolean diceRolled = false;
 
     @FXML
-    private Rectangle drawBg;
+    private void goToGame() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Game.fxml"));
+        Parent gameRoot = loader.load();
+        Scene gameScene = new Scene(gameRoot);
+        Stage stage = (Stage) root.getScene().getWindow();
+        stage.setScene(gameScene);
 
-    @FXML
-    private void goToGame() {
-        //navigate to the game page
         System.out.println("TO GAME");
+        startGame();
     }
 
     @FXML
-    private void drawDice() {
-        // Generate a random number between 1 and 6 (inclusive) for the dice roll
-        Random random = new Random();
-        int diceRoll = random.nextInt(6) + 1;
-
+    private void notification(String text) {
         drawValue.setVisible(true);
-        drawValue.setText("You got " + diceRoll);
-        drawBg.setVisible(true);
+        drawValue.setText(text);
 
-        // Create a fade transition for the label and rectangle
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), drawValue);
         fadeTransition.setFromValue(1.0);
         fadeTransition.setToValue(0.0);
@@ -53,27 +60,73 @@ public class Navigator {
             drawValue.setVisible(false);
         });
 
-        fadeTransition = new FadeTransition(Duration.seconds(3), drawBg);
         fadeTransition.setFromValue(1.0);
         fadeTransition.setToValue(0.0);
         fadeTransition.play();
-
-        fadeTransition.setOnFinished(event -> {
-            drawBg.setVisible(false);
-        });
-
-        // Optionally, you can also print the rolled value to the console
-        System.out.println("Dice rolled: " + diceRoll);
     }
 
+    @FXML
+    private void drawDice() {
+        Random random = new Random();
+        int diceRoll = random.nextInt(6) + 1;
+
+        notification("You got " + diceRoll);
+        System.out.println("Dice rolled: " + diceRoll);
+        diceRolled = true; // Signal that the dice has been rolled
+        startGame(); // Start the game once the dice is rolled
+    }
+
+    private Timeline timeline;
+    private int countdownSeconds = 10;
+
+    @FXML
+    private Rectangle countdown;
+
+    private void startCountdown() {
+        // Initialize the timeline to update the countdown every second
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            countdownSeconds--;
+            updateCountdown();
+            if (countdownSeconds <= 0) {
+                endTurn();
+            }
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
+    private void updateCountdown() {
+        double maxWidth = countdown.getWidth();
+        double currentWidth = (double) countdownSeconds / 10 * maxWidth;
+        countdown.setWidth(currentWidth);
+        System.out.println("CURRENT WIDTH" + currentWidth);
+    }
+
+    private void endTurn() {
+        // Logic to end the turn...
+
+        // Stop the countdown timer
+        timeline.stop();
+        countdown.setWidth(0); // Reset the countdown rectangle width
+        countdownSeconds = 10; // Reset the countdown seconds for the next turn
+        System.out.println("END TURN");
+        startCountdown();
+    }
 
     @FXML
     private AnchorPane root; // Add this field
 
-    @FXML
-    private void initialize() {
-        // Request focus for the root node to ensure key events are captured
-        root.requestFocus();
+    public void startGame() {
+        if (!diceRolled) {
+            // Wait for the dice to be rolled
+            return;
+        }
+
+        basePlayer player1 = new basePlayer("P1",10,10);
+        basePlayer player2 = new basePlayer("P2",10,10);
+        System.out.println("Player 1 please Roll the Dice");
+        System.out.println("HI");
+        startCountdown();
     }
 
     @FXML
@@ -107,6 +160,4 @@ public class Navigator {
             GridPane.setColumnIndex(player, colIndex + 1);
         }
     }
-
-
 }
