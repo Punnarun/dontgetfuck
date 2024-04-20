@@ -10,29 +10,23 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Scene.Navigator">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Scene.Navigator">
    <children>
-      <ImageView fitHeight="737.0" fitWidth="1374.0" layoutX="-80.0" layoutY="-7.0" onMouseClicked="#drawDice" opacity="0.6">
+      <ImageView fitHeight="737.0" fitWidth="1374.0" layoutX="-80.0" layoutY="-7.0" opacity="0.6">
          <image>
             <Image url="@../res/castleBg.png" />
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff2d1f" height="524.0" layoutX="31.0" layoutY="26.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="795.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="313.0" layoutX="842.0" layoutY="29.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="395.0" AnchorPane.rightAnchor="57.40000000000009" AnchorPane.topAnchor="29.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="29.0" layoutX="902.0" layoutY="42.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="315.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="29.0" layoutX="861.0" layoutY="42.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="29.0" />
-      <ImageView fx:id="drawDice" fitHeight="114.0" fitWidth="114.0" layoutX="1065.0" layoutY="562.0" onMouseClicked="#drawDice">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="313.0" layoutX="875.6000000000001" layoutY="27.2" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="404.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="27.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="29.0" layoutX="940.0" layoutY="40.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="315.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="29.0" layoutX="894.0" layoutY="40.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="29.0" />
+      <ImageView fx:id="drawDice" fitHeight="114.0" fitWidth="114.0" layoutX="1141.0" layoutY="575.0" onMouseClicked="#drawDice">
          <image>
             <Image url="@../res/dice.png" />
          </image>
       </ImageView>
-      <Rectangle fx:id="drawBg" arcHeight="5.0" arcWidth="5.0" fill="#e5ff00" height="328.0" layoutY="169.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="1290.0" />
-      <Label fx:id="drawValue" layoutX="584.0" layoutY="275.0" text="Label" visible="false">
-         <font>
-            <Font size="72.0" />
-         </font>
-      </Label>
-      <GridPane fx:id="layoutContainer" gridLinesVisible="true" layoutX="64.0" layoutY="51.0" prefHeight="504.0" prefWidth="726.0">
+      <GridPane fx:id="layoutContainer" gridLinesVisible="true" layoutX="64.0" layoutY="51.0" prefHeight="504.0" prefWidth="726.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
@@ -48,7 +42,22 @@
             <RowConstraints minHeight="86.0" prefHeight="86.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="86.0" prefHeight="86.0" vgrow="ALWAYS" />
          </rowConstraints>
+         <children>
+            <Rectangle fx:id="player" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="94.0" stroke="BLACK" strokeType="INSIDE" width="94.0" >
+               <GridPane.columnIndex>0</GridPane.columnIndex>
+               <GridPane.rowIndex>0</GridPane.rowIndex>
+            </Rectangle>
+         </children>
       </GridPane>
-
+      <Label fx:id="drawValue" layoutX="584.0" layoutY="275.0" text="Label" visible="false">
+         <font>
+            <Font size="72.0" />
+         </font>
+      </Label>
+      <Rectangle fx:id="left" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="94.0" layoutX="898.0" layoutY="362.0" onMouseClicked="#LEFT" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
+      <Rectangle fx:id="up" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="44.0" layoutX="1027.0" layoutY="362.0" onMouseClicked="#UP" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
+      <Rectangle fx:id="down" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="44.0" layoutX="1027.0" layoutY="412.0" onMouseClicked="#DOWN" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
+      <Rectangle fx:id="right" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="94.0" layoutX="1151.0" layoutY="362.0" onMouseClicked="#RIGHT" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
    </children>
+
 </AnchorPane>
