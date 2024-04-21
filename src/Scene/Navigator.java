@@ -1,5 +1,6 @@
 package Scene;
 
+import Controller.facing;
 import Player.basePlayer;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -172,20 +173,19 @@ public class Navigator {
     public void startGame() {
 
         GAMESTATE = gameState.PLAYER1_TURN;
+        player1.setPlayerFacing(facing.SOUTH);
+        player2.setPlayerFacing(facing.NORTH);
 //        player1StatUpdate();
-
-
     }
     public void decreaseMove() {
         if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
 
             if (player1.getMove() == 7) {
                 notification("please roll dice first");
+            } else {
+                player1.setMove(player1.getMove() - 1);
+                System.out.println("YOU GOT " + player1.getMove() + " LEFT");
             }
-
-            player1.setMove(player1.getMove() - 1);
-            System.out.println("YOU GOT " + player1.getMove() + " LEFT");
-
 
             if (player1.getMove() <= 0 ) {
                 isAttack();
@@ -214,6 +214,14 @@ public class Navigator {
         }
     }
 
+    public void updateFacing(facing face) {
+        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
+            player1.setPlayerFacing(face);
+        } else {
+            player2.setPlayerFacing(face);
+        }
+    }
+
     @FXML
     public void UP() {
         ImageView currentPlayer = getCurrentPlayerRectangle();
@@ -226,6 +234,7 @@ public class Navigator {
             Image image = new Image(file.toURI().toString());
             currentPlayer.setImage(image);
             GridPane.setRowIndex(currentPlayer, rowIndex - 1);
+            updateFacing(facing.NORTH);
             decreaseMove();
         }
     }
@@ -242,6 +251,7 @@ public class Navigator {
             Image image = new Image(file.toURI().toString());
             currentPlayer.setImage(image);
             GridPane.setRowIndex(currentPlayer, rowIndex + 1);
+            updateFacing(facing.SOUTH);
             decreaseMove();
         }
     }
@@ -258,6 +268,7 @@ public class Navigator {
             Image image = new Image(file.toURI().toString());
             currentPlayer.setImage(image);
             GridPane.setColumnIndex(currentPlayer, colIndex - 1);
+            updateFacing(facing.WEST);
             decreaseMove();
         }
     }
@@ -274,6 +285,7 @@ public class Navigator {
             Image image = new Image(file.toURI().toString());
             currentPlayer.setImage(image);
             GridPane.setColumnIndex(currentPlayer, colIndex + 1);
+            updateFacing(facing.EAST);
             decreaseMove();
         }
     }
@@ -404,24 +416,61 @@ public class Navigator {
                 {currentPlayerRow, currentPlayerCol + 1}  // Right
         };
 
+        facing playerFacing = currentPlayer.getPlayerFacing();
+
         // Check if any adjacent tile contains the opponent player
         for (int[] tile : adjacentTiles) {
             int row = tile[0];
             int col = tile[1];
 
             if ((row == opponentPlayerRow && col == opponentPlayerCol)){
-                System.out.println(currentPlayer.getMove());
-                System.out.println("ATTACK!!!!!");
-                attack.setOpacity(1);
-                return; // Attack detected, no need to check further
+                // Check if the attacking player is facing the opponent
+                if ((playerFacing == facing.NORTH && row < currentPlayerRow) ||
+                        (playerFacing == facing.SOUTH && row > currentPlayerRow) ||
+                        (playerFacing == facing.WEST && col < currentPlayerCol) ||
+                        (playerFacing == facing.EAST && col > currentPlayerCol)) {
+                    System.out.println(currentPlayer.getMove());
+                    System.out.println("ATTACK!!!!!");
+                    attack.setOpacity(1);
+                    gotKnockback(currentPlayer , opponentPlayer , playerTwo);
+                    return; // Attack detected, no need to check further
+                } else {
+                    // The player is not facing the opponent
+                    System.out.println("Cannot attack, not facing the opponent.");
+                    return;
+                }
             }
         }
-
-        gotKnockback();
     }
 
 
-    private void gotKnockback() {
+    private void gotKnockback(basePlayer currentPlayer , basePlayer opponentPlayer, ImageView opponentImageView) {
+        int currentPlayerRow = GridPane.getRowIndex(currentPlayer == player1 ? playerOne : playerTwo);
+        int currentPlayerCol = GridPane.getColumnIndex(currentPlayer == player1 ? playerOne : playerTwo);
+        int opponentPlayerRow = GridPane.getRowIndex(opponentPlayer == player1 ? playerOne : playerTwo);
+        int opponentPlayerCol = GridPane.getColumnIndex(opponentPlayer == player1 ? playerOne : playerTwo);
+
+        // Calculate the direction of knockback based on the current player's facing direction
+        int knockbackRow = opponentPlayerRow;
+        int knockbackCol = opponentPlayerCol;
+        switch (currentPlayer.getPlayerFacing()) {
+            case NORTH:
+                knockbackRow--;
+                break;
+            case SOUTH:
+                knockbackRow++;
+                break;
+            case WEST:
+                knockbackCol--;
+                break;
+            case EAST:
+                knockbackCol++;
+                break;
+        }
+
+        // Update the position of the opponent player's ImageView to simulate knockback
+        GridPane.setRowIndex(opponentImageView, knockbackRow);
+        GridPane.setColumnIndex(opponentImageView, knockbackCol);
     }
 
 }

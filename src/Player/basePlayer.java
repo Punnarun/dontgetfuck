@@ -1,5 +1,7 @@
 package Player;
 
+import Controller.facing;
+
 public class basePlayer {
 
     private String name;
@@ -9,6 +11,8 @@ public class basePlayer {
     private int move = 0;
     private int currentX = 0;
     private int currentY = 0;
+    private facing playerFacing;
+
 
     public basePlayer(String name, int hp, int atk) {
         this.name = name;
@@ -18,6 +22,14 @@ public class basePlayer {
 
     public String getName() {
         return name;
+    }
+
+    public facing getPlayerFacing() {
+        return playerFacing;
+    }
+
+    public void setPlayerFacing(facing playerFacing) {
+        this.playerFacing = playerFacing;
     }
 
     public int getMove() {
