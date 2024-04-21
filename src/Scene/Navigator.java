@@ -6,9 +6,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -16,13 +18,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 import Controller.gameState;
 
 public class Navigator {
 
-    basePlayer player1 = new basePlayer("P1",3,5);
+    basePlayer player1 = new basePlayer("P1",3,2);
     basePlayer player2 = new basePlayer("P2",5,5);
 
     private gameState GAMESTATE = gameState.PLAYER1_TURN;
@@ -34,10 +37,10 @@ public class Navigator {
     private Label guide;
 
     @FXML
-    private Rectangle playerOne;
+    private ImageView playerOne;
 
     @FXML
-    private Rectangle playerTwo;
+    private ImageView playerTwo;
 
     @FXML
     private GridPane layoutContainer;
@@ -77,6 +80,7 @@ public class Navigator {
 
     @FXML
     private void drawDice() {
+
         Random random = new Random();
         int diceRoll = random.nextInt(6) + 1;
 
@@ -182,7 +186,9 @@ public class Navigator {
             player1.setMove(player1.getMove() - 1);
             System.out.println("YOU GOT " + player1.getMove() + " LEFT");
 
+
             if (player1.getMove() <= 0 ) {
+                isAttack();
                 player2.setMove(7);
                 GAMESTATE = gameState.PLAYER2_TURN;
                 System.out.println(GAMESTATE);
@@ -199,6 +205,7 @@ public class Navigator {
             System.out.println("YOU GOT " + player2.getMove() + " LEFT");
 
             if (player2.getMove() <= 0) {
+                isAttack();
                 player1.setMove(7);
                 GAMESTATE = gameState.PLAYER1_TURN;
                 System.out.println(GAMESTATE);
@@ -209,35 +216,31 @@ public class Navigator {
 
     @FXML
     public void UP() {
-
-        Rectangle currentPlayer = null;
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
-            currentPlayer = playerOne;
-        } else {
-            currentPlayer = playerTwo;
-        }
+        ImageView currentPlayer = getCurrentPlayerRectangle();
 
         int rowIndex = GridPane.getRowIndex(currentPlayer);
-        if (rowIndex > 0 && (player1.getMove() > 0 || player2.getMove() > 0)) {
+        int colIndex = GridPane.getColumnIndex(currentPlayer);
+
+        if (canMoveTo(rowIndex - 1, colIndex)) {
+            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p4.png");
+            Image image = new Image(file.toURI().toString());
+            currentPlayer.setImage(image);
             GridPane.setRowIndex(currentPlayer, rowIndex - 1);
             decreaseMove();
-        } else if ((GAMESTATE.equals(gameState.PLAYER1_TURN) && player1.getMove() == 0) || (GAMESTATE.equals(gameState.PLAYER2_TURN) && player2.getMove() == 0)) {
-            GAMESTATE = gameState.PLAYER2_TURN;
         }
     }
 
     @FXML
     public void DOWN() {
-
-        Rectangle currentPlayer = null;
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
-            currentPlayer = playerOne;
-        } else {
-            currentPlayer = playerTwo;
-        }
+        ImageView currentPlayer = getCurrentPlayerRectangle();
 
         int rowIndex = GridPane.getRowIndex(currentPlayer);
-        if (rowIndex < layoutContainer.getRowCount() - 1 && (player1.getMove() > 0 || player2.getMove() > 0)) {
+        int colIndex = GridPane.getColumnIndex(currentPlayer);
+
+        if (canMoveTo(rowIndex + 1, colIndex)) {
+            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p2.png");
+            Image image = new Image(file.toURI().toString());
+            currentPlayer.setImage(image);
             GridPane.setRowIndex(currentPlayer, rowIndex + 1);
             decreaseMove();
         }
@@ -245,16 +248,15 @@ public class Navigator {
 
     @FXML
     public void LEFT() {
+        ImageView currentPlayer = getCurrentPlayerRectangle();
 
-        Rectangle currentPlayer = null;
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
-            currentPlayer = playerOne;
-        } else {
-            currentPlayer = playerTwo;
-        }
-
+        int rowIndex = GridPane.getRowIndex(currentPlayer);
         int colIndex = GridPane.getColumnIndex(currentPlayer);
-        if (colIndex > 0 && (player1.getMove() > 0 || player2.getMove() > 0)) {
+
+        if (canMoveTo(rowIndex, colIndex - 1)) {
+            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p3.png");
+            Image image = new Image(file.toURI().toString());
+            currentPlayer.setImage(image);
             GridPane.setColumnIndex(currentPlayer, colIndex - 1);
             decreaseMove();
         }
@@ -262,19 +264,41 @@ public class Navigator {
 
     @FXML
     public void RIGHT() {
+        ImageView currentPlayer = getCurrentPlayerRectangle();
 
-        Rectangle currentPlayer = null;
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
-            currentPlayer = playerOne;
-        } else {
-            currentPlayer = playerTwo;
-        }
-
+        int rowIndex = GridPane.getRowIndex(currentPlayer);
         int colIndex = GridPane.getColumnIndex(currentPlayer);
-        if (colIndex < layoutContainer.getColumnCount() - 1 && (player1.getMove() > 0 || player2.getMove() > 0)) {
+
+        if (canMoveTo(rowIndex, colIndex + 1)) {
+            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p1.png");
+            Image image = new Image(file.toURI().toString());
+            currentPlayer.setImage(image);
             GridPane.setColumnIndex(currentPlayer, colIndex + 1);
             decreaseMove();
         }
+    }
+
+    private ImageView getCurrentPlayerRectangle() {
+        return GAMESTATE.equals(gameState.PLAYER1_TURN) ? playerOne : playerTwo;
+    }
+
+    private boolean canMoveTo(int rowIndex, int colIndex) {
+        // Check if the destination tile is within the grid bounds
+        if (rowIndex >= 0 && rowIndex < layoutContainer.getRowCount() &&
+                colIndex >= 0 && colIndex < layoutContainer.getColumnCount()) {
+            // Check if the destination tile is already occupied by another player
+            for (Node node : layoutContainer.getChildren()) {
+                if (node instanceof ImageView) {
+                    int nodeRowIndex = GridPane.getRowIndex(node);
+                    int nodeColIndex = GridPane.getColumnIndex(node);
+                    if (nodeRowIndex == rowIndex && nodeColIndex == colIndex) {
+                        return false; // Destination tile is occupied
+                    }
+                }
+            }
+            return true; // Destination tile is not occupied
+        }
+        return false; // Destination tile is out of bounds
     }
 
 
@@ -309,10 +333,23 @@ public class Navigator {
         p1_hp4.setVisible(false);
         p1_hp5.setVisible(false);
 
+        p1_atk1.setVisible(false);
+        p1_atk2.setVisible(false);
+        p1_atk3.setVisible(false);
+        p1_atk4.setVisible(false);
+        p1_atk5.setVisible(false);
+
     }
 
     public void player1StatUpdate() {
         int player1HP = player1.getHp();
+        int player1ATK = player1.getAtk();
+
+        if (player1ATK >= 1) p1_atk1.setVisible(true);
+        if (player1ATK >= 2) p1_atk2.setVisible(true);
+        if (player1ATK >= 3) p1_atk3.setVisible(true);
+        if (player1ATK >= 4) p1_atk4.setVisible(true);
+        if (player1ATK >= 5) p1_atk5.setVisible(true);
 
         if (player1HP >= 1) p1_hp1.setVisible(true);
         if (player1HP >= 2) p1_hp2.setVisible(true);
@@ -320,4 +357,71 @@ public class Navigator {
         if (player1HP >= 4) p1_hp4.setVisible(true);
         if (player1HP >= 5) p1_hp5.setVisible(true);
     }
+
+    public void player2StatUpdate() {
+        int player2HP = player2.getHp();
+        int player2ATK = player2.getAtk();
+
+//        if (player2ATK >= 1) p2_atk1.setVisible(true);
+//        if (player2ATK >= 2) p1_atk2.setVisible(true);
+//        if (player2ATK >= 3) p1_atk3.setVisible(true);
+//        if (player1ATK >= 4) p1_atk4.setVisible(true);
+//        if (player1ATK >= 5) p1_atk5.setVisible(true);
+//
+//        if (player1HP >= 1) p1_hp1.setVisible(true);
+//        if (player1HP >= 2) p1_hp2.setVisible(true);
+//        if (player1HP >= 3) p1_hp3.setVisible(true);
+//        if (player1HP >= 4) p1_hp4.setVisible(true);
+//        if (player1HP >= 5) p1_hp5.setVisible(true);
+    }
+
+
+    @FXML
+    private ImageView attack;
+
+    public void isAttack() {
+        basePlayer currentPlayer;
+        basePlayer opponentPlayer;
+
+        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
+            currentPlayer = player1;
+            opponentPlayer = player2;
+        } else {
+            currentPlayer = player2;
+            opponentPlayer = player1;
+        }
+
+        int currentPlayerRow = GridPane.getRowIndex(currentPlayer == player1 ? playerOne : playerTwo);
+        int currentPlayerCol = GridPane.getColumnIndex(currentPlayer == player1 ? playerOne : playerTwo);
+        int opponentPlayerRow = GridPane.getRowIndex(opponentPlayer == player1 ? playerOne : playerTwo);
+        int opponentPlayerCol = GridPane.getColumnIndex(opponentPlayer == player1 ? playerOne : playerTwo);
+
+        // Define the coordinates of adjacent tiles around the current player
+        int[][] adjacentTiles = {
+                {currentPlayerRow - 1, currentPlayerCol}, // Up
+                {currentPlayerRow + 1, currentPlayerCol}, // Down
+                {currentPlayerRow, currentPlayerCol - 1}, // Left
+                {currentPlayerRow, currentPlayerCol + 1}  // Right
+        };
+
+        // Check if any adjacent tile contains the opponent player
+        for (int[] tile : adjacentTiles) {
+            int row = tile[0];
+            int col = tile[1];
+
+            if ((row == opponentPlayerRow && col == opponentPlayerCol)){
+                System.out.println(currentPlayer.getMove());
+                System.out.println("ATTACK!!!!!");
+                attack.setOpacity(1);
+                return; // Attack detected, no need to check further
+            }
+        }
+
+        gotKnockback();
+    }
+
+
+    private void gotKnockback() {
+    }
+
 }

@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Scene.Navigator">
    <children>
-      <ImageView fitHeight="737.0" fitWidth="1374.0" layoutX="-14.0" layoutY="8.0" opacity="0.6">
+      <ImageView fitHeight="746.0" fitWidth="1374.0" layoutX="-14.0" layoutY="-1.0" opacity="0.6">
          <image>
             <Image url="@../res/castleBg.png" />
          </image>
@@ -43,11 +43,20 @@
             <RowConstraints minHeight="86.0" prefHeight="86.0" vgrow="ALWAYS" />
          </rowConstraints>
          <children>
-            <Rectangle fx:id="playerOne" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="94.0" stroke="BLACK" strokeType="INSIDE" width="94.0">
+            <ImageView fx:id="playerOne" fitHeight="100.0" fitWidth="56.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../res/p2.png" />
+               </image>
                <GridPane.columnIndex>0</GridPane.columnIndex>
                <GridPane.rowIndex>0</GridPane.rowIndex>
-            </Rectangle>
-            <Rectangle fx:id="playerTwo" arcHeight="5.0" arcWidth="5.0" fill="#1fff58" height="94.0" stroke="BLACK" strokeType="INSIDE" width="94.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+            </ImageView>
+            <ImageView fx:id="playerTwo" fitHeight="100.0" fitWidth="56.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../res/p4.png" />
+               </image>
+               <GridPane.columnIndex>5</GridPane.columnIndex>
+               <GridPane.rowIndex>4</GridPane.rowIndex>
+            </ImageView>
          </children>
       </GridPane>
       <Label fx:id="drawValue" layoutX="584.0" layoutY="275.0" text="Label" visible="false">
@@ -59,7 +68,7 @@
       <Rectangle fx:id="up" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="44.0" layoutX="1027.0" layoutY="362.0" onMouseClicked="#UP" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
       <Rectangle fx:id="down" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="44.0" layoutX="1027.0" layoutY="412.0" onMouseClicked="#DOWN" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
       <Rectangle fx:id="right" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="94.0" layoutX="1151.0" layoutY="362.0" onMouseClicked="#RIGHT" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
-      <Rectangle fx:id="countdown" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="22.0" layoutX="1.0" layoutY="721.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1360.0" />
+      <Rectangle fx:id="countdown" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="22.0" layoutX="1.0" layoutY="721.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1353.0" />
       <Label fx:id="guide" layoutX="838.0" layoutY="534.0" text="Label" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="121.0" layoutX="32.0" layoutY="569.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="761.0" />
       <Label layoutX="43.0" layoutY="582.0" text="Player 1">
@@ -190,6 +199,11 @@
       <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="614.0" layoutY="645.0">
          <image>
             <Image url="@../res/heart.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="attack" fitHeight="114.0" fitWidth="120.0" layoutX="1014.0" layoutY="578.0" opacity="0.25">
+         <image>
+            <Image url="@../res/sword.png" />
          </image>
       </ImageView>
    </children>

@@ -7,6 +7,8 @@ public class basePlayer {
     private int atk;
     private int diceValue = -1;
     private int move = 0;
+    private int currentX = 0;
+    private int currentY = 0;
 
     public basePlayer(String name, int hp, int atk) {
         this.name = name;
@@ -52,5 +54,21 @@ public class basePlayer {
 
     public void setDiceValue(int diceValue) {
         this.diceValue = diceValue;
+    }
+
+    public int getCurrentX() {
+        return currentX;
+    }
+
+    public void setCurrentX(int currentX) {
+        this.currentX = currentX;
+    }
+
+    public int getCurrentY() {
+        return currentY;
+    }
+
+    public void setCurrentY(int currentY) {
+        this.currentY = currentY;
     }
 }
