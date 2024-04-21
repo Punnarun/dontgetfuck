@@ -288,7 +288,7 @@ public class Navigator {
                 colIndex >= 0 && colIndex < layoutContainer.getColumnCount()) {
             // Check if the destination tile is already occupied by another player
             for (Node node : layoutContainer.getChildren()) {
-                if (node instanceof ImageView) {
+                if (node instanceof ImageView && false) {
                     int nodeRowIndex = GridPane.getRowIndex(node);
                     int nodeColIndex = GridPane.getColumnIndex(node);
                     if (nodeRowIndex == rowIndex && nodeColIndex == colIndex) {

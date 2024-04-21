@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -43,12 +44,213 @@
             <RowConstraints minHeight="86.0" prefHeight="86.0" vgrow="ALWAYS" />
          </rowConstraints>
          <children>
-            <ImageView fx:id="playerOne" fitHeight="100.0" fitWidth="56.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ImageView fx:id="onezero" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/p2.png" />
+                  <Image url="@../res/Granite.png" />
                </image>
-               <GridPane.columnIndex>0</GridPane.columnIndex>
-               <GridPane.rowIndex>0</GridPane.rowIndex>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="twozero" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="threezero" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="fourzero" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="o1" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="o2" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="o4" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="o5" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="oo" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/Granite.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
             </ImageView>
             <ImageView fx:id="playerTwo" fitHeight="100.0" fitWidth="56.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <image>
@@ -57,6 +259,18 @@
                <GridPane.columnIndex>5</GridPane.columnIndex>
                <GridPane.rowIndex>4</GridPane.rowIndex>
             </ImageView>
+            <ImageView fx:id="playerOne" fitHeight="100.0" fitWidth="56.0" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../res/p2.png" />
+               </image>
+               <GridPane.columnIndex>0</GridPane.columnIndex>
+               <GridPane.rowIndex>0</GridPane.rowIndex>
+            </ImageView>
+            <Label fx:id="player2Name" text="Player 2" textFill="#dae71f" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
+               <font>
+                  <Font name="Californian FB Bold" size="24.0" />
+               </font>
+            </Label>
          </children>
       </GridPane>
       <Label fx:id="drawValue" layoutX="584.0" layoutY="275.0" text="Label" visible="false">
@@ -78,7 +292,7 @@
       </Label>
       <Label layoutX="430.0" layoutY="582.0" text="Player 2">
          <font>
-            <Font name="Californian FB" size="24.0" />
+            <Font name="Californian FB Bold" size="24.0" />
          </font>
       </Label>
       <ImageView fx:id="p1_atk1" fitHeight="26.0" fitWidth="26.0" layoutX="109.0" layoutY="617.0">
