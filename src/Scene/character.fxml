@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.choosingPlayer">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.6">
+         <image>
+            <Image url="@../res/castleBg.png" />
+         </image>
+      </ImageView>
+      <Group fx:id="warrior" layoutX="50.0" layoutY="210.0" onMouseClicked="#onClick" onMouseEntered="#onEnter" onMouseExited="#onExit">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7e7e7" height="443.0" layoutX="9.0" layoutY="9.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="325.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#87b3dc" height="113.0" layoutX="26.0" layoutY="323.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="285.0" />
+            <ImageView fitHeight="308.0" fitWidth="208.0" layoutX="68.0" layoutY="153.0">
+               <image>
+                  <Image url="@../res/warrior.png" />
+               </image>
+               <effect>
+                  <ColorAdjust contrast="0.17" />
+               </effect>
+            </ImageView>
+            <Label layoutX="90.0" layoutY="45.0" text="Warrior">
+               <font>
+                  <Font name="Californian FB Bold" size="48.0" />
+               </font>
+            </Label>
+            <Label layoutX="107.0" layoutY="110.0" text="-Special Skill-">
+               <font>
+                  <Font name="Californian FB" size="24.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7e7e7" height="46.0" layoutX="27.0" layoutY="19.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7e7e7" height="340.0" layoutX="27.0" layoutY="97.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
+            <Group fx:id="warriorFrame" layoutX="-27.0" layoutY="-26.5" visible="false">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#faff1f" height="20.0" layoutY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="382.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#faff1f" height="20.0" layoutX="129.5" layoutY="246.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="512.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#faff1f" height="20.0" layoutX="13.0" layoutY="492.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="375.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#faff1f" height="20.0" layoutX="-247.0" layoutY="247.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="513.0" />
+               </children>
+            </Group>
+         </children>
+      </Group>
+      <Label fx:id="description" layoutX="341.0" layoutY="63.0" text="Player 1 choose you Character">
+         <font>
+            <Font name="Californian FB Bold" size="48.0" />
+         </font>
+      </Label>
+      <Group fx:id="medic" layoutX="469.0" layoutY="211.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7e7e7" height="443.0" layoutX="9.0" layoutY="9.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="325.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#87b3dc" height="113.0" layoutX="26.0" layoutY="323.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="285.0" />
+            <ImageView fitHeight="308.0" fitWidth="208.0" layoutX="68.0" layoutY="153.0">
+               <image>
+                  <Image url="@../res/warrior.png" />
+               </image>
+               <effect>
+                  <ColorAdjust contrast="0.17" />
+               </effect>
+            </ImageView>
+            <Label layoutX="90.0" layoutY="45.0" text="Warrior">
+               <font>
+                  <Font name="Californian FB Bold" size="48.0" />
+               </font>
+            </Label>
+            <Label layoutX="107.0" layoutY="110.0" text="-Special Skill-">
+               <font>
+                  <Font name="Californian FB" size="24.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7e7e7" height="46.0" layoutX="27.0" layoutY="19.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7e7e7" height="340.0" layoutX="27.0" layoutY="97.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
+            <Group layoutX="-27.0" layoutY="-26.5" visible="false">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#faff1f" height="20.0" layoutY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="382.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#faff1f" height="20.0" layoutX="129.5" layoutY="246.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="512.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#faff1f" height="20.0" layoutX="13.0" layoutY="492.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="375.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#faff1f" height="20.0" layoutX="-247.0" layoutY="247.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="513.0" />
+               </children>
+            </Group>
+         </children>
+      </Group>
+      <Group fx:id="theif" layoutX="888.0" layoutY="211.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7e7e7" height="443.0" layoutX="9.0" layoutY="9.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="325.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#87b3dc" height="113.0" layoutX="26.0" layoutY="323.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="285.0" />
+            <ImageView fitHeight="308.0" fitWidth="208.0" layoutX="68.0" layoutY="153.0">
+               <image>
+                  <Image url="@../res/warrior.png" />
+               </image>
+               <effect>
+                  <ColorAdjust contrast="0.17" />
+               </effect>
+            </ImageView>
+            <Label layoutX="90.0" layoutY="45.0" text="Warrior">
+               <font>
+                  <Font name="Californian FB Bold" size="48.0" />
+               </font>
+            </Label>
+            <Label layoutX="107.0" layoutY="110.0" text="-Special Skill-">
+               <font>
+                  <Font name="Californian FB" size="24.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7e7e7" height="46.0" layoutX="27.0" layoutY="19.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7e7e7" height="340.0" layoutX="27.0" layoutY="97.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="27.0" />
+            <Group layoutX="-27.0" layoutY="-26.5" visible="false">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#faff1f" height="20.0" layoutY="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="382.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#faff1f" height="20.0" layoutX="129.5" layoutY="246.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="512.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#faff1f" height="20.0" layoutX="13.0" layoutY="492.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="375.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#faff1f" height="20.0" layoutX="-247.0" layoutY="247.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="513.0" />
+               </children>
+            </Group>
+         </children>
+      </Group>
+   </children>
+</AnchorPane>

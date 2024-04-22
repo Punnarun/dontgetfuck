@@ -50,7 +50,7 @@ public class Navigator {
 
     @FXML
     private void goToGame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Game.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("character.fxml"));
         Parent gameRoot = loader.load();
         Scene gameScene = new Scene(gameRoot);
         Stage stage = (Stage) root.getScene().getWindow();
