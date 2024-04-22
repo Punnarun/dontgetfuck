@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -283,7 +285,7 @@
       <Rectangle fx:id="down" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="44.0" layoutX="1027.0" layoutY="412.0" onMouseClicked="#DOWN" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
       <Rectangle fx:id="right" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="94.0" layoutX="1151.0" layoutY="362.0" onMouseClicked="#RIGHT" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
       <Rectangle fx:id="countdown" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="22.0" layoutX="1.0" layoutY="721.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1353.0" />
-      <Label fx:id="guide" layoutX="838.0" layoutY="534.0" text="Label" />
+      <Label fx:id="turn" layoutX="1072.0" layoutY="86.0" text="Label" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="121.0" layoutX="32.0" layoutY="569.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="761.0" />
       <Label layoutX="43.0" layoutY="582.0" text="Player 1">
          <font>
@@ -295,131 +297,188 @@
             <Font name="Californian FB Bold" size="24.0" />
          </font>
       </Label>
-      <ImageView fx:id="p1_atk1" fitHeight="26.0" fitWidth="26.0" layoutX="109.0" layoutY="617.0">
+      <Group layoutX="100.0" layoutY="616.0">
+         <children>
+            <ImageView fx:id="p1_atk1" fitHeight="26.0" fitWidth="26.0" layoutX="53.0" layoutY="1.0">
+               <image>
+                  <Image url="@../res/sword.png" />
+               </image>
+            </ImageView>
+            <Label layoutY="2.0" text="ATK : ">
+               <font>
+                  <Font name="Californian FB" size="20.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="p1_atk2" fitHeight="26.0" fitWidth="26.0" layoutX="81.0" layoutY="1.0">
+               <image>
+                  <Image url="@../res/sword.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1_atk3" fitHeight="26.0" fitWidth="26.0" layoutX="109.0" layoutY="1.0">
+               <image>
+                  <Image url="@../res/sword.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1_atk4" fitHeight="26.0" fitWidth="26.0" layoutX="139.0">
+               <image>
+                  <Image url="@../res/sword.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1_atk5" fitHeight="26.0" fitWidth="26.0" layoutX="168.0" layoutY="1.0">
+               <image>
+                  <Image url="@../res/sword.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Group layoutX="100.0" layoutY="645.0">
+         <children>
+            <Label layoutY="2.0" text="HP : ">
+               <font>
+                  <Font name="Californian FB" size="20.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="p1_hp1" fitHeight="27.0" fitWidth="33.0" layoutX="44.0">
+               <image>
+                  <Image url="@../res/heart.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1_hp2" fitHeight="27.0" fitWidth="33.0" layoutX="73.0" layoutY="1.0">
+               <image>
+                  <Image url="@../res/heart.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1_hp3" fitHeight="27.0" fitWidth="33.0" layoutX="102.0" layoutY="1.0">
+               <image>
+                  <Image url="@../res/heart.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1_hp4" fitHeight="27.0" fitWidth="33.0" layoutX="131.0" layoutY="1.0">
+               <image>
+                  <Image url="@../res/heart.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="p1_hp5" fitHeight="27.0" fitWidth="33.0" layoutX="161.0" layoutY="1.0">
+               <image>
+                  <Image url="@../res/heart.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Group layoutX="453.0" layoutY="617.0">
+         <children>
+            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="50.0" layoutY="1.0">
+               <image>
+                  <Image url="@../res/sword.png" />
+               </image>
+            </ImageView>
+            <Label layoutY="2.0" text="ATK : ">
+               <font>
+                  <Font name="Californian FB" size="20.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="81.0" layoutY="1.0">
+               <image>
+                  <Image url="@../res/sword.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="109.0" layoutY="1.0">
+               <image>
+                  <Image url="@../res/sword.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="139.0">
+               <image>
+                  <Image url="@../res/sword.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="168.0" layoutY="1.0">
+               <image>
+                  <Image url="@../res/sword.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Group layoutX="43.0" layoutY="578.0">
+         <children>
+            <Label layoutX="410.0" layoutY="68.0" text="HP : ">
+               <font>
+                  <Font name="Californian FB" size="20.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="454.0" layoutY="66.0">
+               <image>
+                  <Image url="@../res/heart.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="483.0" layoutY="67.0">
+               <image>
+                  <Image url="@../res/heart.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="player1img" fitHeight="76.0" fitWidth="56.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../res/warrior.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="541.0" layoutY="67.0">
+               <image>
+                  <Image url="@../res/heart.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="571.0" layoutY="67.0">
+               <image>
+                  <Image url="@../res/heart.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="512.0" layoutY="67.0">
+               <image>
+                  <Image url="@../res/heart.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <ImageView fx:id="player2img" fitHeight="106.0" fitWidth="149.0" layoutX="654.0" layoutY="578.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../res/warrior.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="attack" fitHeight="114.0" fitWidth="120.0" layoutX="1012.0" layoutY="575.0" onMouseClicked="#isAttack" opacity="0.25">
          <image>
             <Image url="@../res/sword.png" />
          </image>
       </ImageView>
-      <Label layoutX="56.0" layoutY="618.0" text="ATK : ">
+      <Button fx:id="changeTurn" layoutX="955.0" layoutY="494.0" mnemonicParsing="false" onAction="#changePlayerTurn" text="Button" />
+      <Label fx:id="turn1" layoutX="905.0" layoutY="187.0" text="Inventory">
          <font>
-            <Font name="Californian FB" size="20.0" />
+            <Font name="Californian FB Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="56.0" layoutY="645.0" text="HP : ">
+      <Label fx:id="turn11" layoutX="900.0" layoutY="115.0" text="Wallet">
          <font>
-            <Font name="Californian FB" size="20.0" />
+            <Font name="Californian FB Bold" size="24.0" />
          </font>
       </Label>
-      <ImageView fx:id="p1_atk2" fitHeight="26.0" fitWidth="26.0" layoutX="137.0" layoutY="617.0">
+      <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="932.0" layoutY="224.0">
          <image>
-            <Image url="@../res/sword.png" />
+            <Image url="@../res/goldenApple.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="p1_atk3" fitHeight="26.0" fitWidth="26.0" layoutX="165.0" layoutY="617.0">
+      <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="932.0" layoutY="274.0">
          <image>
-            <Image url="@../res/sword.png" />
+            <Image url="@../res/fireball.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="p1_atk4" fitHeight="26.0" fitWidth="26.0" layoutX="195.0" layoutY="616.0">
-         <image>
-            <Image url="@../res/sword.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="p1_atk5" fitHeight="26.0" fitWidth="26.0" layoutX="224.0" layoutY="617.0">
-         <image>
-            <Image url="@../res/sword.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="p1_hp1" fitHeight="27.0" fitWidth="33.0" layoutX="100.0" layoutY="643.0">
-         <image>
-            <Image url="@../res/heart.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="p1_hp2" fitHeight="27.0" fitWidth="33.0" layoutX="129.0" layoutY="644.0">
-         <image>
-            <Image url="@../res/heart.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="p1_hp3" fitHeight="27.0" fitWidth="33.0" layoutX="158.0" layoutY="644.0">
-         <image>
-            <Image url="@../res/heart.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="p1_hp4" fitHeight="27.0" fitWidth="33.0" layoutX="187.0" layoutY="644.0">
-         <image>
-            <Image url="@../res/heart.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="p1_hp5" fitHeight="27.0" fitWidth="33.0" layoutX="217.0" layoutY="644.0">
-         <image>
-            <Image url="@../res/heart.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="503.0" layoutY="618.0">
-         <image>
-            <Image url="@../res/sword.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="453.0" layoutY="619.0" text="ATK : ">
+      <Label fx:id="turn12" layoutX="978.0" layoutY="236.0" text="x 0">
          <font>
-            <Font name="Californian FB" size="20.0" />
+            <Font name="Californian FB Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="453.0" layoutY="646.0" text="HP : ">
+      <Label fx:id="turn121" layoutX="978.0" layoutY="283.0" text="x 0">
          <font>
-            <Font name="Californian FB" size="20.0" />
+            <Font name="Californian FB Bold" size="24.0" />
          </font>
       </Label>
-      <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="534.0" layoutY="618.0">
-         <image>
-            <Image url="@../res/sword.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="562.0" layoutY="618.0">
-         <image>
-            <Image url="@../res/sword.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="592.0" layoutY="617.0">
-         <image>
-            <Image url="@../res/sword.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="621.0" layoutY="618.0">
-         <image>
-            <Image url="@../res/sword.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="497.0" layoutY="644.0">
-         <image>
-            <Image url="@../res/heart.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="526.0" layoutY="645.0">
-         <image>
-            <Image url="@../res/heart.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="555.0" layoutY="645.0">
-         <image>
-            <Image url="@../res/heart.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="584.0" layoutY="645.0">
-         <image>
-            <Image url="@../res/heart.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="614.0" layoutY="645.0">
-         <image>
-            <Image url="@../res/heart.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="attack" fitHeight="114.0" fitWidth="120.0" layoutX="1014.0" layoutY="578.0" opacity="0.25">
-         <image>
-            <Image url="@../res/sword.png" />
-         </image>
-      </ImageView>
    </children>
 
 </AnchorPane>

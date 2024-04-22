@@ -2,6 +2,7 @@ package Scene;
 
 import Controller.facing;
 import Player.basePlayer;
+import Player.warrior;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -10,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,27 +28,15 @@ import Controller.gameState;
 
 public class Navigator {
 
-    basePlayer player1 = new basePlayer("P1",3,2);
-    basePlayer player2 = new basePlayer("P2",5,5);
+    basePlayer player1 = new warrior();
+    basePlayer player2 = new warrior();
 
     private gameState GAMESTATE = gameState.PLAYER1_TURN;
 
-    @FXML
-    private Label drawValue;
-
-    @FXML
-    private Label guide;
-
-    @FXML
-    private ImageView playerOne;
-
-    @FXML
-    private ImageView playerTwo;
-
-    @FXML
-    private GridPane layoutContainer;
-
-    private boolean diceRolled = false;
+    @FXML private Label drawValue;
+    @FXML private ImageView playerOne;
+    @FXML private ImageView playerTwo;
+    @FXML private GridPane layoutContainer;
 
     @FXML
     private void goToGame() throws IOException {
@@ -82,12 +72,13 @@ public class Navigator {
     @FXML
     private void drawDice() {
 
+        attackable = false;
+
         Random random = new Random();
         int diceRoll = random.nextInt(6) + 1;
 
         notification("You got " + diceRoll);
         System.out.println("Dice rolled: " + diceRoll);
-        diceRolled = true;
 
         if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
             player1.setDiceValue(diceRoll);
@@ -103,55 +94,10 @@ public class Navigator {
         player1StatUpdate();
     }
 
-    private Timeline timeline;
-    private int countdownSeconds = 10;
-
-    @FXML
-    private Rectangle countdown;
-
-    private void startCountdown() {
-        // Initialize the timeline to update the countdown every second
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            countdownSeconds--;
-            updateCountdown();
-            if (countdownSeconds <= 0) {
-                endTurn();
-            }
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-    }
-
-    private void updateCountdown() {
-        double maxWidth = countdown.getWidth();
-        double currentWidth = (double) countdownSeconds / 10 * maxWidth;
-        countdown.setWidth(currentWidth);
-        System.out.println("CURRENT WIDTH" + currentWidth);
-    }
-
-    private void endTurn() {
-        // Logic to end the turn...
-
-        // Stop the countdown timer
-        timeline.stop();
-        countdown.setWidth(0); // Reset the countdown rectangle width
-        countdownSeconds = 10; // Reset the countdown seconds for the next turn
-        System.out.println("END TURN");
-        startCountdown();
-    }
-
-
-    @FXML
-    private Rectangle up;
-
-    @FXML
-    private Rectangle left;
-
-    @FXML
-    private Rectangle right;
-
-    @FXML
-    private Rectangle down;
+    @FXML private Rectangle up;
+    @FXML private Rectangle left;
+    @FXML private Rectangle right;
+    @FXML private Rectangle down;
 
     private void disableButton() {
         up.setDisable(true); // Disable the rectangle
@@ -167,19 +113,23 @@ public class Navigator {
         down.setDisable(false);
     }
 
-    @FXML
-    private AnchorPane root; // Add this field
+    @FXML private AnchorPane root; // Add this field
 
     public void startGame() {
 
-        GAMESTATE = gameState.PLAYER1_TURN;
+        System.out.println(GAMESTATE);
         player1.setPlayerFacing(facing.SOUTH);
         player2.setPlayerFacing(facing.NORTH);
-//        player1StatUpdate();
+        System.out.println("GAME START");
+        System.out.println(player1.getMove());
+        player1.setMove(0);
+        player2.setMove(0);
+//        up.setDisable(true);
+//        disableButton();
     }
     public void decreaseMove() {
         if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
-
+            System.out.println(player1.getMove());
             if (player1.getMove() == 7) {
                 notification("please roll dice first");
             } else {
@@ -188,7 +138,7 @@ public class Navigator {
             }
 
             if (player1.getMove() <= 0 ) {
-                isAttack();
+//                isAttack();
                 player2.setMove(7);
                 GAMESTATE = gameState.PLAYER2_TURN;
                 System.out.println(GAMESTATE);
@@ -205,7 +155,7 @@ public class Navigator {
             System.out.println("YOU GOT " + player2.getMove() + " LEFT");
 
             if (player2.getMove() <= 0) {
-                isAttack();
+//                isAttack();
                 player1.setMove(7);
                 GAMESTATE = gameState.PLAYER1_TURN;
                 System.out.println(GAMESTATE);
@@ -225,11 +175,12 @@ public class Navigator {
     @FXML
     public void UP() {
         ImageView currentPlayer = getCurrentPlayerRectangle();
+        basePlayer player = (GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2);
 
         int rowIndex = GridPane.getRowIndex(currentPlayer);
         int colIndex = GridPane.getColumnIndex(currentPlayer);
 
-        if (canMoveTo(rowIndex - 1, colIndex)) {
+        if (canMoveTo(rowIndex - 1, colIndex) && player.getMove() > 0) {
             File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p4.png");
             Image image = new Image(file.toURI().toString());
             currentPlayer.setImage(image);
@@ -314,28 +265,17 @@ public class Navigator {
     }
 
 
-    @FXML
-    private ImageView p1_atk1;
-    @FXML
-    private ImageView p1_atk2;
-    @FXML
-    private ImageView p1_atk3;
-    @FXML
-    private ImageView p1_atk4;
-    @FXML
-    private ImageView p1_atk5;
+    @FXML private ImageView p1_atk1;
+    @FXML private ImageView p1_atk2;
+    @FXML private ImageView p1_atk3;
+    @FXML private ImageView p1_atk4;
+    @FXML private ImageView p1_atk5;
 
-
-    @FXML
-    private ImageView p1_hp1;
-    @FXML
-    private ImageView p1_hp2;
-    @FXML
-    private ImageView p1_hp3;
-    @FXML
-    private ImageView p1_hp4;
-    @FXML
-    private ImageView p1_hp5;
+    @FXML private ImageView p1_hp1;
+    @FXML private ImageView p1_hp2;
+    @FXML private ImageView p1_hp3;
+    @FXML private ImageView p1_hp4;
+    @FXML private ImageView p1_hp5;
 
     public void resetDisplay() {
         System.out.println("RESET DISPLAY");
@@ -388,8 +328,8 @@ public class Navigator {
     }
 
 
-    @FXML
-    private ImageView attack;
+    @FXML private ImageView attack;
+    private boolean attackable;
 
     public void isAttack() {
         basePlayer currentPlayer;
@@ -424,7 +364,6 @@ public class Navigator {
             int col = tile[1];
 
             if ((row == opponentPlayerRow && col == opponentPlayerCol)){
-                // Check if the attacking player is facing the opponent
                 if ((playerFacing == facing.NORTH && row < currentPlayerRow) ||
                         (playerFacing == facing.SOUTH && row > currentPlayerRow) ||
                         (playerFacing == facing.WEST && col < currentPlayerCol) ||
@@ -433,9 +372,9 @@ public class Navigator {
                     System.out.println("ATTACK!!!!!");
                     attack.setOpacity(1);
                     gotKnockback(currentPlayer , opponentPlayer , playerTwo);
-                    return; // Attack detected, no need to check further
+                    attackable = true;
+                    return;
                 } else {
-                    // The player is not facing the opponent
                     System.out.println("Cannot attack, not facing the opponent.");
                     return;
                 }
@@ -473,4 +412,23 @@ public class Navigator {
         GridPane.setColumnIndex(opponentImageView, knockbackCol);
     }
 
+//    @FXML private ImageView player1img;
+//    private void setImage() {
+//        player1img.setImage(new Image(""));
+//    }
+
+
+    @FXML private Button changeTurn;
+    @FXML private Label turn;
+
+    @FXML
+    private void changePlayerTurn() {
+        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
+            GAMESTATE = gameState.PLAYER2_TURN;
+            turn.setText("PLAYER2 TURN");
+        } else {
+            GAMESTATE = gameState.PLAYER1_TURN;
+            turn.setText("PLAYER1 TURN");
+        }
+    }
 }

@@ -2,7 +2,7 @@ package Player;
 
 import Controller.facing;
 
-public class basePlayer {
+public abstract class basePlayer {
 
     private String name;
     private int hp;
@@ -14,8 +14,7 @@ public class basePlayer {
     private facing playerFacing;
 
 
-    public basePlayer(String name, int hp, int atk) {
-        this.name = name;
+    public basePlayer(int hp, int atk) {
         this.hp = hp;
         this.atk = atk;
     }
@@ -83,4 +82,6 @@ public class basePlayer {
     public void setCurrentY(int currentY) {
         this.currentY = currentY;
     }
+
+    public abstract void usePassiveSkill();
 }
