@@ -1,11 +1,26 @@
 package Controller;
 
-import javafx.fxml.FXML;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Polygon;
+import Player.basePlayer;
 
 public class player {
 
+    private static basePlayer player1;
+    private static basePlayer player2;
 
+    public static basePlayer getPlayer1() {
+        return player1;
+    }
+
+    public static void setPlayer1(basePlayer player1) {
+        player.player1 = player1;
+    }
+
+    public static basePlayer getPlayer2() {
+        return player2;
+    }
+
+    public static void setPlayer2(basePlayer player2) {
+        player.player2 = player2;
+    }
 }
+

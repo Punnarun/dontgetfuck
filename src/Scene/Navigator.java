@@ -25,11 +25,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 import Controller.gameState;
+import Scene.choosingPlayer;
+import Controller.player;
 
 public class Navigator {
 
-    basePlayer player1 = new warrior();
-    basePlayer player2 = new warrior();
+    private basePlayer player1;
+    private basePlayer player2;
+
 
     private gameState GAMESTATE = gameState.PLAYER1_TURN;
 
@@ -40,7 +43,7 @@ public class Navigator {
 
     @FXML
     private void goToGame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Game.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("character.fxml"));
         Parent gameRoot = loader.load();
         Scene gameScene = new Scene(gameRoot);
         Stage stage = (Stage) root.getScene().getWindow();
@@ -121,9 +124,17 @@ public class Navigator {
 
     public void gameStart() {
 
+        player1 = player.getPlayer1();
+        player2 = player.getPlayer2();
+
+        System.out.println(player1);
+        System.out.println(player2);
+
         starter.setVisible(false);
         turn.setDisable(true);
         changeTurn.setDisable(true);
+
+        turnCounter.setText("Turn Number : 0");
 
         disableButton();
 
@@ -216,18 +227,18 @@ public class Navigator {
                 return;
             }
 
-                File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p4.png");
-                Image image = new Image(file.toURI().toString());
-                currentPlayer.setImage(image);
-                GridPane.setRowIndex(currentPlayer, rowIndex - 1);
-                player.setCurrentX(rowIndex - 1);
-                player.setCurrentY(colIndex);
+            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p4.png");
+            Image image = new Image(file.toURI().toString());
+            currentPlayer.setImage(image);
+            GridPane.setRowIndex(currentPlayer, rowIndex - 1);
+            player.setCurrentX(rowIndex - 1);
+            player.setCurrentY(colIndex);
 
-                System.out.println("MOVING TO X: " + player.getCurrentX() );
-                System.out.println("MOVING TO Y: " + player.getCurrentY() );
+            System.out.println("MOVING TO X: " + player.getCurrentX() );
+            System.out.println("MOVING TO Y: " + player.getCurrentY() );
 
-                updateFacing(facing.NORTH);
-                decreaseMove();
+            updateFacing(facing.NORTH);
+            decreaseMove();
         }
     }
 
@@ -445,39 +456,39 @@ public class Navigator {
 
     public void isAttackable() {
 
-            int currentPlayerRow = getCurrentBasePlayer().getCurrentX();
-            int currentPlayerCol = getCurrentBasePlayer().getCurrentY();
-            int opponentPlayerRow = getOpponentBasePlayer().getCurrentX();
-            int opponentPlayerCol = getOpponentBasePlayer().getCurrentY();
+        int currentPlayerRow = getCurrentBasePlayer().getCurrentX();
+        int currentPlayerCol = getCurrentBasePlayer().getCurrentY();
+        int opponentPlayerRow = getOpponentBasePlayer().getCurrentX();
+        int opponentPlayerCol = getOpponentBasePlayer().getCurrentY();
 
-            // Define the coordinates of adjacent tiles around the current player
-            int[][] adjacentTiles = {
-                    {currentPlayerRow - 1, currentPlayerCol}, // Up
-                    {currentPlayerRow + 1, currentPlayerCol}, // Down
-                    {currentPlayerRow, currentPlayerCol - 1}, // Left
-                    {currentPlayerRow, currentPlayerCol + 1}  // Right
-            };
+        // Define the coordinates of adjacent tiles around the current player
+        int[][] adjacentTiles = {
+                {currentPlayerRow - 1, currentPlayerCol}, // Up
+                {currentPlayerRow + 1, currentPlayerCol}, // Down
+                {currentPlayerRow, currentPlayerCol - 1}, // Left
+                {currentPlayerRow, currentPlayerCol + 1}  // Right
+        };
 
-            facing playerFacing = getCurrentBasePlayer().getPlayerFacing();
+        facing playerFacing = getCurrentBasePlayer().getPlayerFacing();
 
-            // Check if any adjacent tile contains the opponent player
-            for (int[] tile : adjacentTiles) {
-                int row = tile[0];
-                int col = tile[1];
+        // Check if any adjacent tile contains the opponent player
+        for (int[] tile : adjacentTiles) {
+            int row = tile[0];
+            int col = tile[1];
 
-                System.out.println("CHECKING..........");
+            System.out.println("CHECKING..........");
 
-                if ((row == opponentPlayerRow && col == opponentPlayerCol) && (getCurrentBasePlayer().getMove() == 0)) {
-                    if ((playerFacing == facing.NORTH && row < currentPlayerRow) ||
-                            (playerFacing == facing.SOUTH && row > currentPlayerRow) ||
-                            (playerFacing == facing.WEST && col < currentPlayerCol) ||
-                            (playerFacing == facing.EAST && col > currentPlayerCol)) {
+            if ((row == opponentPlayerRow && col == opponentPlayerCol) && (getCurrentBasePlayer().getMove() == 0)) {
+                if ((playerFacing == facing.NORTH && row < currentPlayerRow) ||
+                        (playerFacing == facing.SOUTH && row > currentPlayerRow) ||
+                        (playerFacing == facing.WEST && col < currentPlayerCol) ||
+                        (playerFacing == facing.EAST && col > currentPlayerCol)) {
 //                    System.out.println(getCurrentBasePlayer().getMove());
-                        System.out.println("ATTACK!!!!!");
-                        attack.setOpacity(1);
-                    }
+                    System.out.println("ATTACK!!!!!");
+                    attack.setOpacity(1);
                 }
             }
+        }
     }
 
     public void isAttack() {
@@ -564,6 +575,7 @@ public class Navigator {
         }
 
         if (knockbackRow < 0 || knockbackCol < 0 || knockbackCol > 5 || knockbackRow > 4) {
+            System.out.println("CHECK THIS CASE");
             detectDeath(1,1);
         }
 
@@ -603,6 +615,8 @@ public class Navigator {
                 return;
             };
         }
+        turnNumber++;
+        turnCounter.setText("Turn Number : " + turnNumber);
         drawDice.setOpacity(1);
         drawDice.setDisable(false);
 
@@ -616,6 +630,14 @@ public class Navigator {
             System.out.println("PLAYER 1 CurrentX : " + player1.getCurrentX());
             System.out.println("PLAYER 1 CurrentY : " + player1.getCurrentY());
             turn.setText("PLAYER1 TURN");
+        }
+
+        if (turnNumber % 10 == 0) {
+            player1.usePassiveSkill();
+            player2.usePassiveSkill();
+            resetDisplay();
+            player1StatUpdate();
+            player2StatUpdate();
         }
 
         System.out.println("CHANGE TURNNNNN");
@@ -633,5 +655,13 @@ public class Navigator {
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Scene/GameOver.fxml"))));
         } catch (IOException e) {
         }
+    }
+
+    @FXML private Label turnCounter;
+    private int turnNumber = 1;
+
+    //debug button
+    @FXML private void debug() {
+        detectDeath(1,1);
     }
 }

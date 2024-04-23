@@ -1,4 +1,4 @@
-package Controller;
+package Scene;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import Player.*;
-import Scene.Navigator;
+import Controller.player;
 
 import java.io.IOException;
 
@@ -55,11 +55,15 @@ public class choosingPlayer {
         if (player1 == null) {
             onClick();
             player1 = new warrior();
+            player.setPlayer1(player1);
+            System.out.println("CHOSE");
             startTypingAnimation("Player 2 choose you Character");
         } else if (player2 == null) {
-            player2 = new warrior();
+            player2 = new tank();
+            player.setPlayer2(player2);
             startGameButton.setDisable(false);
             startGameButton.setVisible(true);
+            System.out.println("CHOSE");
         }
 
         System.out.println(player1);
@@ -83,6 +87,7 @@ public class choosingPlayer {
 
     @FXML
     private void startGame() {
+
         try {
             Stage stage = (Stage) root.getScene().getWindow();
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Scene/Game.fxml"))));
@@ -91,4 +96,19 @@ public class choosingPlayer {
         }
     }
 
+    public basePlayer getPlayer1() {
+        return player1;
+    }
+
+    public void setPlayer1(basePlayer player1) {
+        this.player1 = player1;
+    }
+
+    public basePlayer getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(basePlayer player2) {
+        this.player2 = player2;
+    }
 }

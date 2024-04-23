@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.DropShadow?>
@@ -22,7 +23,7 @@
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff2d1f" height="538.0" layoutX="31.0" layoutY="26.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="761.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="313.0" layoutX="882.0" layoutY="26.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="404.0" AnchorPane.rightAnchor="74.40000000000009" AnchorPane.topAnchor="26.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="44.0" layoutX="820.0" layoutY="40.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="364.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="70.0" layoutX="820.0" layoutY="40.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="364.0" />
       <ImageView fx:id="drawDice" fitHeight="114.0" fitWidth="114.0" layoutX="1069.0" layoutY="574.0" onMouseClicked="#drawDice">
          <image>
             <Image url="@../res/dice.png" />
@@ -414,11 +415,6 @@
                   <Image url="@../res/heart.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="player1img" fitHeight="76.0" fitWidth="56.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../res/warrior.png" />
-               </image>
-            </ImageView>
             <ImageView fx:id="p2_hp4" fitHeight="27.0" fitWidth="33.0" layoutX="541.0" layoutY="67.0">
                <image>
                   <Image url="@../res/heart.png" />
@@ -436,11 +432,6 @@
             </ImageView>
          </children>
       </Group>
-      <ImageView fx:id="player2img" fitHeight="106.0" fitWidth="149.0" layoutX="654.0" layoutY="578.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../res/warrior.png" />
-         </image>
-      </ImageView>
       <ImageView fx:id="attack" fitHeight="114.0" fitWidth="120.0" layoutX="940.0" layoutY="574.0" onMouseClicked="#isAttack" opacity="0.25">
          <image>
             <Image url="@../res/sword.png" />
@@ -451,7 +442,7 @@
             <Font name="Californian FB Bold" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="turn11" layoutX="822.0" layoutY="115.0" text="Wallet">
+      <Label fx:id="turn11" layoutX="822.0" layoutY="133.0" text="Wallet">
          <font>
             <Font name="Californian FB Bold" size="24.0" />
          </font>
@@ -476,22 +467,28 @@
             <Font name="Californian FB Bold" size="24.0" />
          </font>
       </Label>
-      <ImageView fitHeight="33.0" fitWidth="26.0" layoutX="861.0" layoutY="151.0">
+      <ImageView fitHeight="33.0" fitWidth="26.0" layoutX="861.0" layoutY="169.0">
          <image>
             <Image url="@../res/coin.png" />
          </image>
       </ImageView>
-      <Label fx:id="turn122" layoutX="898.0" layoutY="153.0" text="x 0">
+      <Label fx:id="turn122" layoutX="898.0" layoutY="171.0" text="x 0">
          <font>
             <Font name="Californian FB Bold" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="turn" layoutX="905.0" layoutY="53.0" text="Player 1 Turn : Please roll the dice" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="turn" layoutX="831.0" layoutY="82.0" text="Player 1 Turn : Please roll the dice" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="Californian FB" size="15.0" />
+            <Font name="Californian FB" size="16.0" />
          </font></Label>
       <Rectangle fx:id="changeTurn" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="814.0" layoutY="469.0" onMouseClicked="#changePlayerTurn" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="372.0" />
       <Rectangle fx:id="starter" arcHeight="5.0" arcWidth="5.0" fill="#d0d4d7" height="720.0" layoutX="-16.0" layoutY="1.0" onMouseClicked="#gameStart" opacity="0.53" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1298.0" />
+      <Label fx:id="turnCounter" layoutX="832.0" layoutY="51.0" text="Turn Number : 0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Californian FB" size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="debuger" layoutX="848.0" layoutY="562.0" mnemonicParsing="false" onAction="#debug" text="Button" />
    </children>
 
 </AnchorPane>
