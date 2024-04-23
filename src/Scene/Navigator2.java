@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.Random;
 import Controller.gameState;
 
-public class Navigator {
+public class Navigator2 {
 
     basePlayer player1 = new warrior();
     basePlayer player2 = new warrior();
@@ -40,11 +40,14 @@ public class Navigator {
 
     @FXML
     private void goToGame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Game.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("character.fxml"));
         Parent gameRoot = loader.load();
         Scene gameScene = new Scene(gameRoot);
         Stage stage = (Stage) root.getScene().getWindow();
         stage.setScene(gameScene);
+
+        System.out.println("TO GAME");
+        startGame();
     }
 
     @FXML
@@ -66,21 +69,15 @@ public class Navigator {
         fadeTransition.play();
     }
 
-    @FXML private ImageView drawDice;
-
     @FXML
     private void drawDice() {
 
-        drawDice.setDisable(true);
-        drawDice.setOpacity(0.25);
         attackable = false;
 
         Random random = new Random();
         int diceRoll = random.nextInt(6) + 1;
 
-//        notification("You got " + diceRoll);
-        turn.setText("Player 2 Turn : " + "You got " + diceRoll + " !");
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) turn.setText("Player 1 Turn : " + "You got " + diceRoll + " !");
+        notification("You got " + diceRoll);
         System.out.println("Dice rolled: " + diceRoll);
 
         if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
@@ -94,7 +91,6 @@ public class Navigator {
 
         enableButton();
         resetDisplay();
-        player1StatUpdate();
     }
 
     @FXML private Rectangle up;
@@ -117,15 +113,8 @@ public class Navigator {
     }
 
     @FXML private AnchorPane root; // Add this field
-    @FXML private Rectangle starter;
 
-    public void gameStart() {
-
-        starter.setVisible(false);
-        turn.setDisable(true);
-        changeTurn.setDisable(true);
-
-        disableButton();
+    public void startGame() {
 
         System.out.println(GAMESTATE);
         player1.setPlayerFacing(facing.SOUTH);
@@ -134,15 +123,10 @@ public class Navigator {
         System.out.println(player1.getMove());
         player1.setMove(0);
         player2.setMove(0);
-
-        player1.setCurrentX(0);
-        player1.setCurrentY(0);
-
-        player2.setCurrentX(4);
-        player2.setCurrentY(5);
 //        up.setDisable(true);
 //        disableButton();
     }
+
     public void decreaseMove() {
         if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
             System.out.println(player1.getMove());
@@ -151,12 +135,13 @@ public class Navigator {
             } else {
                 player1.setMove(player1.getMove() - 1);
                 System.out.println("YOU GOT " + player1.getMove() + " LEFT");
-                turn.setText("Player 1 Turn : " + "You got " + player1.getMove() + " move(s) left !");
             }
 
             if (player1.getMove() <= 0 ) {
-                changeTurn.setDisable(false);
+//                isAttack();
                 player2.setMove(7);
+                GAMESTATE = gameState.PLAYER2_TURN;
+                System.out.println(GAMESTATE);
                 disableButton();
             }
         }
@@ -168,11 +153,12 @@ public class Navigator {
 
             player2.setMove(player2.getMove() - 1);
             System.out.println("YOU GOT " + player2.getMove() + " LEFT");
-            turn.setText("Player 2 Turn : " + "You got " + player1.getMove() + " move(s) left !");
 
             if (player2.getMove() <= 0) {
-                changeTurn.setDisable(false);
+//                isAttack();
                 player1.setMove(7);
+                GAMESTATE = gameState.PLAYER1_TURN;
+                System.out.println(GAMESTATE);
                 disableButton();
             }
         }
@@ -191,20 +177,14 @@ public class Navigator {
         ImageView currentPlayer = getCurrentPlayerRectangle();
         basePlayer player = (GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2);
 
-        int rowIndex = player.getCurrentX();
-        int colIndex = player.getCurrentY();
+        int rowIndex = GridPane.getRowIndex(currentPlayer);
+        int colIndex = GridPane.getColumnIndex(currentPlayer);
 
-        if (canMoveTo(rowIndex - 1, colIndex) && (player.getMove() > 0) && (player.getPlayerFacing() != facing.SOUTH)) {
+        if (canMoveTo(rowIndex - 1, colIndex) && player.getMove() > 0) {
             File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p4.png");
             Image image = new Image(file.toURI().toString());
             currentPlayer.setImage(image);
             GridPane.setRowIndex(currentPlayer, rowIndex - 1);
-            player.setCurrentX(rowIndex - 1);
-            player.setCurrentY(colIndex);
-
-            System.out.println("MOVING TO X: " + player.getCurrentX() );
-            System.out.println("MOVING TO Y: " + player.getCurrentY() );
-
             updateFacing(facing.NORTH);
             decreaseMove();
         }
@@ -213,22 +193,15 @@ public class Navigator {
     @FXML
     public void DOWN() {
         ImageView currentPlayer = getCurrentPlayerRectangle();
-        basePlayer player = (GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2);
 
-        int rowIndex = player.getCurrentX();
-        int colIndex = player.getCurrentY();
+        int rowIndex = GridPane.getRowIndex(currentPlayer);
+        int colIndex = GridPane.getColumnIndex(currentPlayer);
 
-        if ((canMoveTo(rowIndex + 1, colIndex)) && (player.getPlayerFacing() != facing.NORTH)) {
+        if (canMoveTo(rowIndex + 1, colIndex)) {
             File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p2.png");
             Image image = new Image(file.toURI().toString());
             currentPlayer.setImage(image);
             GridPane.setRowIndex(currentPlayer, rowIndex + 1);
-            player.setCurrentX(rowIndex + 1);
-            player.setCurrentY(colIndex);
-
-            System.out.println("MOVING TO : " + player.getCurrentX() );
-            System.out.println("MOVING TO : " + player.getCurrentY() );
-
             updateFacing(facing.SOUTH);
             decreaseMove();
         }
@@ -237,22 +210,15 @@ public class Navigator {
     @FXML
     public void LEFT() {
         ImageView currentPlayer = getCurrentPlayerRectangle();
-        basePlayer player = (GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2);
 
-        int rowIndex = player.getCurrentX();
-        int colIndex = player.getCurrentY();
+        int rowIndex = GridPane.getRowIndex(currentPlayer);
+        int colIndex = GridPane.getColumnIndex(currentPlayer);
 
-        if ((canMoveTo(rowIndex, colIndex - 1)) && (player.getPlayerFacing() != facing.EAST)) {
+        if (canMoveTo(rowIndex, colIndex - 1)) {
             File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p3.png");
             Image image = new Image(file.toURI().toString());
             currentPlayer.setImage(image);
             GridPane.setColumnIndex(currentPlayer, colIndex - 1);
-            player.setCurrentX(rowIndex);
-            player.setCurrentY(colIndex -1 );
-
-            System.out.println("MOVING TO : " + player.getCurrentX() );
-            System.out.println("MOVING TO : " + player.getCurrentY() );
-
             updateFacing(facing.WEST);
             decreaseMove();
         }
@@ -261,24 +227,15 @@ public class Navigator {
     @FXML
     public void RIGHT() {
         ImageView currentPlayer = getCurrentPlayerRectangle();
-        basePlayer player = (GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2);
 
-        int rowIndex = player.getCurrentX();
-        int colIndex = player.getCurrentY();
+        int rowIndex = GridPane.getRowIndex(currentPlayer);
+        int colIndex = GridPane.getColumnIndex(currentPlayer);
 
-        if ((canMoveTo(rowIndex, colIndex + 1)) && (player.getPlayerFacing() != facing.WEST)) {
-
+        if (canMoveTo(rowIndex, colIndex + 1)) {
             File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p1.png");
             Image image = new Image(file.toURI().toString());
             currentPlayer.setImage(image);
             GridPane.setColumnIndex(currentPlayer, colIndex + 1);
-            player.setCurrentX(rowIndex);
-            player.setCurrentY(colIndex + 1 );
-
-            System.out.println("MOVING TO : " + player.getCurrentX() );
-            System.out.println("MOVING TO : " + player.getCurrentY() );
-
-
             updateFacing(facing.EAST);
             decreaseMove();
         }
@@ -292,21 +249,21 @@ public class Navigator {
         return GAMESTATE.equals(gameState.PLAYER1_TURN) ? playerTwo : playerOne;
     }
 
-    private basePlayer getOpponentBasePlayer() { return GAMESTATE.equals(gameState.PLAYER1_TURN) ? player2 : player1;}
-
-
     private boolean canMoveTo(int rowIndex, int colIndex) {
+        // Check if the destination tile is within the grid bounds
         if (rowIndex >= 0 && rowIndex < layoutContainer.getRowCount() &&
                 colIndex >= 0 && colIndex < layoutContainer.getColumnCount()) {
-            if ((rowIndex == 1 && colIndex == 1) || (rowIndex == 4 && colIndex == 2) || (rowIndex == 0 && colIndex == 3) || (rowIndex == 3 && colIndex == 4)) {
-                return false;
+            // Check if the destination tile is already occupied by another player
+            for (Node node : layoutContainer.getChildren()) {
+                if (node instanceof ImageView && false) {
+                    int nodeRowIndex = GridPane.getRowIndex(node);
+                    int nodeColIndex = GridPane.getColumnIndex(node);
+                    if (nodeRowIndex == rowIndex && nodeColIndex == colIndex) {
+                        return false; // Destination tile is occupied
+                    }
+                }
             }
-
-            if ((getOpponentBasePlayer().getCurrentX() == rowIndex) && (getOpponentBasePlayer().getCurrentY() == colIndex)) {
-                System.out.println("HEY");
-                return false;
-            }
-            return true;
+            return true; // Destination tile is not occupied
         }
         return false; // Destination tile is out of bounds
     }
@@ -457,74 +414,20 @@ public class Navigator {
         // Update the position of the opponent player's ImageView to simulate knockback
         GridPane.setRowIndex(opponentImageView, knockbackRow);
         GridPane.setColumnIndex(opponentImageView, knockbackCol);
-
-        getOpponentBasePlayer().setCurrentX(knockbackRow);
-        getOpponentBasePlayer().setCurrentY(knockbackCol);
-
-        System.out.println("OpponentX : " +  getOpponentBasePlayer().getCurrentX());
-        System.out.println("OpponentY : " +  getOpponentBasePlayer().getCurrentY());
-
-        detectDeath(getOpponentBasePlayer().getCurrentX() , getOpponentBasePlayer().getCurrentY());
-
-
     }
 
-//    @FXML private ImageView player1img;
-//    private void setImage() {
-//        player1img.setImage(new Image(""));
-//    }
 
-
-    @FXML private Rectangle changeTurn;
+    @FXML private Button changeTurn;
     @FXML private Label turn;
 
     @FXML
     private void changePlayerTurn() {
-
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
-            if (player1.getMove() != 0) {
-                changeTurn.setDisable(true);
-                return;
-            };
-        } else  {
-            if (player2.getMove() != 0) {
-                changeTurn.setDisable(true);
-                return;
-            };
-        }
-        drawDice.setOpacity(1);
-        drawDice.setDisable(false);
-
         if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
             GAMESTATE = gameState.PLAYER2_TURN;
-            System.out.println("PLAYER 2 CurrentX : " + player2.getCurrentX());
-            System.out.println("PLAYER 2 CurrentY : " + player2.getCurrentY());
             turn.setText("PLAYER2 TURN");
         } else {
             GAMESTATE = gameState.PLAYER1_TURN;
-            System.out.println("PLAYER 2 CurrentX : " + player2.getCurrentX());
-            System.out.println("PLAYER 2 CurrentY : " + player2.getCurrentY());
             turn.setText("PLAYER1 TURN");
         }
-
-        System.out.println("CHANGE TURNNNNN");
-    }
-
-    private void detectDeath(int rowIndex , int colIndex) {
-
-        if ((rowIndex == 1 && colIndex == 1) || (rowIndex == 4 && colIndex == 2) || (rowIndex == 0 && colIndex == 3) || (rowIndex == 3 && colIndex == 4)) {}
-        else if (rowIndex >= 5 || colIndex >= 6) {}
-        else return;
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameOver.fxml"));
-        Parent gameRoot = null;
-        try {
-            gameRoot = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Scene gameScene = new Scene(gameRoot);
-        Stage stage = (Stage) root.getScene().getWindow();
-        stage.setScene(gameScene);
     }
 }

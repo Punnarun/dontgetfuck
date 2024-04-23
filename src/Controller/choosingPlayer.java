@@ -1,4 +1,4 @@
-package Scene;
+package Controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,6 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import Player.*;
+import Scene.Navigator;
 
 import java.io.IOException;
 
@@ -84,7 +85,7 @@ public class choosingPlayer {
     private void startGame() {
         try {
             Stage stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Game.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Scene/Game.fxml"))));
         } catch (IOException e) {
             e.printStackTrace(); // Handle or log the exception appropriately
         }
