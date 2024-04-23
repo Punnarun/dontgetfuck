@@ -361,7 +361,7 @@
       </Group>
       <Group layoutX="453.0" layoutY="617.0">
          <children>
-            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="50.0" layoutY="1.0">
+            <ImageView fx:id="p2_atk1" fitHeight="26.0" fitWidth="26.0" layoutX="50.0" layoutY="1.0">
                <image>
                   <Image url="@../res/sword.png" />
                </image>
@@ -371,22 +371,22 @@
                   <Font name="Californian FB" size="20.0" />
                </font>
             </Label>
-            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="81.0" layoutY="1.0">
+            <ImageView fx:id="p2_atk2" fitHeight="26.0" fitWidth="26.0" layoutX="81.0" layoutY="1.0">
                <image>
                   <Image url="@../res/sword.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="109.0" layoutY="1.0">
+            <ImageView fx:id="p2_atk3" fitHeight="26.0" fitWidth="26.0" layoutX="109.0" layoutY="1.0">
                <image>
                   <Image url="@../res/sword.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="139.0">
+            <ImageView fx:id="p2_atk4" fitHeight="26.0" fitWidth="26.0" layoutX="139.0">
                <image>
                   <Image url="@../res/sword.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="168.0" layoutY="1.0">
+            <ImageView fx:id="p2_atk5" fitHeight="26.0" fitWidth="26.0" layoutX="168.0" layoutY="1.0">
                <image>
                   <Image url="@../res/sword.png" />
                </image>
@@ -400,12 +400,12 @@
                   <Font name="Californian FB" size="20.0" />
                </font>
             </Label>
-            <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="454.0" layoutY="66.0">
+            <ImageView fx:id="p2_hp1" fitHeight="27.0" fitWidth="33.0" layoutX="454.0" layoutY="66.0">
                <image>
                   <Image url="@../res/heart.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="483.0" layoutY="67.0">
+            <ImageView fx:id="p2_hp2" fitHeight="27.0" fitWidth="33.0" layoutX="483.0" layoutY="67.0">
                <image>
                   <Image url="@../res/heart.png" />
                </image>
@@ -415,17 +415,17 @@
                   <Image url="@../res/warrior.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="541.0" layoutY="67.0">
+            <ImageView fx:id="p2_hp4" fitHeight="27.0" fitWidth="33.0" layoutX="541.0" layoutY="67.0">
                <image>
                   <Image url="@../res/heart.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="571.0" layoutY="67.0">
+            <ImageView fx:id="p2_hp5" fitHeight="27.0" fitWidth="33.0" layoutX="571.0" layoutY="67.0">
                <image>
                   <Image url="@../res/heart.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="512.0" layoutY="67.0">
+            <ImageView fx:id="p2_hp3" fitHeight="27.0" fitWidth="33.0" layoutX="512.0" layoutY="67.0">
                <image>
                   <Image url="@../res/heart.png" />
                </image>

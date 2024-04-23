@@ -93,8 +93,6 @@ public class Navigator {
         }
 
         enableButton();
-        resetDisplay();
-        player1StatUpdate();
     }
 
     @FXML private Rectangle up;
@@ -140,10 +138,21 @@ public class Navigator {
 
         player2.setCurrentX(4);
         player2.setCurrentY(5);
+
+        resetDisplay();
+        player1StatUpdate();
+        player2StatUpdate();
 //        up.setDisable(true);
 //        disableButton();
     }
     public void decreaseMove() {
+
+        System.out.println("PLAYER1 ROW: " + player1.getCurrentX());
+        System.out.println("PLAYER1 COL: " + player1.getCurrentY());
+        System.out.println("PLAYER2 ROW: " + player2.getCurrentX());
+        System.out.println("PLAYER2 COL: " + player2.getCurrentY());
+
+
         if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
             System.out.println(player1.getMove());
             if (player1.getMove() == 7) {
@@ -168,7 +177,7 @@ public class Navigator {
 
             player2.setMove(player2.getMove() - 1);
             System.out.println("YOU GOT " + player2.getMove() + " LEFT");
-            turn.setText("Player 2 Turn : " + "You got " + player1.getMove() + " move(s) left !");
+            turn.setText("Player 2 Turn : " + "You got " + player2.getMove() + " move(s) left !");
 
             if (player2.getMove() <= 0) {
                 changeTurn.setDisable(false);
@@ -292,7 +301,14 @@ public class Navigator {
         return GAMESTATE.equals(gameState.PLAYER1_TURN) ? playerTwo : playerOne;
     }
 
-    private basePlayer getOpponentBasePlayer() { return GAMESTATE.equals(gameState.PLAYER1_TURN) ? player2 : player1;}
+    private basePlayer getOpponentBasePlayer() {
+        return GAMESTATE.equals(gameState.PLAYER1_TURN) ? player2 : player1;
+    }
+
+    private basePlayer getCurrentBasePlayer() {
+        return GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2;
+    }
+
 
 
     private boolean canMoveTo(int rowIndex, int colIndex) {
@@ -324,6 +340,18 @@ public class Navigator {
     @FXML private ImageView p1_hp4;
     @FXML private ImageView p1_hp5;
 
+    @FXML private ImageView p2_atk1;
+    @FXML private ImageView p2_atk2;
+    @FXML private ImageView p2_atk3;
+    @FXML private ImageView p2_atk4;
+    @FXML private ImageView p2_atk5;
+
+    @FXML private ImageView p2_hp1;
+    @FXML private ImageView p2_hp2;
+    @FXML private ImageView p2_hp3;
+    @FXML private ImageView p2_hp4;
+    @FXML private ImageView p2_hp5;
+
     public void resetDisplay() {
         System.out.println("RESET DISPLAY");
         p1_hp1.setVisible(false);
@@ -338,11 +366,25 @@ public class Navigator {
         p1_atk4.setVisible(false);
         p1_atk5.setVisible(false);
 
+        p2_atk1.setVisible(false);
+        p2_atk2.setVisible(false);
+        p2_atk3.setVisible(false);
+        p2_atk4.setVisible(false);
+        p2_atk5.setVisible(false);
+
+        p2_hp1.setVisible(false);
+        p2_hp2.setVisible(false);
+        p2_hp3.setVisible(false);
+        p2_hp4.setVisible(false);
+        p2_hp5.setVisible(false);
     }
 
     public void player1StatUpdate() {
         int player1HP = player1.getHp();
         int player1ATK = player1.getAtk();
+
+//        System.out.println("play1 UPDATE called");
+//        System.out.println("PLAYER1 HP:" + player1HP);
 
         if (player1ATK >= 1) p1_atk1.setVisible(true);
         if (player1ATK >= 2) p1_atk2.setVisible(true);
@@ -361,17 +403,17 @@ public class Navigator {
         int player2HP = player2.getHp();
         int player2ATK = player2.getAtk();
 
-//        if (player2ATK >= 1) p2_atk1.setVisible(true);
-//        if (player2ATK >= 2) p1_atk2.setVisible(true);
-//        if (player2ATK >= 3) p1_atk3.setVisible(true);
-//        if (player1ATK >= 4) p1_atk4.setVisible(true);
-//        if (player1ATK >= 5) p1_atk5.setVisible(true);
-//
-//        if (player1HP >= 1) p1_hp1.setVisible(true);
-//        if (player1HP >= 2) p1_hp2.setVisible(true);
-//        if (player1HP >= 3) p1_hp3.setVisible(true);
-//        if (player1HP >= 4) p1_hp4.setVisible(true);
-//        if (player1HP >= 5) p1_hp5.setVisible(true);
+        if (player2ATK >= 1) p2_atk1.setVisible(true);
+        if (player2ATK >= 2) p2_atk2.setVisible(true);
+        if (player2ATK >= 3) p2_atk3.setVisible(true);
+        if (player2ATK >= 4) p2_atk4.setVisible(true);
+        if (player2ATK >= 5) p2_atk5.setVisible(true);
+
+        if (player2HP >= 1) p2_hp1.setVisible(true);
+        if (player2HP >= 2) p2_hp2.setVisible(true);
+        if (player2HP >= 3) p2_hp3.setVisible(true);
+        if (player2HP >= 4) p2_hp4.setVisible(true);
+        if (player2HP >= 5) p2_hp5.setVisible(true);
     }
 
 
@@ -390,10 +432,10 @@ public class Navigator {
             opponentPlayer = player1;
         }
 
-        int currentPlayerRow = GridPane.getRowIndex(currentPlayer == player1 ? playerOne : playerTwo);
-        int currentPlayerCol = GridPane.getColumnIndex(currentPlayer == player1 ? playerOne : playerTwo);
-        int opponentPlayerRow = GridPane.getRowIndex(opponentPlayer == player1 ? playerOne : playerTwo);
-        int opponentPlayerCol = GridPane.getColumnIndex(opponentPlayer == player1 ? playerOne : playerTwo);
+        int currentPlayerRow = getCurrentBasePlayer().getCurrentX();
+        int currentPlayerCol = getCurrentBasePlayer().getCurrentY();
+        int opponentPlayerRow = getOpponentBasePlayer().getCurrentX();
+        int opponentPlayerCol = getOpponentBasePlayer().getCurrentY();
 
         // Define the coordinates of adjacent tiles around the current player
         int[][] adjacentTiles = {
@@ -410,6 +452,8 @@ public class Navigator {
             int row = tile[0];
             int col = tile[1];
 
+            System.out.println("CHECKING..........");
+
             if ((row == opponentPlayerRow && col == opponentPlayerCol)){
                 if ((playerFacing == facing.NORTH && row < currentPlayerRow) ||
                         (playerFacing == facing.SOUTH && row > currentPlayerRow) ||
@@ -420,7 +464,22 @@ public class Navigator {
                     attack.setOpacity(1);
                     gotKnockback(currentPlayer , opponentPlayer , getOpponentPlayer());
                     attackable = true;
-                    return;
+
+                    getCurrentBasePlayer().setHp(getCurrentBasePlayer().getHp() - getOpponentBasePlayer().getAtk());
+                    System.out.println("CurrentPlayerHP" + getCurrentBasePlayer().getHp() );
+                    System.out.println("OpponentPlayerHP" + getOpponentBasePlayer().getHp() );
+                    System.out.println("ATTACKABLE");
+
+
+                    System.out.println("_------------------------_");
+                    System.out.println(player1.getHp());
+                    System.out.println(player2.getHp());
+                    System.out.println("_------------------------_");
+
+                    resetDisplay();
+                    player1StatUpdate();
+                    player2StatUpdate();
+//                    return;
                 } else {
                     System.out.println("Cannot attack, not facing the opponent.");
                     return;
@@ -429,12 +488,11 @@ public class Navigator {
         }
     }
 
-
     private void gotKnockback(basePlayer currentPlayer , basePlayer opponentPlayer, ImageView opponentImageView) {
-        int currentPlayerRow = GridPane.getRowIndex(currentPlayer == player1 ? playerOne : playerTwo);
-        int currentPlayerCol = GridPane.getColumnIndex(currentPlayer == player1 ? playerOne : playerTwo);
-        int opponentPlayerRow = GridPane.getRowIndex(opponentPlayer == player1 ? playerOne : playerTwo);
-        int opponentPlayerCol = GridPane.getColumnIndex(opponentPlayer == player1 ? playerOne : playerTwo);
+        int currentPlayerRow = getCurrentBasePlayer().getCurrentX();
+        int currentPlayerCol = getCurrentBasePlayer().getCurrentY();
+        int opponentPlayerRow = getOpponentBasePlayer().getCurrentX();
+        int opponentPlayerCol = getOpponentBasePlayer().getCurrentY();
 
         // Calculate the direction of knockback based on the current player's facing direction
         int knockbackRow = opponentPlayerRow;
@@ -468,12 +526,6 @@ public class Navigator {
 
 
     }
-
-//    @FXML private ImageView player1img;
-//    private void setImage() {
-//        player1img.setImage(new Image(""));
-//    }
-
 
     @FXML private Rectangle changeTurn;
     @FXML private Label turn;
