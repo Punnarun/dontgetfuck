@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -258,6 +259,9 @@
                </image>
                <GridPane.columnIndex>5</GridPane.columnIndex>
                <GridPane.rowIndex>4</GridPane.rowIndex>
+               <effect>
+                  <Bloom threshold="0.0" />
+               </effect>
             </ImageView>
             <ImageView fx:id="playerOne" fitHeight="100.0" fitWidth="56.0" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
