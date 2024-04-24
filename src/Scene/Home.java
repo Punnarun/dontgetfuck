@@ -20,6 +20,7 @@ public class Home extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
             Scene scene = new Scene(root,1280,720);
             primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
             primaryStage.show();
 
             String musicFile = "C:/Users/sakol/Desktop/PMPJ/src/res/bgMusic.mp3";

@@ -60,7 +60,7 @@
             <Font name="Californian FB Bold" size="48.0" />
          </font>
       </Label>
-      <Group fx:id="medic" layoutX="469.0" layoutY="211.0">
+      <Group fx:id="medic" layoutX="469.0" layoutY="211.0" onMouseClicked="#onClickTank">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7e7e7" height="443.0" layoutX="9.0" layoutY="9.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="325.0">
                <effect>
@@ -76,7 +76,7 @@
                   <ColorAdjust contrast="0.17" />
                </effect>
             </ImageView>
-            <Label layoutX="90.0" layoutY="45.0" text="Warrior">
+            <Label layoutX="120.0" layoutY="45.0" text="Tank">
                <font>
                   <Font name="Californian FB Bold" size="48.0" />
                </font>
@@ -98,7 +98,7 @@
             </Group>
          </children>
       </Group>
-      <Group fx:id="theif" layoutX="888.0" layoutY="211.0">
+      <Group fx:id="theif" layoutX="888.0" layoutY="211.0" onMouseClicked="#onClickTheif">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7e7e7" height="443.0" layoutX="9.0" layoutY="9.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="325.0">
                <effect>
@@ -114,7 +114,7 @@
                   <ColorAdjust contrast="0.17" />
                </effect>
             </ImageView>
-            <Label layoutX="90.0" layoutY="45.0" text="Warrior">
+            <Label layoutX="120.0" layoutY="45.0" text="Theif">
                <font>
                   <Font name="Californian FB Bold" size="48.0" />
                </font>

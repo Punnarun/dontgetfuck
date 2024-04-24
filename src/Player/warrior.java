@@ -4,12 +4,16 @@ public class warrior extends basePlayer {
 
     public warrior() {
         super( 4, 2);
+        this.setMoney(2);
     }
 
     @Override
     public void usePassiveSkill() {
         // Warrior-specific passive skill behavior
         // Warrior will increase the damage by 1 every 10 turn
-        super.setAtk(super.getAtk() + 1);
+        if (this.getAtk() < 5) {
+            super.setAtk(super.getAtk() + 1);
+        }
+
     }
 }

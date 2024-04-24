@@ -133,6 +133,7 @@ public class Navigator {
         starter.setVisible(false);
         turn.setDisable(true);
         changeTurn.setDisable(true);
+        coinInvisible();
 
         turnCounter.setText("Turn Number : 0");
 
@@ -152,12 +153,21 @@ public class Navigator {
         player2.setCurrentX(4);
         player2.setCurrentY(5);
 
+        money.setText("x " + getCurrentBasePlayer().getMoney());
+
+        player.setPlayer1Money(player1.getMoney());
+        player.setPlayer2Money(player2.getMoney());
+
         resetDisplay();
         player1StatUpdate();
         player2StatUpdate();
-//        up.setDisable(true);
-//        disableButton();
+
+        player.setGameState(this.GAMESTATE);
+        randomCoin();
     }
+
+    @FXML private Label money;
+
     public void decreaseMove() {
 
         System.out.println("PLAYER1 ROW: " + player1.getCurrentX());
@@ -176,6 +186,9 @@ public class Navigator {
                 turn.setText("Player 1 Turn : " + "You got " + player1.getMove() + " move(s) left !");
                 detectDeath(getCurrentBasePlayer().getCurrentX(), getCurrentBasePlayer().getCurrentY());
                 isAttackable();
+                money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
+                player.setPlayer1Money(getCurrentBasePlayer().getMoney());
+                checkCoin();
             }
 
             if (player1.getMove() <= 0 ) {
@@ -188,13 +201,16 @@ public class Navigator {
 
             if (player2.getMove() == 7) {
                 notification("please roll dice first");
+            } else {
+                player2.setMove(player2.getMove() - 1);
+                System.out.println("YOU GOT " + player2.getMove() + " LEFT");
+                turn.setText("Player 2 Turn : " + "You got " + player2.getMove() + " move(s) left !");
+                detectDeath(getCurrentBasePlayer().getCurrentX(), getCurrentBasePlayer().getCurrentY());
+                isAttackable();
+                money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
+                player.setPlayer2Money(getCurrentBasePlayer().getMoney());
+                checkCoin();
             }
-
-            player2.setMove(player2.getMove() - 1);
-            System.out.println("YOU GOT " + player2.getMove() + " LEFT");
-            turn.setText("Player 2 Turn : " + "You got " + player2.getMove() + " move(s) left !");
-            detectDeath(getCurrentBasePlayer().getCurrentX(), getCurrentBasePlayer().getCurrentY());
-            isAttackable();
 
             if (player2.getMove() <= 0) {
                 changeTurn.setDisable(false);
@@ -640,10 +656,14 @@ public class Navigator {
             player2StatUpdate();
         }
 
+        money.setText("x " +String.valueOf(getCurrentBasePlayer().getMoney()));
         System.out.println("CHANGE TURNNNNN");
+        player.setGameState(this.GAMESTATE);
     }
 
     private void detectDeath(int rowIndex , int colIndex) {
+
+        checkCoin();
 
         if ((rowIndex == 1 && colIndex == 1) || (rowIndex == 4 && colIndex == 2) || (rowIndex == 0 && colIndex == 3) || (rowIndex == 3 && colIndex == 4)) {}
         else if ((rowIndex >= 5 || colIndex >= 6) || (rowIndex < 0 || colIndex < 0)) {}
@@ -662,6 +682,93 @@ public class Navigator {
 
     //debug button
     @FXML private void debug() {
-        detectDeath(1,1);
+        System.out.println("GOTO SHOPPPPP");
+        try {
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Scene/shop.fxml"))));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+    @FXML private ImageView coin1;
+    @FXML private ImageView coin2;
+    @FXML private ImageView coin3;
+    @FXML private ImageView coin4;
+    @FXML private ImageView coin5;
+    @FXML private ImageView coin6;
+    @FXML private ImageView coin7;
+    @FXML private ImageView coin8;
+
+    private int[][] coinPos = new int[][]{{0,0}, {4,0}, {2,1}, {0,2}, {4,3}, {2,4}, {0,5}, {4,5}};
+
+    private int currentCoinPosX;
+    private int currentCoinPosY;
+
+    @FXML
+    private void coinInvisible() {
+        coin1.setVisible(false);
+        coin2.setVisible(false);
+        coin3.setVisible(false);
+        coin4.setVisible(false);
+        coin5.setVisible(false);
+        coin6.setVisible(false);
+        coin7.setVisible(false);
+        coin8.setVisible(false);
+    }
+
+    @FXML
+    private void randomCoin() {
+        Random random = new Random();
+        int coinIndex = random.nextInt(8);
+
+        while ((coinPos[coinIndex][0] == getCurrentBasePlayer().getCurrentX() && coinPos[coinIndex][1] == getCurrentBasePlayer().getCurrentY()) ||
+                (coinPos[coinIndex][0] == getOpponentBasePlayer().getCurrentX() && coinPos[coinIndex][1] == getOpponentBasePlayer().getCurrentY())) {
+            coinIndex = random.nextInt(8);
+        }
+
+        System.out.println("COIN index: " + coinIndex);
+        System.out.println("x : " + coinPos[coinIndex][0]);
+        System.out.println("y : " + coinPos[coinIndex][1]);
+
+        coinInvisible(); // First, make all coins invisible
+        if (coinIndex == 0) {
+            coin1.setVisible(true);
+        } else if (coinIndex == 1) {
+            coin2.setVisible(true);
+        } else if (coinIndex == 2) {
+            coin3.setVisible(true);
+        } else if (coinIndex == 3) {
+            coin4.setVisible(true);
+        } else if (coinIndex == 4) {
+            coin5.setVisible(true);
+        } else if (coinIndex == 5) {
+            coin6.setVisible(true);
+        } else if (coinIndex == 6) {
+            coin7.setVisible(true);
+        } else if (coinIndex == 7) {
+            coin8.setVisible(true);
+        }
+
+        currentCoinPosX = coinPos[coinIndex][0];
+        currentCoinPosY = coinPos[coinIndex][1];
+    }
+
+    private void checkCoin() {
+
+        System.out.println("player posX " + getCurrentBasePlayer().getCurrentX());
+        System.out.println("player posY " + getCurrentBasePlayer().getCurrentY());
+        System.out.println("coin pos " + currentCoinPosX);
+        System.out.println("coin pos " + currentCoinPosY);
+
+
+        if (currentCoinPosX == getCurrentBasePlayer().getCurrentX() && currentCoinPosY == getCurrentBasePlayer().getCurrentY()) {
+            coinInvisible();
+            randomCoin();
+            getCurrentBasePlayer().setMoney(getCurrentBasePlayer().getMoney() + 1);
+        }
+    }
+
+
+
 }

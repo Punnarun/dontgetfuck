@@ -59,7 +59,47 @@ public class choosingPlayer {
             System.out.println("CHOSE");
             startTypingAnimation("Player 2 choose you Character");
         } else if (player2 == null) {
+            player2 = new warrior();
+            player.setPlayer2(player2);
+            startGameButton.setDisable(false);
+            startGameButton.setVisible(true);
+            System.out.println("CHOSE");
+        }
+
+        System.out.println(player1);
+        System.out.println(player2);
+    }
+
+    @FXML
+    private void onClickTank() {
+        if (player1 == null) {
+            onClick();
+            player1 = new tank();
+            player.setPlayer1(player1);
+            System.out.println("CHOSE");
+            startTypingAnimation("Player 2 choose you Character");
+        } else if (player2 == null) {
             player2 = new tank();
+            player.setPlayer2(player2);
+            startGameButton.setDisable(false);
+            startGameButton.setVisible(true);
+            System.out.println("CHOSE");
+        }
+
+        System.out.println(player1);
+        System.out.println(player2);
+    }
+
+    @FXML
+    private void onClickTheif() {
+        if (player1 == null) {
+            onClick();
+            player1 = new theif();
+            player.setPlayer1(player1);
+            System.out.println("CHOSE");
+            startTypingAnimation("Player 2 choose you Character");
+        } else if (player2 == null) {
+            player2 = new theif();
             player.setPlayer2(player2);
             startGameButton.setDisable(false);
             startGameButton.setVisible(true);
@@ -111,4 +151,6 @@ public class choosingPlayer {
     public void setPlayer2(basePlayer player2) {
         this.player2 = player2;
     }
+
+
 }
