@@ -9,6 +9,24 @@ public class player {
     private static basePlayer player2;
     private static int player1Money;
     private static int player2Money;
+    private static boolean havePlayed = false;
+    private static int moveLeft;
+
+    public static int getMoveLeft() {
+        return moveLeft;
+    }
+
+    public static void setMoveLeft(int moveLeft) {
+        player.moveLeft = moveLeft;
+    }
+
+    public static boolean isHavePlayed() {
+        return havePlayed;
+    }
+
+    public static void setHavePlayed(boolean havePlayed) {
+        player.havePlayed = havePlayed;
+    }
 
     private static int[] player1Slot = new int[]{0, 0, 0, 0};
     private static int[] player2Slot = new int[]{0, 0, 0, 0};

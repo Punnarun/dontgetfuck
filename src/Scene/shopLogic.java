@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import Scene.Navigator;
 
 import java.io.IOException;
 
@@ -129,4 +130,6 @@ public class shopLogic {
         Stage stage = (Stage) currentMoney.getScene().getWindow(); // Get the current window
         stage.setScene(gameScene); // Set the game scene
     }
+
+
 }

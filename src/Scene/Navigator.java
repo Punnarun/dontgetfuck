@@ -30,19 +30,71 @@ import Controller.player;
 
 public class Navigator {
 
+    //player
     private basePlayer player1;
     private basePlayer player2;
-
-
     private gameState GAMESTATE = gameState.PLAYER1_TURN;
 
+    @FXML private AnchorPane root;
+    @FXML private Rectangle starter;
+
+    Image facingUp = new Image((new File("C:/Users/sakol/Desktop/PMPJ/src/res/p4.png")).toURI().toString());
+    Image facingDown = new Image((new File("C:/Users/sakol/Desktop/PMPJ/src/res/p2.png")).toURI().toString());
+    Image facingLeft = new Image((new File("C:/Users/sakol/Desktop/PMPJ/src/res/p3.png")).toURI().toString());
+    Image facingRight = new Image((new File("C:/Users/sakol/Desktop/PMPJ/src/res/p1.png")).toURI().toString());
+
+    //other FXML component
+    @FXML private Rectangle up;
+    @FXML private Rectangle left;
+    @FXML private Rectangle right;
+    @FXML private Rectangle down;
     @FXML private Label drawValue;
     @FXML private ImageView playerOne;
     @FXML private ImageView playerTwo;
     @FXML private GridPane layoutContainer;
+    @FXML private Label money;
+    @FXML private ImageView attack;
+    @FXML private Rectangle changeTurn;
+    @FXML private Label turn;
+    @FXML private ImageView drawDice;
 
-    @FXML
-    private void goToGame() throws IOException {
+    @FXML private ImageView p1_atk1;
+    @FXML private ImageView p1_atk2;
+    @FXML private ImageView p1_atk3;
+    @FXML private ImageView p1_atk4;
+    @FXML private ImageView p1_atk5;
+
+    @FXML private ImageView p1_hp1;
+    @FXML private ImageView p1_hp2;
+    @FXML private ImageView p1_hp3;
+    @FXML private ImageView p1_hp4;
+    @FXML private ImageView p1_hp5;
+
+    @FXML private ImageView p2_atk1;
+    @FXML private ImageView p2_atk2;
+    @FXML private ImageView p2_atk3;
+    @FXML private ImageView p2_atk4;
+    @FXML private ImageView p2_atk5;
+
+    @FXML private ImageView p2_hp1;
+    @FXML private ImageView p2_hp2;
+    @FXML private ImageView p2_hp3;
+    @FXML private ImageView p2_hp4;
+    @FXML private ImageView p2_hp5;
+
+    @FXML private ImageView coin1;
+    @FXML private ImageView coin2;
+    @FXML private ImageView coin3;
+    @FXML private ImageView coin4;
+    @FXML private ImageView coin5;
+    @FXML private ImageView coin6;
+    @FXML private ImageView coin7;
+    @FXML private ImageView coin8;
+
+    @FXML private Label turnCounter;
+    private int turnNumber = 1;
+
+    @FXML private void goToGame() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("character.fxml"));
         Parent gameRoot = loader.load();
         Scene gameScene = new Scene(gameRoot);
@@ -50,8 +102,7 @@ public class Navigator {
         stage.setScene(gameScene);
     }
 
-    @FXML
-    private void notification(String text) {
+    @FXML private void notification(String text) {
         drawValue.setVisible(true);
         drawValue.setText(text);
 
@@ -69,19 +120,19 @@ public class Navigator {
         fadeTransition.play();
     }
 
-    @FXML private ImageView drawDice;
+    private int diceValue = 999;
 
-    @FXML
-    private void drawDice() {
+    @FXML private void drawDice() {
 
         attack.setOpacity(0.25);
 
         drawDice.setDisable(true);
         drawDice.setOpacity(0.25);
-        attackable = false;
 
         Random random = new Random();
         int diceRoll = random.nextInt(6) + 1;
+
+        diceValue = diceRoll;
 
 //        notification("You got " + diceRoll);
         turn.setText("Player 2 Turn : " + "You got " + diceRoll + " !");
@@ -97,13 +148,9 @@ public class Navigator {
             player2.setMove(diceRoll);
         }
 
+        player.setMoveLeft(diceRoll);
         enableButton();
     }
-
-    @FXML private Rectangle up;
-    @FXML private Rectangle left;
-    @FXML private Rectangle right;
-    @FXML private Rectangle down;
 
     private void disableButton() {
         up.setDisable(true); // Disable the rectangle
@@ -119,54 +166,102 @@ public class Navigator {
         down.setDisable(false);
     }
 
-    @FXML private AnchorPane root; // Add this field
-    @FXML private Rectangle starter;
-
     public void gameStart() {
 
-        player1 = player.getPlayer1();
-        player2 = player.getPlayer2();
+        if (!player.isHavePlayed()) {
+            System.out.println("YUNG MAI DAI PLAY");
+            player1 = player.getPlayer1();
+            player2 = player.getPlayer2();
 
-        System.out.println(player1);
-        System.out.println(player2);
+            System.out.println(player1);
+            System.out.println(player2);
 
-        starter.setVisible(false);
-        turn.setDisable(true);
-        changeTurn.setDisable(true);
-        coinInvisible();
+            starter.setVisible(false);
+            turn.setDisable(true);
+            changeTurn.setDisable(true);
+            coinInvisible();
 
-        turnCounter.setText("Turn Number : 0");
+            turnCounter.setText("Turn Number : 0");
 
-        disableButton();
+            disableButton();
 
-        System.out.println(GAMESTATE);
-        player1.setPlayerFacing(facing.SOUTH);
-        player2.setPlayerFacing(facing.NORTH);
-        System.out.println("GAME START");
-        System.out.println(player1.getMove());
-        player1.setMove(0);
-        player2.setMove(0);
+            System.out.println(GAMESTATE);
+            player1.setPlayerFacing(facing.SOUTH);
+            player2.setPlayerFacing(facing.NORTH);
+            System.out.println("GAME START");
+            System.out.println(player1.getMove());
+            player1.setMove(0);
+            player2.setMove(0);
 
-        player1.setCurrentX(0);
-        player1.setCurrentY(0);
+            player1.setCurrentX(0);
+            player1.setCurrentY(0);
 
-        player2.setCurrentX(4);
-        player2.setCurrentY(5);
+            player2.setCurrentX(4);
+            player2.setCurrentY(5);
 
-        money.setText("x " + getCurrentBasePlayer().getMoney());
+            money.setText("x " + getCurrentBasePlayer().getMoney());
+
+            player.setGameState(this.GAMESTATE);
+            randomCoin();
+            player.setHavePlayed(true);
+            System.out.println("AFTER INIT  : " + player.isHavePlayed());
+        } else {
+
+            GAMESTATE = player.getGameState();
+            drawDice.setDisable(true);
+
+            layoutContainer.getChildren().remove(playerOne);
+            layoutContainer.getChildren().remove(playerTwo);
+
+            System.out.println("PLAY PAI LAEW");
+            starter.setVisible(false);
+            player1 = player.getPlayer1();
+            player2 = player.getPlayer2();
+
+            layoutContainer.add(playerOne,player.getPlayer1().getCurrentY(),player.getPlayer1().getCurrentX());
+            layoutContainer.add(playerTwo,player.getPlayer2().getCurrentY(),player.getPlayer2().getCurrentX());
+
+            coinInvisible();
+
+            if (player.getGameState().equals(gameState.PLAYER1_TURN)) {
+                player1.setMove(player.getMoveLeft());
+            } else {
+                player2.setMove(player.getMoveLeft());
+            }
+
+            facing player1Facing = player1.getPlayerFacing();
+            facing player2Facing = player2.getPlayerFacing();
+
+            if (player1Facing.equals(facing.NORTH)) {
+                playerOne.setImage(facingUp);
+            } else if (player1Facing.equals(facing.EAST)) {
+                playerOne.setImage(facingRight);
+            } else if (player1Facing.equals(facing.SOUTH)) {
+                playerOne.setImage(facingDown);
+            } else if (player1Facing.equals(facing.WEST)) {
+                playerOne.setImage(facingLeft);
+            }
+
+            if (player2Facing.equals(facing.NORTH)) {
+                playerTwo.setImage(facingUp);
+            } else if (player2Facing.equals(facing.EAST)) {
+                playerTwo.setImage(facingRight);
+            } else if (player2Facing.equals(facing.SOUTH)) {
+                playerTwo.setImage(facingDown);
+            } else if (player2Facing.equals(facing.WEST)) {
+                playerTwo.setImage(facingLeft);
+            }
+        }
 
         player.setPlayer1Money(player1.getMoney());
         player.setPlayer2Money(player2.getMoney());
-
         resetDisplay();
         player1StatUpdate();
         player2StatUpdate();
-
-        player.setGameState(this.GAMESTATE);
         randomCoin();
-    }
+        updatePlayerSlot();
 
-    @FXML private Label money;
+    }
 
     public void decreaseMove() {
 
@@ -189,6 +284,7 @@ public class Navigator {
                 money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
                 player.setPlayer1Money(getCurrentBasePlayer().getMoney());
                 checkCoin();
+                player.setMoveLeft(player1.getMove());
             }
 
             if (player1.getMove() <= 0 ) {
@@ -210,6 +306,7 @@ public class Navigator {
                 money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
                 player.setPlayer2Money(getCurrentBasePlayer().getMoney());
                 checkCoin();
+                player.setMoveLeft(player2.getMove());
             }
 
             if (player2.getMove() <= 0) {
@@ -228,8 +325,7 @@ public class Navigator {
         }
     }
 
-    @FXML
-    public void UP() {
+    @FXML public void UP() {
         ImageView currentPlayer = getCurrentPlayerRectangle();
         basePlayer player = (GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2);
 
@@ -243,9 +339,9 @@ public class Navigator {
                 return;
             }
 
-            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p4.png");
-            Image image = new Image(file.toURI().toString());
-            currentPlayer.setImage(image);
+//            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p4.png");
+//            Image image = new Image(file.toURI().toString());
+            currentPlayer.setImage(facingUp);
             GridPane.setRowIndex(currentPlayer, rowIndex - 1);
             player.setCurrentX(rowIndex - 1);
             player.setCurrentY(colIndex);
@@ -258,8 +354,7 @@ public class Navigator {
         }
     }
 
-    @FXML
-    public void DOWN() {
+    @FXML public void DOWN() {
         ImageView currentPlayer = getCurrentPlayerRectangle();
         basePlayer player = (GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2);
 
@@ -273,9 +368,9 @@ public class Navigator {
                 return;
             }
 
-            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p2.png");
-            Image image = new Image(file.toURI().toString());
-            currentPlayer.setImage(image);
+//            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p2.png");
+//            Image image = new Image(file.toURI().toString());
+            currentPlayer.setImage(facingDown);
             GridPane.setRowIndex(currentPlayer, rowIndex + 1);
             player.setCurrentX(rowIndex + 1);
             player.setCurrentY(colIndex);
@@ -288,8 +383,7 @@ public class Navigator {
         }
     }
 
-    @FXML
-    public void LEFT() {
+    @FXML public void LEFT() {
         ImageView currentPlayer = getCurrentPlayerRectangle();
         basePlayer player = (GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2);
 
@@ -303,9 +397,9 @@ public class Navigator {
                 return;
             }
 
-            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p3.png");
-            Image image = new Image(file.toURI().toString());
-            currentPlayer.setImage(image);
+//            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p3.png");
+//            Image image = new Image(file.toURI().toString());
+            currentPlayer.setImage(facingLeft);
             GridPane.setColumnIndex(currentPlayer, colIndex - 1);
             player.setCurrentX(rowIndex);
             player.setCurrentY(colIndex -1 );
@@ -318,8 +412,7 @@ public class Navigator {
         }
     }
 
-    @FXML
-    public void RIGHT() {
+    @FXML public void RIGHT() {
         ImageView currentPlayer = getCurrentPlayerRectangle();
         basePlayer player = (GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2);
 
@@ -333,9 +426,9 @@ public class Navigator {
                 return;
             }
 
-            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p1.png");
-            Image image = new Image(file.toURI().toString());
-            currentPlayer.setImage(image);
+//            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p1.png");
+//            Image image = new Image(file.toURI().toString());
+            currentPlayer.setImage(facingRight);
             GridPane.setColumnIndex(currentPlayer, colIndex + 1);
             player.setCurrentX(rowIndex);
             player.setCurrentY(colIndex + 1 );
@@ -365,8 +458,6 @@ public class Navigator {
         return GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2;
     }
 
-
-
     private boolean canMoveTo(int rowIndex, int colIndex) {
         if (rowIndex >= -1 && rowIndex < layoutContainer.getRowCount()+1 &&
                 colIndex >= -1 && colIndex < layoutContainer.getColumnCount()+1) {
@@ -379,31 +470,6 @@ public class Navigator {
         }
         return false; // Destination tile is out of bounds
     }
-
-
-    @FXML private ImageView p1_atk1;
-    @FXML private ImageView p1_atk2;
-    @FXML private ImageView p1_atk3;
-    @FXML private ImageView p1_atk4;
-    @FXML private ImageView p1_atk5;
-
-    @FXML private ImageView p1_hp1;
-    @FXML private ImageView p1_hp2;
-    @FXML private ImageView p1_hp3;
-    @FXML private ImageView p1_hp4;
-    @FXML private ImageView p1_hp5;
-
-    @FXML private ImageView p2_atk1;
-    @FXML private ImageView p2_atk2;
-    @FXML private ImageView p2_atk3;
-    @FXML private ImageView p2_atk4;
-    @FXML private ImageView p2_atk5;
-
-    @FXML private ImageView p2_hp1;
-    @FXML private ImageView p2_hp2;
-    @FXML private ImageView p2_hp3;
-    @FXML private ImageView p2_hp4;
-    @FXML private ImageView p2_hp5;
 
     public void resetDisplay() {
         System.out.println("RESET DISPLAY");
@@ -465,10 +531,6 @@ public class Navigator {
         if (player2HP >= 4) p2_hp4.setVisible(true);
         if (player2HP >= 5) p2_hp5.setVisible(true);
     }
-
-
-    @FXML private ImageView attack;
-    private boolean attackable;
 
     public void isAttackable() {
 
@@ -540,7 +602,6 @@ public class Navigator {
                     System.out.println("ATTACK!!!!!");
                     attack.setOpacity(0.25);
                     gotKnockback(getCurrentBasePlayer() , getOpponentBasePlayer() , getOpponentPlayer());
-                    attackable = true;
 
                     getOpponentBasePlayer().setHp(getOpponentBasePlayer().getHp() - getCurrentBasePlayer().getAtk());
                     System.out.println("CurrentPlayerHP" + getCurrentBasePlayer().getHp() );
@@ -614,11 +675,7 @@ public class Navigator {
 
     }
 
-    @FXML private Rectangle changeTurn;
-    @FXML private Label turn;
-
-    @FXML
-    private void changePlayerTurn() {
+    @FXML private void changePlayerTurn() {
 
         if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
             if (player1.getMove() != 0) {
@@ -677,12 +734,16 @@ public class Navigator {
         }
     }
 
-    @FXML private Label turnCounter;
-    private int turnNumber = 1;
-
     //debug button
     @FXML private void debug() {
         System.out.println("GOTO SHOPPPPP");
+        player.setPlayer1(player1);
+        player.setPlayer2(player2);
+        player.setPlayer1Money(player1.getMoney());
+        player.setPlayer2Money(player2.getMoney());
+        player.setGameState(GAMESTATE);
+
+
         try {
             Stage stage = (Stage) root.getScene().getWindow();
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Scene/shop.fxml"))));
@@ -691,22 +752,12 @@ public class Navigator {
         }
     }
 
-    @FXML private ImageView coin1;
-    @FXML private ImageView coin2;
-    @FXML private ImageView coin3;
-    @FXML private ImageView coin4;
-    @FXML private ImageView coin5;
-    @FXML private ImageView coin6;
-    @FXML private ImageView coin7;
-    @FXML private ImageView coin8;
-
     private int[][] coinPos = new int[][]{{0,0}, {4,0}, {2,1}, {0,2}, {4,3}, {2,4}, {0,5}, {4,5}};
 
     private int currentCoinPosX;
     private int currentCoinPosY;
 
-    @FXML
-    private void coinInvisible() {
+    @FXML private void coinInvisible() {
         coin1.setVisible(false);
         coin2.setVisible(false);
         coin3.setVisible(false);
@@ -717,8 +768,7 @@ public class Navigator {
         coin8.setVisible(false);
     }
 
-    @FXML
-    private void randomCoin() {
+    @FXML private void randomCoin() {
         Random random = new Random();
         int coinIndex = random.nextInt(8);
 
@@ -769,6 +819,60 @@ public class Navigator {
         }
     }
 
+    @FXML private Label winningTicket;
+    @FXML private Label diceAmount;
+    @FXML private Label robAmount;
+    @FXML private Label appleAmount;
+
+    private void updatePlayerSlot() {
+        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
+            appleAmount.setText("x " + player.getPlayer1Slot()[0]);
+            robAmount.setText("x " + player.getPlayer1Slot()[1]);
+            diceAmount.setText("x " + player.getPlayer1Slot()[2]);
+            winningTicket.setText("x " + player.getPlayer1Slot()[3]);
+        } else if (GAMESTATE.equals(gameState.PLAYER2_TURN)) {
+            appleAmount.setText("x " + player.getPlayer2Slot()[0]);
+            robAmount.setText("x " + player.getPlayer2Slot()[1]);
+            diceAmount.setText("x " + player.getPlayer2Slot()[2]);
+            winningTicket.setText("x " + player.getPlayer2Slot()[3]);
+        }
+    }
+
+    private int getItem(int slotNumber) {
+        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
+            return player.getPlayer1Slot()[slotNumber];
+        } else {
+            return player.getPlayer2Slot()[slotNumber];
+        }
+    }
+
+    @FXML private void useTicket() {
+        //using player got 66% to win and lose instantly
+    }
+
+    @FXML private void useDice() {
+        if (getItem(2) <= 0) return;
+        if (diceValue == getCurrentBasePlayer().getMove()) {
+            drawDice.setOpacity(1);
+        }
+    }
+
+    @FXML private void useRob() {
+        if (getItem(1) <= 0) return;
+        getCurrentBasePlayer().setMoney(getCurrentBasePlayer().getMoney() + (int)(getOpponentBasePlayer().getMoney()/2));
+        getOpponentBasePlayer().setMoney((int)(getOpponentBasePlayer().getMoney()/2));
+
+        money.setText("x " + getCurrentBasePlayer().getMoney());
+    }
+
+    @FXML private void useApple() {
+        System.out.println("USE APPLE");
+        if (getItem(0) <= 0 ) return;
+        getCurrentBasePlayer().setHp(5);
+        resetDisplay();
+        player1StatUpdate();
+        player2StatUpdate();
+    }
 
 
 }
