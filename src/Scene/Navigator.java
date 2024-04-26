@@ -966,8 +966,10 @@ public class Navigator {
         getOpponentBasePlayer().setMoney((int)(getOpponentBasePlayer().getMoney()/2));
         player.setPlayer1Money(player1.getMoney());
         player.setPlayer2Money(player2.getMoney());
+
+        System.out.println("PLAYER 1 MONEY" + player1.getMoney());
+        System.out.println("PLAYER 2 MONEY" + player2.getMoney());
         updatePlayerSlot();
-        money.setText("x " + getCurrentBasePlayer().getMoney());
         updateAmount(1);
         money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
     }

@@ -4,7 +4,7 @@ public class warrior extends basePlayer {
 
     public warrior() {
         super( 4, 2);
-        this.setMoney(2);
+        this.setMoney(5);
     }
 
     @Override

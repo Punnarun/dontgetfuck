@@ -4,7 +4,7 @@ public class tank extends basePlayer{
 
     public tank() {
         super( 5, 1);
-        this.setMoney(2);
+        this.setMoney(5);
     }
 
     @Override
