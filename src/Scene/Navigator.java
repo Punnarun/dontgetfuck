@@ -33,6 +33,7 @@ public class Navigator {
     //player
     private basePlayer player1;
     private basePlayer player2;
+    private basePlayer dummy;
     private gameState GAMESTATE = gameState.PLAYER1_TURN;
 
     @FXML private AnchorPane root;
@@ -306,7 +307,7 @@ public class Navigator {
                 player1.setMove(player1.getMove() - 1);
                 System.out.println("YOU GOT " + player1.getMove() + " LEFT");
                 turn.setText("Player 1 Turn : " + "You got " + player1.getMove() + " move(s) left !");
-                detectDeath(getCurrentBasePlayer().getCurrentX(), getCurrentBasePlayer().getCurrentY());
+                detectDeath(getCurrentBasePlayer().getCurrentX(), getCurrentBasePlayer().getCurrentY() , player1);
                 isAttackable();
                 money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
                 player.setPlayer1Money(getCurrentBasePlayer().getMoney());
@@ -329,7 +330,7 @@ public class Navigator {
                 player2.setMove(player2.getMove() - 1);
                 System.out.println("YOU GOT " + player2.getMove() + " LEFT");
                 turn.setText("Player 2 Turn : " + "You got " + player2.getMove() + " move(s) left !");
-                detectDeath(getCurrentBasePlayer().getCurrentX(), getCurrentBasePlayer().getCurrentY());
+                detectDeath(getCurrentBasePlayer().getCurrentX(), getCurrentBasePlayer().getCurrentY() , player2);
                 isAttackable();
                 money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
                 player.setPlayer2Money(getCurrentBasePlayer().getMoney());
@@ -364,7 +365,7 @@ public class Navigator {
         if (canMoveTo(rowIndex - 1, colIndex) && (player.getMove() > 0) && (player.getPlayerFacing() != facing.SOUTH)) {
 
             if (rowIndex <= 0) {
-                detectDeath(1,1);
+                detectDeath(1,1, getCurrentBasePlayer());
                 return;
             }
 
@@ -393,7 +394,7 @@ public class Navigator {
         if ((canMoveTo(rowIndex + 1, colIndex)) && (player.getPlayerFacing() != facing.NORTH)) {
 
             if (rowIndex >= 4) {
-                detectDeath(1,1);
+                detectDeath(1,1 , getCurrentBasePlayer());
                 return;
             }
 
@@ -422,7 +423,7 @@ public class Navigator {
         if ((canMoveTo(rowIndex, colIndex - 1)) && (player.getPlayerFacing() != facing.EAST)) {
 
             if (colIndex <= 0) {
-                detectDeath(1,1);
+                detectDeath(1,1 , getCurrentBasePlayer());
                 return;
             }
 
@@ -451,7 +452,7 @@ public class Navigator {
         if ((canMoveTo(rowIndex, colIndex + 1)) && (player.getPlayerFacing() != facing.WEST)) {
 
             if (colIndex >= 5) {
-                detectDeath(1,1);
+                detectDeath(1,1 , getCurrentBasePlayer());
                 return;
             }
 
@@ -643,7 +644,7 @@ public class Navigator {
                     resetDisplay();
                     player1StatUpdate();
                     player2StatUpdate();
-                    detectDeath(getOpponentBasePlayer().getCurrentX() , getOpponentBasePlayer().getCurrentY());
+                    detectDeath(getOpponentBasePlayer().getCurrentX() , getOpponentBasePlayer().getCurrentY() , getOpponentBasePlayer());
 //                    return;
                 } else {
                     System.out.println("Cannot attack, not facing the opponent.");
@@ -682,13 +683,13 @@ public class Navigator {
 
         if (knockbackRow < 0 || knockbackCol < 0 || knockbackCol > 5 || knockbackRow > 4) {
             System.out.println("CHECK THIS CASE");
-            detectDeath(1,1);
+            detectDeath(1,1 , getOpponentBasePlayer());
         }
 
         // Update the position of the opponent player's ImageView to simulate knockback
         else {
 
-            detectDeath(knockbackRow , knockbackCol);
+            detectDeath(knockbackRow , knockbackCol , getOpponentBasePlayer());
 
             GridPane.setRowIndex(opponentImageView, knockbackRow);
             GridPane.setColumnIndex(opponentImageView, knockbackCol);
@@ -750,13 +751,16 @@ public class Navigator {
         player.setGameState(this.GAMESTATE);
     }
 
-    private void detectDeath(int rowIndex , int colIndex) {
+    private void detectDeath(int rowIndex , int colIndex , basePlayer checkDeathOfThisPlayer) {
 
         checkCoin();
 
-        if ((rowIndex == 1 && colIndex == 1) || (rowIndex == 4 && colIndex == 2) || (rowIndex == 0 && colIndex == 3) || (rowIndex == 3 && colIndex == 4)) {}
-        else if ((rowIndex >= 5 || colIndex >= 6) || (rowIndex < 0 || colIndex < 0)) {}
-        else if (player1.getHp() <= 0 || player2.getHp() <= 0) {}
+        if (((rowIndex == 1 && colIndex == 1) || (rowIndex == 4 && colIndex == 2) || (rowIndex == 0 && colIndex == 3) || (rowIndex == 3 && colIndex == 4)) && checkDeathOfThisPlayer.equals(player1)) {player.setGameState(gameState.PLAYER2_WIN);}
+        else if (((rowIndex == 1 && colIndex == 1) || (rowIndex == 4 && colIndex == 2) || (rowIndex == 0 && colIndex == 3) || (rowIndex == 3 && colIndex == 4)) && checkDeathOfThisPlayer.equals(player2)) {player.setGameState(gameState.PLAYER1_WIN);}
+        else if (((rowIndex >= 5 || colIndex >= 6) || (rowIndex < 0 || colIndex < 0)) && checkDeathOfThisPlayer.equals(player1)) {player.setGameState(gameState.PLAYER2_WIN);}
+        else if (((rowIndex >= 5 || colIndex >= 6) || (rowIndex < 0 || colIndex < 0)) && checkDeathOfThisPlayer.equals(player2)) {player.setGameState(gameState.PLAYER1_WIN);}
+        else if (player1.getHp() <= 0) { player.setGameState(gameState.PLAYER2_WIN);}
+        else if (player2.getHp() <= 0) { player.setGameState(gameState.PLAYER1_WIN);}
         else return;
 
         try {
@@ -922,7 +926,28 @@ public class Navigator {
     @FXML private void useTicket() {
         //using player got 66% to win and lose instantly
         if ((getItem(3) <= 0)) return;
-        updateAmount(3);
+        Random random = new Random();
+        int rand = random.nextInt(10);
+
+        gameState userGameState = null;
+        gameState opponentGamestate = null;
+        if (getCurrentBasePlayer().equals(player1)) {
+            userGameState = gameState.PLAYER1_WIN;
+            opponentGamestate = gameState.PLAYER2_WIN;
+        };
+        if (getCurrentBasePlayer().equals(player2)) {
+            userGameState = gameState.PLAYER2_WIN;
+            opponentGamestate = gameState.PLAYER1_WIN;
+        }
+        if (rand >= 0 && rand < 7) player.setGameState(userGameState);
+        else player.setGameState(opponentGamestate);
+
+        try {
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Scene/GameOver.fxml"))));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML private void useDice() {
@@ -939,6 +964,8 @@ public class Navigator {
         if (getItem(1) <= 0) return;
         getCurrentBasePlayer().setMoney(getCurrentBasePlayer().getMoney() + (int)(getOpponentBasePlayer().getMoney()/2));
         getOpponentBasePlayer().setMoney((int)(getOpponentBasePlayer().getMoney()/2));
+        player.setPlayer1Money(player1.getMoney());
+        player.setPlayer2Money(player2.getMoney());
         updatePlayerSlot();
         money.setText("x " + getCurrentBasePlayer().getMoney());
         updateAmount(1);
