@@ -11,6 +11,24 @@ public class player {
     private static int player2Money;
     private static boolean havePlayed = false;
     private static int moveLeft;
+    private static int turnNumber;
+    private static String description;
+
+    public static String getDescription() {
+        return description;
+    }
+
+    public static void setDescription(String description) {
+        player.description = description;
+    }
+
+    public static int getTurnNumber() {
+        return turnNumber;
+    }
+
+    public static void setTurnNumber(int turnNumber) {
+        player.turnNumber = turnNumber;
+    }
 
     public static int getMoveLeft() {
         return moveLeft;

@@ -92,6 +92,9 @@ public class Navigator {
     @FXML private ImageView coin8;
 
     @FXML private Label turnCounter;
+
+    @FXML private Button shop;
+
     private int turnNumber = 1;
 
     @FXML private void goToGame() throws IOException {
@@ -150,6 +153,7 @@ public class Navigator {
 
         player.setMoveLeft(diceRoll);
         enableButton();
+        shop.setDisable(true);
     }
 
     private void disableButton() {
@@ -180,6 +184,7 @@ public class Navigator {
             turn.setDisable(true);
             changeTurn.setDisable(true);
             coinInvisible();
+            shop.setDisable(true);
 
             turnCounter.setText("Turn Number : 0");
 
@@ -208,26 +213,43 @@ public class Navigator {
         } else {
 
             GAMESTATE = player.getGameState();
+
             drawDice.setDisable(true);
+            drawDice.setOpacity(0.25);
 
             layoutContainer.getChildren().remove(playerOne);
             layoutContainer.getChildren().remove(playerTwo);
 
-            System.out.println("PLAY PAI LAEW");
             starter.setVisible(false);
             player1 = player.getPlayer1();
             player2 = player.getPlayer2();
+
+            player1.setMoney(player.getPlayer1Money());
+            player2.setMoney(player.getPlayer2Money());
 
             layoutContainer.add(playerOne,player.getPlayer1().getCurrentY(),player.getPlayer1().getCurrentX());
             layoutContainer.add(playerTwo,player.getPlayer2().getCurrentY(),player.getPlayer2().getCurrentX());
 
             coinInvisible();
+            shop.setDisable(true);
 
             if (player.getGameState().equals(gameState.PLAYER1_TURN)) {
                 player1.setMove(player.getMoveLeft());
+                System.out.println("player 1 move is " + player1.getMove());
+                if (player1.getMove() == 0) {
+                    disableButton();
+                    shop.setDisable(false);
+                };
             } else {
                 player2.setMove(player.getMoveLeft());
+                System.out.println("player 2 move is " + player2.getMove());
+                if (player2.getMove() == 0) {
+                    disableButton();
+                    shop.setDisable(false);
+                };
             }
+
+            //update facing
 
             facing player1Facing = player1.getPlayerFacing();
             facing player2Facing = player2.getPlayerFacing();
@@ -252,6 +274,11 @@ public class Navigator {
                 playerTwo.setImage(facingLeft);
             }
         }
+
+        turnNumber = player.getTurnNumber();
+        turnCounter.setText("Turn Number : " + turnNumber);
+
+        turn.setText(player.getDescription());
 
         player.setPlayer1Money(player1.getMoney());
         player.setPlayer2Money(player2.getMoney());
@@ -290,6 +317,7 @@ public class Navigator {
             if (player1.getMove() <= 0 ) {
                 changeTurn.setDisable(false);
                 player2.setMove(7);
+                shop.setDisable(false);
                 disableButton();
             }
         }
@@ -312,6 +340,7 @@ public class Navigator {
             if (player2.getMove() <= 0) {
                 changeTurn.setDisable(false);
                 player1.setMove(7);
+                shop.setDisable(false);
                 disableButton();
             }
         }
@@ -698,11 +727,13 @@ public class Navigator {
             System.out.println("PLAYER 2 CurrentX : " + player2.getCurrentX());
             System.out.println("PLAYER 2 CurrentY : " + player2.getCurrentY());
             turn.setText("PLAYER2 TURN");
+            shop.setDisable(true);
         } else {
             GAMESTATE = gameState.PLAYER1_TURN;
             System.out.println("PLAYER 1 CurrentX : " + player1.getCurrentX());
             System.out.println("PLAYER 1 CurrentY : " + player1.getCurrentY());
             turn.setText("PLAYER1 TURN");
+            shop.setDisable(true);
         }
 
         if (turnNumber % 10 == 0) {
@@ -714,6 +745,7 @@ public class Navigator {
         }
 
         money.setText("x " +String.valueOf(getCurrentBasePlayer().getMoney()));
+        updatePlayerSlot();
         System.out.println("CHANGE TURNNNNN");
         player.setGameState(this.GAMESTATE);
     }
@@ -742,7 +774,8 @@ public class Navigator {
         player.setPlayer1Money(player1.getMoney());
         player.setPlayer2Money(player2.getMoney());
         player.setGameState(GAMESTATE);
-
+        player.setTurnNumber(turnNumber);
+        player.setDescription(turn.getText());
 
         try {
             Stage stage = (Stage) root.getScene().getWindow();
@@ -825,17 +858,55 @@ public class Navigator {
     @FXML private Label appleAmount;
 
     private void updatePlayerSlot() {
+//        System.out.println("slot update");
         if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
+            money.setText("x " + player.getPlayer1Money());
             appleAmount.setText("x " + player.getPlayer1Slot()[0]);
             robAmount.setText("x " + player.getPlayer1Slot()[1]);
             diceAmount.setText("x " + player.getPlayer1Slot()[2]);
             winningTicket.setText("x " + player.getPlayer1Slot()[3]);
         } else if (GAMESTATE.equals(gameState.PLAYER2_TURN)) {
+            money.setText("x " + player.getPlayer2Money());
             appleAmount.setText("x " + player.getPlayer2Slot()[0]);
             robAmount.setText("x " + player.getPlayer2Slot()[1]);
             diceAmount.setText("x " + player.getPlayer2Slot()[2]);
             winningTicket.setText("x " + player.getPlayer2Slot()[3]);
         }
+    }
+
+    private void updateAmount(int slot) {
+        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
+            int[] inventory = player.getPlayer1Slot();
+            if (slot == 0) {
+                inventory[0]--;
+                player.setPlayer1Slot(inventory);
+            } else if (slot == 1) {
+                inventory[1]--;
+                player.setPlayer1Slot(inventory);
+            } else if (slot == 2) {
+                inventory[2]--;
+                player.setPlayer1Slot(inventory);
+            } else if (slot == 3) {
+                inventory[3]--;
+                player.setPlayer1Slot(inventory);
+            }
+        } else if (GAMESTATE.equals(gameState.PLAYER2_TURN)) {
+            int[] inventory = player.getPlayer2Slot();
+            if (slot == 0) {
+                inventory[0]--;
+                player.setPlayer2Slot(inventory);
+            } else if (slot == 1) {
+                inventory[1]--;
+                player.setPlayer2Slot(inventory);
+            } else if (slot == 2) {
+                inventory[2]--;
+                player.setPlayer2Slot(inventory);
+            } else if (slot == 3) {
+                inventory[3]--;
+                player.setPlayer2Slot(inventory);
+            }
+        }
+        updatePlayerSlot();
     }
 
     private int getItem(int slotNumber) {
@@ -846,14 +917,21 @@ public class Navigator {
         }
     }
 
+
+
     @FXML private void useTicket() {
         //using player got 66% to win and lose instantly
+        if ((getItem(3) <= 0)) return;
+        updateAmount(3);
     }
 
     @FXML private void useDice() {
-        if (getItem(2) <= 0) return;
-        if (diceValue == getCurrentBasePlayer().getMove()) {
+        if ((getItem(2) <= 0)) return;
+        System.out.println("USE DICE");
+        if (getCurrentBasePlayer().getMove() == 0) {
             drawDice.setOpacity(1);
+            drawDice.setDisable(false);
+            updateAmount(2);
         }
     }
 
@@ -861,18 +939,21 @@ public class Navigator {
         if (getItem(1) <= 0) return;
         getCurrentBasePlayer().setMoney(getCurrentBasePlayer().getMoney() + (int)(getOpponentBasePlayer().getMoney()/2));
         getOpponentBasePlayer().setMoney((int)(getOpponentBasePlayer().getMoney()/2));
-
+        updatePlayerSlot();
         money.setText("x " + getCurrentBasePlayer().getMoney());
+        updateAmount(1);
+        money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
     }
 
     @FXML private void useApple() {
         System.out.println("USE APPLE");
-        if (getItem(0) <= 0 ) return;
+        if ((getItem(0) <= 0 ) || getCurrentBasePlayer().getHp() >= 5) return;
+        System.out.println("HP BEFORE ADD" + getCurrentBasePlayer().getHp());
         getCurrentBasePlayer().setHp(5);
+        System.out.println("HP AFTER ADD" + getCurrentBasePlayer().getHp());
         resetDisplay();
         player1StatUpdate();
         player2StatUpdate();
+        updateAmount(0);
     }
-
-
 }

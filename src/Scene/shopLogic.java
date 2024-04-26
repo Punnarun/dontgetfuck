@@ -59,51 +59,62 @@ public class shopLogic {
     }
 
     @FXML
-    private void purchase(int cost) {
+    private boolean purchase(int cost) {
         if (playerMoney >= cost) {
+            System.out.println("PLAYER MONEY " + playerMoney);
             if (player.getGameState().equals(gameState.PLAYER1_TURN)) {
                 player.setPlayer1Money(playerMoney - cost);
             } else {
                 player.setPlayer2Money(playerMoney - cost);
             }
             updatePlayerMoney();
+            return true;
         }
+        return false;
     }
 
     @FXML private void purchase1() {
-        purchase(5);
-        if (player.getGameState().equals(gameState.PLAYER1_TURN)) {
-            player.setPlayer1Slot(new int[]{player.getPlayer1Slot()[0] + 1 , player.getPlayer1Slot()[1], player.getPlayer1Slot()[2], player.getPlayer1Slot()[3]});
-        } else {
-            player.setPlayer2Slot(new int[]{player.getPlayer1Slot()[0] + 1 , player.getPlayer1Slot()[1], player.getPlayer1Slot()[2], player.getPlayer1Slot()[3]});
+        if(purchase(5)) {
+            if (player.getGameState().equals(gameState.PLAYER1_TURN)) {
+                player.setPlayer1Slot(new int[]{player.getPlayer1Slot()[0] + 1 , player.getPlayer1Slot()[1], player.getPlayer1Slot()[2], player.getPlayer1Slot()[3]});
+            } else {
+                player.setPlayer2Slot(new int[]{player.getPlayer2Slot()[0] + 1 , player.getPlayer2Slot()[1], player.getPlayer2Slot()[2], player.getPlayer2Slot()[3]});
+            }
         }
+
     }
 
     @FXML private void purchase2() {
-        purchase(10);
-        if (player.getGameState().equals(gameState.PLAYER1_TURN)) {
-            player.setPlayer1Slot(new int[]{player.getPlayer1Slot()[0] , player.getPlayer1Slot()[1] + 1, player.getPlayer1Slot()[2], player.getPlayer1Slot()[3]});
-        } else {
-            player.setPlayer2Slot(new int[]{player.getPlayer1Slot()[0] , player.getPlayer1Slot()[1] + 1, player.getPlayer1Slot()[2], player.getPlayer1Slot()[3]});
+        if(purchase(10)) {
+            if (player.getGameState().equals(gameState.PLAYER1_TURN)) {
+                player.setPlayer1Slot(new int[]{player.getPlayer1Slot()[0] , player.getPlayer1Slot()[1] + 1, player.getPlayer1Slot()[2], player.getPlayer1Slot()[3]});
+            } else {
+                player.setPlayer2Slot(new int[]{player.getPlayer2Slot()[0] , player.getPlayer2Slot()[1] + 1, player.getPlayer2Slot()[2], player.getPlayer2Slot()[3]});
+            }
         }
+
     }
 
     @FXML private void purchase3() {
-        purchase(15);
-        if (player.getGameState().equals(gameState.PLAYER1_TURN)) {
-            player.setPlayer1Slot(new int[]{player.getPlayer1Slot()[0] , player.getPlayer1Slot()[1], player.getPlayer1Slot()[2] + 1, player.getPlayer1Slot()[3]});
-        } else {
-            player.setPlayer2Slot(new int[]{player.getPlayer1Slot()[0] , player.getPlayer1Slot()[1], player.getPlayer1Slot()[2] + 1, player.getPlayer1Slot()[3]});
+        if(purchase(15)) {
+            if (player.getGameState().equals(gameState.PLAYER1_TURN)) {
+                player.setPlayer1Slot(new int[]{player.getPlayer1Slot()[0] , player.getPlayer1Slot()[1], player.getPlayer1Slot()[2] + 1, player.getPlayer1Slot()[3]});
+            } else {
+                player.setPlayer2Slot(new int[]{player.getPlayer2Slot()[0] , player.getPlayer2Slot()[1], player.getPlayer2Slot()[2] + 1, player.getPlayer2Slot()[3]});
+            }
         }
+
     }
 
     @FXML private void purchase4() {
-        purchase(20);
-        if (player.getGameState().equals(gameState.PLAYER1_TURN)) {
-            player.setPlayer1Slot(new int[]{player.getPlayer1Slot()[0], player.getPlayer1Slot()[1], player.getPlayer1Slot()[2], player.getPlayer1Slot()[3] + 1});
-        } else {
-            player.setPlayer2Slot(new int[]{player.getPlayer1Slot()[0], player.getPlayer1Slot()[1], player.getPlayer1Slot()[2], player.getPlayer1Slot()[3] + 1});
+        if(purchase(20)) {
+            if (player.getGameState().equals(gameState.PLAYER1_TURN)) {
+                player.setPlayer1Slot(new int[]{player.getPlayer1Slot()[0], player.getPlayer1Slot()[1], player.getPlayer1Slot()[2], player.getPlayer1Slot()[3] + 1});
+            } else {
+                player.setPlayer2Slot(new int[]{player.getPlayer2Slot()[0], player.getPlayer2Slot()[1], player.getPlayer2Slot()[2], player.getPlayer2Slot()[3] + 1});
+            }
         }
+
     }
 
     @FXML
