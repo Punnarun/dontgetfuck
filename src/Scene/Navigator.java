@@ -25,6 +25,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Random;
 import Controller.gameState;
 import Scene.choosingPlayer;
@@ -97,6 +98,7 @@ public class Navigator {
     @FXML private Label turnCounter;
 
     @FXML private Button shop;
+    @FXML private ImageView cart;
 
     private int turnNumber = 1;
 
@@ -156,7 +158,9 @@ public class Navigator {
 
         player.setMoveLeft(diceRoll);
         enableButton();
-        shop.setDisable(true);
+//        shop.setDisable(true);
+        cart.setDisable(true);
+        cart.setOpacity(0.25);
     }
 
     private void disableButton() {
@@ -187,7 +191,9 @@ public class Navigator {
             turn.setDisable(true);
             changeTurn.setDisable(true);
             coinInvisible();
-            shop.setDisable(true);
+//            shop.setDisable(true);
+            cart.setDisable(true);
+            cart.setOpacity(0.25);
 
             turnCounter.setText("Turn Number : 0");
 
@@ -234,21 +240,28 @@ public class Navigator {
             layoutContainer.add(playerTwo,player.getPlayer2().getCurrentY(),player.getPlayer2().getCurrentX());
 
             coinInvisible();
-            shop.setDisable(true);
+//            shop.setDisable(true);
+            cart.setDisable(true);
+            cart.setOpacity(0.25);
+
 
             if (player.getGameState().equals(gameState.PLAYER1_TURN)) {
                 player1.setMove(player.getMoveLeft());
                 System.out.println("player 1 move is " + player1.getMove());
                 if (player1.getMove() == 0) {
                     disableButton();
-                    shop.setDisable(false);
+//                    shop.setDisable(false);
+                    cart.setDisable(false);
+                    cart.setOpacity(1);
                 };
             } else {
                 player2.setMove(player.getMoveLeft());
                 System.out.println("player 2 move is " + player2.getMove());
                 if (player2.getMove() == 0) {
                     disableButton();
-                    shop.setDisable(false);
+//                    shop.setDisable(false);
+                    cart.setDisable(false);
+                    cart.setOpacity(1);
                 };
             }
 
@@ -320,7 +333,9 @@ public class Navigator {
             if (player1.getMove() <= 0 ) {
                 changeTurn.setDisable(false);
                 player2.setMove(7);
-                shop.setDisable(false);
+//                shop.setDisable(false);
+                cart.setDisable(false);
+                cart.setOpacity(1);
                 disableButton();
             }
         }
@@ -343,8 +358,11 @@ public class Navigator {
             if (player2.getMove() <= 0) {
                 changeTurn.setDisable(false);
                 player1.setMove(7);
-                shop.setDisable(false);
+//                shop.setDisable(false);
+                cart.setDisable(false);
+                cart.setOpacity(1);
                 disableButton();
+
             }
         }
     }
@@ -736,13 +754,17 @@ public class Navigator {
             System.out.println("PLAYER 2 CurrentX : " + player2.getCurrentX());
             System.out.println("PLAYER 2 CurrentY : " + player2.getCurrentY());
             turn.setText("PLAYER2 TURN");
-            shop.setDisable(true);
+//            shop.setDisable(true);
+            cart.setDisable(true);
+            cart.setOpacity(0.25);
         } else {
             GAMESTATE = gameState.PLAYER1_TURN;
             System.out.println("PLAYER 1 CurrentX : " + player1.getCurrentX());
             System.out.println("PLAYER 1 CurrentY : " + player1.getCurrentY());
             turn.setText("PLAYER1 TURN");
-            shop.setDisable(true);
+//            shop.setDisable(true);
+            cart.setDisable(true);
+            cart.setOpacity(0.25);
         }
 
         if (turnNumber % 10 == 0) {
@@ -773,7 +795,7 @@ public class Navigator {
 
         try {
             Stage stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("GameOver.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameOver.fxml")))));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -792,7 +814,7 @@ public class Navigator {
 
         try {
             Stage stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("shop.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("shop.fxml")))));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -1013,14 +1035,21 @@ public class Navigator {
     Media media = new Media(getClass().getResource("/res/revengeSong.mp3").toExternalForm());
     MediaPlayer mediaPlayer = new MediaPlayer(media);
 
+    @FXML private ImageView unmute;
+    @FXML private ImageView mute;
+
     @FXML private void playMusic() {
         if (!player.getMusicPlayed()) {
             mediaPlayer.play();
             mediaPlayer.setCycleCount(10);
+            unmute.setVisible(true);
+            mute.setVisible(false);
             player.setMusicPlayed(true);
         } else {
             mediaPlayer.pause();
             player.setMusicPlayed(false);
+            unmute.setVisible(false);
+            mute.setVisible(true);
         }
 
     }

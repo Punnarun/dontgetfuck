@@ -23,23 +23,11 @@ public class choosingPlayer {
     basePlayer player2 = null;
 
     @FXML private Rectangle startGameButton;
-    @FXML private Group warriorFrame;
-
-
-    @FXML
-    private void onEnter() {
-        warriorFrame.setVisible(true);
-    }
-
-    @FXML
-    private void onExit() {
-        warriorFrame.setVisible(false);
-    }
 
     private Timeline onClickAnimation;
     private int currentIndex = 0;
-    @FXML
-    private Label description;
+    @FXML private Label description;
+    @FXML private Label startLabel;
 
     public void initialize() {
         startTypingAnimation("Player 1 choose you Character");
@@ -63,6 +51,7 @@ public class choosingPlayer {
             player.setPlayer2(player2);
             startGameButton.setDisable(false);
             startGameButton.setVisible(true);
+            startLabel.setVisible(true);
             System.out.println("CHOSE");
         }
 
@@ -83,6 +72,7 @@ public class choosingPlayer {
             player.setPlayer2(player2);
             startGameButton.setDisable(false);
             startGameButton.setVisible(true);
+            startLabel.setVisible(true);
             System.out.println("CHOSE");
         }
 
@@ -103,6 +93,7 @@ public class choosingPlayer {
             player.setPlayer2(player2);
             startGameButton.setDisable(false);
             startGameButton.setVisible(true);
+            startLabel.setVisible(true);
             System.out.println("CHOSE");
         }
 

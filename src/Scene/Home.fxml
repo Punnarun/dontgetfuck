@@ -50,6 +50,16 @@
             <Blend />
          </effect>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutX="24.0" layoutY="21.0" onMouseClicked="#playMusic" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+      <ImageView fx:id="mute" fitHeight="111.0" fitWidth="111.0" layoutX="20.0" layoutY="14.0" onMouseClicked="#playMusic">
+         <image>
+            <Image url="@../res/mute.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="unmute" fitHeight="107.0" fitWidth="110.0" layoutX="17.0" layoutY="16.0" onMouseClicked="#playMusic" visible="false">
+         <image>
+            <Image url="@../res/unmute.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" layoutX="17.0" layoutY="9.0" onMouseClicked="#playMusic" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="119.0" />
    </children>
 </AnchorPane>

@@ -269,11 +269,6 @@
                   <Image url="@../res/p2.png" />
                </image>
             </ImageView>
-            <Label fx:id="player2Name" text="Player 2" textFill="#dae71f" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
-               <font>
-                  <Font name="Californian FB Bold" size="24.0" />
-               </font>
-            </Label>
             <ImageView fx:id="coin3" fitHeight="50.0" fitWidth="39.0" opacity="0.8" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../res/coin.png" />
@@ -322,8 +317,8 @@
          </font>
       </Label>
       <Rectangle fx:id="left" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="94.0" layoutX="818.0" layoutY="362.0" onMouseClicked="#LEFT" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
-      <Rectangle fx:id="up" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="44.0" layoutX="947.0" layoutY="362.0" onMouseClicked="#UP" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
-      <Rectangle fx:id="down" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="44.0" layoutX="947.0" layoutY="412.0" onMouseClicked="#DOWN" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
+      <Rectangle fx:id="up" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="44.0" layoutX="945.0" layoutY="362.0" onMouseClicked="#UP" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
+      <Rectangle fx:id="down" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="44.0" layoutX="945.0" layoutY="412.0" onMouseClicked="#DOWN" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
       <Rectangle fx:id="right" arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="94.0" layoutX="1071.0" layoutY="362.0" onMouseClicked="#RIGHT" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b3c3d1" height="121.0" layoutX="32.0" layoutY="569.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="761.0" />
       <Label layoutX="43.0" layoutY="582.0" text="Player 1">
@@ -530,13 +525,12 @@
             <Font name="Californian FB" size="16.0" />
          </font></Label>
       <Rectangle fx:id="changeTurn" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="814.0" layoutY="469.0" onMouseClicked="#changePlayerTurn" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="372.0" />
-      <Rectangle fx:id="starter" arcHeight="5.0" arcWidth="5.0" fill="#d0d4d7" height="720.0" layoutX="-16.0" layoutY="1.0" onMouseClicked="#gameStart" opacity="0.53" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1298.0" />
       <Label fx:id="turnCounter" layoutX="832.0" layoutY="51.0" text="Turn Number : 0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Californian FB" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="shop" layoutX="848.0" layoutY="562.0" mnemonicParsing="false" onAction="#debug" text="Button" />
+      <Button fx:id="shop" layoutX="847.0" layoutY="543.0" mnemonicParsing="false" onAction="#debug" text="Button" />
       <Group layoutX="1032.0" layoutY="238.0" onMouseClicked="#useDice">
          <children>
             <ImageView fitHeight="44.0" fitWidth="44.0">
@@ -565,6 +559,32 @@
             </Label>
          </children>
       </Group>
+      <ImageView fx:id="cart" fitHeight="116.0" fitWidth="116.0" layoutX="817.0" layoutY="572.0" onMouseClicked="#debug">
+         <image>
+            <Image url="@../res/cart.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="982.0" layoutY="367.0">
+         <image>
+            <Image url="@../res/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="982.0" layoutY="416.0" rotate="180.0">
+         <image>
+            <Image url="@../res/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="857.0" layoutY="394.0" rotate="270.0">
+         <image>
+            <Image url="@../res/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="1108.0" layoutY="392.0" rotate="90.0">
+         <image>
+            <Image url="@../res/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="starter" arcHeight="5.0" arcWidth="5.0" fill="#d0d4d7" height="720.0" layoutX="-16.0" layoutY="1.0" onMouseClicked="#gameStart" opacity="0.53" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1298.0" />
    </children>
 
 </AnchorPane>
