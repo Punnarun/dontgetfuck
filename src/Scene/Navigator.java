@@ -61,6 +61,7 @@ public class Navigator {
     @FXML private Rectangle changeTurn;
     @FXML private Label turn;
     @FXML private ImageView drawDice;
+    @FXML private Rectangle diceBox;
 
     @FXML private ImageView p1_atk1;
     @FXML private ImageView p1_atk2;
@@ -97,8 +98,9 @@ public class Navigator {
 
     @FXML private Label turnCounter;
 
-    @FXML private Button shop;
+//    @FXML private Button shop;
     @FXML private ImageView cart;
+    @FXML private Rectangle shopRec;
 
     private int turnNumber = 1;
 
@@ -135,6 +137,7 @@ public class Navigator {
         attack.setOpacity(0.25);
 
         drawDice.setDisable(true);
+        diceBox.setDisable(true);
         drawDice.setOpacity(0.25);
 
         Random random = new Random();
@@ -161,6 +164,7 @@ public class Navigator {
 //        shop.setDisable(true);
         cart.setDisable(true);
         cart.setOpacity(0.25);
+        shopRec.setDisable(true);
     }
 
     private void disableButton() {
@@ -194,6 +198,7 @@ public class Navigator {
 //            shop.setDisable(true);
             cart.setDisable(true);
             cart.setOpacity(0.25);
+            shopRec.setDisable(true);
 
             turnCounter.setText("Turn Number : 0");
 
@@ -224,6 +229,7 @@ public class Navigator {
             GAMESTATE = player.getGameState();
 
             drawDice.setDisable(true);
+            diceBox.setDisable(true);
             drawDice.setOpacity(0.25);
 
             layoutContainer.getChildren().remove(playerOne);
@@ -243,6 +249,7 @@ public class Navigator {
 //            shop.setDisable(true);
             cart.setDisable(true);
             cart.setOpacity(0.25);
+            shopRec.setDisable(true);
 
 
             if (player.getGameState().equals(gameState.PLAYER1_TURN)) {
@@ -253,6 +260,7 @@ public class Navigator {
 //                    shop.setDisable(false);
                     cart.setDisable(false);
                     cart.setOpacity(1);
+                    shopRec.setDisable(false);
                 };
             } else {
                 player2.setMove(player.getMoveLeft());
@@ -262,6 +270,7 @@ public class Navigator {
 //                    shop.setDisable(false);
                     cart.setDisable(false);
                     cart.setOpacity(1);
+                    shopRec.setDisable(false);
                 };
             }
 
@@ -336,6 +345,7 @@ public class Navigator {
 //                shop.setDisable(false);
                 cart.setDisable(false);
                 cart.setOpacity(1);
+                shopRec.setDisable(false);
                 disableButton();
             }
         }
@@ -361,6 +371,7 @@ public class Navigator {
 //                shop.setDisable(false);
                 cart.setDisable(false);
                 cart.setOpacity(1);
+                shopRec.setDisable(false);
                 disableButton();
 
             }
@@ -747,6 +758,7 @@ public class Navigator {
         turnNumber++;
         turnCounter.setText("Turn Number : " + turnNumber);
         drawDice.setOpacity(1);
+        diceBox.setDisable(false);
         drawDice.setDisable(false);
 
         if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
@@ -757,6 +769,7 @@ public class Navigator {
 //            shop.setDisable(true);
             cart.setDisable(true);
             cart.setOpacity(0.25);
+            shopRec.setDisable(true);
         } else {
             GAMESTATE = gameState.PLAYER1_TURN;
             System.out.println("PLAYER 1 CurrentX : " + player1.getCurrentX());
@@ -765,6 +778,7 @@ public class Navigator {
 //            shop.setDisable(true);
             cart.setDisable(true);
             cart.setOpacity(0.25);
+            shopRec.setDisable(true);
         }
 
         if (turnNumber % 10 == 0) {
@@ -1000,6 +1014,7 @@ public class Navigator {
         System.out.println("USE DICE");
         if (getCurrentBasePlayer().getMove() == 0) {
             drawDice.setOpacity(1);
+            diceBox.setDisable(false);
             drawDice.setDisable(false);
             updateAmount(2);
         }
