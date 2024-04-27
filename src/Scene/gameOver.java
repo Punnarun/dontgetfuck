@@ -1,9 +1,9 @@
 package Scene;
 
-import Controller.gameState;
+import gameData.gameState;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import Controller.player;
+import gameData.player;
 
 public class gameOver {
 

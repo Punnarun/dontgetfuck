@@ -1,6 +1,6 @@
 package Player;
 
-import Controller.facing;
+import gameData.facing;
 
 public abstract class basePlayer {
 

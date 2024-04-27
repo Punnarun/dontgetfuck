@@ -567,27 +567,27 @@
             <Image url="@../res/cart.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="982.0" layoutY="367.0">
+      <ImageView fx:id="upimg" fitHeight="36.0" fitWidth="36.0" layoutX="982.0" layoutY="367.0" onMouseClicked="#UP">
          <image>
             <Image url="@../res/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="982.0" layoutY="416.0" rotate="180.0">
+      <ImageView fx:id="downimg" fitHeight="36.0" fitWidth="36.0" layoutX="982.0" layoutY="416.0" onMouseClicked="#DOWN" rotate="180.0">
          <image>
             <Image url="@../res/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="857.0" layoutY="394.0" rotate="270.0">
+      <ImageView fx:id="leftimg" fitHeight="36.0" fitWidth="36.0" layoutX="857.0" layoutY="394.0" onMouseClicked="#LEFT" rotate="270.0">
          <image>
             <Image url="@../res/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="1108.0" layoutY="392.0" rotate="90.0">
+      <ImageView fx:id="rightimg" fitHeight="36.0" fitWidth="36.0" layoutX="1108.0" layoutY="392.0" onMouseClicked="#RIGHT" rotate="90.0">
          <image>
             <Image url="@../res/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
          </image>
       </ImageView>
-      <Label fx:id="turnCounter1" layoutX="919.0" layoutY="489.0" text="Change Player Turn" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="changeTurnLabel" layoutX="919.0" layoutY="489.0" onMouseClicked="#changePlayerTurn" text="Change Player Turn" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Californian FB" size="20.0" />
          </font>

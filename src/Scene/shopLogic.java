@@ -1,17 +1,15 @@
 package Scene;
 
-import Controller.gameState;
-import Controller.player;
+import gameData.gameState;
+import gameData.player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import Scene.Navigator;
 
 import java.io.IOException;
 

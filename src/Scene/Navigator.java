@@ -1,17 +1,12 @@
 package Scene;
 
-import Controller.facing;
+import gameData.facing;
 import Player.basePlayer;
-import Player.warrior;
 import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,20 +18,17 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Random;
-import Controller.gameState;
-import Scene.choosingPlayer;
-import Controller.player;
+import gameData.gameState;
+import gameData.player;
 
 public class Navigator {
 
     //player
     private basePlayer player1;
     private basePlayer player2;
-    private basePlayer dummy;
     private gameState GAMESTATE = gameState.PLAYER1_TURN;
 
     @FXML private AnchorPane root;
@@ -59,6 +51,7 @@ public class Navigator {
     @FXML private Label money;
     @FXML private ImageView attack;
     @FXML private Rectangle changeTurn;
+    @FXML private Label changeTurnLabel;
     @FXML private Label turn;
     @FXML private ImageView drawDice;
     @FXML private Rectangle diceBox;
@@ -95,6 +88,11 @@ public class Navigator {
     @FXML private ImageView coin6;
     @FXML private ImageView coin7;
     @FXML private ImageView coin8;
+
+    @FXML private ImageView upimg;
+    @FXML private ImageView leftimg;
+    @FXML private ImageView rightimg;
+    @FXML private ImageView downimg;
 
     @FXML private Label turnCounter;
 
@@ -172,6 +170,11 @@ public class Navigator {
         left.setDisable(true);
         right.setDisable(true);
         down.setDisable(true);
+
+        upimg.setDisable(true);
+        leftimg.setDisable(true);
+        rightimg.setDisable(true);
+        downimg.setDisable(true);
     }
 
     private void enableButton() {
@@ -179,6 +182,11 @@ public class Navigator {
         left.setDisable(false);
         right.setDisable(false);
         down.setDisable(false);
+
+        upimg.setDisable(false);
+        leftimg.setDisable(false);
+        rightimg.setDisable(false);
+        downimg.setDisable(false);
     }
 
     public void gameStart() {
@@ -194,6 +202,7 @@ public class Navigator {
             starter.setVisible(false);
             turn.setDisable(true);
             changeTurn.setDisable(true);
+            changeTurnLabel.setDisable(true);
             coinInvisible();
 //            shop.setDisable(true);
             cart.setDisable(true);
@@ -341,6 +350,7 @@ public class Navigator {
 
             if (player1.getMove() <= 0 ) {
                 changeTurn.setDisable(false);
+                changeTurnLabel.setDisable(false);
                 player2.setMove(7);
 //                shop.setDisable(false);
                 cart.setDisable(false);
@@ -367,6 +377,7 @@ public class Navigator {
 
             if (player2.getMove() <= 0) {
                 changeTurn.setDisable(false);
+                changeTurnLabel.setDisable(false);
                 player1.setMove(7);
 //                shop.setDisable(false);
                 cart.setDisable(false);
@@ -747,11 +758,13 @@ public class Navigator {
         if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
             if (player1.getMove() != 0) {
                 changeTurn.setDisable(true);
+                changeTurnLabel.setDisable(true);
                 return;
             };
         } else  {
             if (player2.getMove() != 0) {
                 changeTurn.setDisable(true);
+                changeTurnLabel.setDisable(true);
                 return;
             };
         }

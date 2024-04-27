@@ -24,25 +24,7 @@
          </effect>
       </Label>
       <Rectangle fx:id="startButton" arcHeight="5.0" arcWidth="5.0" fill="#e1bd7a" height="111.0" layoutX="442.0" layoutY="293.0" onMouseClicked="#goToGame" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="465.0" />
-      <Label alignment="CENTER" graphicTextGap="10.0" layoutX="615.0" layoutY="307.0" style="-fx-text-fill: white; -fx-stroke: #9370DB; -fx-stroke-width: 1px;" text="start">
-         <font>
-            <Font name="Times New Roman Bold" size="64.0" />
-         </font>
-         <effect>
-            <Blend />
-         </effect>
-      </Label>
-      <Rectangle fx:id="startButton1" arcHeight="5.0" arcWidth="5.0" fill="#e1bd7a" height="111.0" layoutX="442.0" layoutY="420.0" onMouseClicked="#goToGame" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="465.0" />
-      <Label alignment="CENTER" graphicTextGap="10.0" layoutX="615.0" layoutY="434.0" style="-fx-text-fill: white; -fx-stroke: #9370DB; -fx-stroke-width: 1px;" text="help">
-         <font>
-            <Font name="Times New Roman Bold" size="64.0" />
-         </font>
-         <effect>
-            <Blend />
-         </effect>
-      </Label>
-      <Rectangle fx:id="startButton11" arcHeight="5.0" arcWidth="5.0" fill="#e1bd7a" height="111.0" layoutX="441.0" layoutY="549.0" onMouseClicked="#goToGame" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="465.0" />
-      <Label alignment="CENTER" graphicTextGap="10.0" layoutX="614.0" layoutY="563.0" style="-fx-text-fill: white; -fx-stroke: #9370DB; -fx-stroke-width: 1px;" text="exit">
+      <Label alignment="CENTER" graphicTextGap="10.0" layoutX="615.0" layoutY="307.0" onMouseClicked="#goToGame" style="-fx-text-fill: white; -fx-stroke: #9370DB; -fx-stroke-width: 1px;" text="start">
          <font>
             <Font name="Times New Roman Bold" size="64.0" />
          </font>
