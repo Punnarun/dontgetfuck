@@ -1,7 +1,7 @@
 package Scene;
 
-import gameData.facing;
-import Player.basePlayer;
+import GameInstance.Facing;
+import Player.BasePlayer;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,23 +21,25 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Random;
-import gameData.gameState;
-import gameData.player;
+import GameInstance.GameState;
+import GameInstance.GameData;
 
-public class Navigator {
+public class GameLogic {
 
     //player
-    private basePlayer player1;
-    private basePlayer player2;
-    private gameState GAMESTATE = gameState.PLAYER1_TURN;
+    private BasePlayer player1;
+    private BasePlayer player2;
+    private GameState GAMESTATE = GameState.PLAYER1_TURN;
+
+    //Image of player facing to each Direction
+    Image facingUp = new Image(getClass().getResource("/res/p4.png").toString());
+    Image facingDown = new Image(getClass().getResource("/res/p2.png").toString());
+    Image facingLeft = new Image(getClass().getResource("/res/p3.png").toString());
+    Image facingRight = new Image(getClass().getResource("/res/p1.png").toString());
+
 
     @FXML private AnchorPane root;
     @FXML private Rectangle starter;
-
-        Image facingUp = new Image(getClass().getResource("/res/p4.png").toString());
-        Image facingDown = new Image(getClass().getResource("/res/p2.png").toString());
-        Image facingLeft = new Image(getClass().getResource("/res/p3.png").toString());
-        Image facingRight = new Image(getClass().getResource("/res/p1.png").toString());
 
     //other FXML component
     @FXML private Rectangle up;
@@ -103,70 +105,39 @@ public class Navigator {
     private int turnNumber = 1;
 
     @FXML private void goToGame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("character.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Character.fxml"));
         Parent gameRoot = loader.load();
         Scene gameScene = new Scene(gameRoot);
         Stage stage = (Stage) root.getScene().getWindow();
         stage.setScene(gameScene);
     }
 
-    @FXML private void notification(String text) {
-        drawValue.setVisible(true);
-        drawValue.setText(text);
-
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), drawValue);
-        fadeTransition.setFromValue(1.0);
-        fadeTransition.setToValue(0.0);
-        fadeTransition.play();
-
-        fadeTransition.setOnFinished(event -> {
-            drawValue.setVisible(false);
-        });
-
-        fadeTransition.setFromValue(1.0);
-        fadeTransition.setToValue(0.0);
-        fadeTransition.play();
-    }
-
-    private int diceValue = 999;
-
     @FXML private void drawDice() {
-
-        attack.setOpacity(0.25);
-
-        drawDice.setDisable(true);
-        diceBox.setDisable(true);
-        drawDice.setOpacity(0.25);
 
         Random random = new Random();
         int diceRoll = random.nextInt(6) + 1;
 
-        diceValue = diceRoll;
-
-//        notification("You got " + diceRoll);
-        turn.setText("Player 2 Turn : " + "You got " + diceRoll + " !");
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) turn.setText("Player 1 Turn : " + "You got " + diceRoll + " !");
-        System.out.println("Dice rolled: " + diceRoll);
-
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
-            player1.setDiceValue(diceRoll);
-            player1.setMove(diceRoll);
-        }
-        else if (GAMESTATE.equals(gameState.PLAYER2_TURN)) {
-            player2.setDiceValue(diceRoll);
-            player2.setMove(diceRoll);
-        }
-
-        player.setMoveLeft(diceRoll);
+        getCurrentBasePlayer().setDiceValue(diceRoll);
+        getCurrentBasePlayer().setMoveLeft(diceRoll);
+        GameData.setNumberOfMoveLeft(diceRoll);
         enableButton();
-//        shop.setDisable(true);
+
+        //update GUI and GameFlow
+        turn.setText("Player 2 Turn : " + "You got " + diceRoll + " !");
+        if (GAMESTATE.equals(GameState.PLAYER1_TURN)) turn.setText("Player 1 Turn : " + "You got " + diceRoll + " !");
+
         cart.setDisable(true);
         cart.setOpacity(0.25);
         shopRec.setDisable(true);
+        attack.setOpacity(0.25);
+        drawDice.setDisable(true);
+        diceBox.setDisable(true);
+        drawDice.setOpacity(0.25);
     }
 
+    //disable player control button
     private void disableButton() {
-        up.setDisable(true); // Disable the rectangle
+        up.setDisable(true);
         left.setDisable(true);
         right.setDisable(true);
         down.setDisable(true);
@@ -177,8 +148,9 @@ public class Navigator {
         downimg.setDisable(true);
     }
 
+    //enable player control button
     private void enableButton() {
-        up.setDisable(false); // Disable the rectangle
+        up.setDisable(false);
         left.setDisable(false);
         right.setDisable(false);
         down.setDisable(false);
@@ -191,35 +163,29 @@ public class Navigator {
 
     public void gameStart() {
 
-        if (!player.isHavePlayed()) {
-            System.out.println("YUNG MAI DAI PLAY");
-            player1 = player.getPlayer1();
-            player2 = player.getPlayer2();
+        if (!GameData.isHavePlayed()) {
+            player1 = GameData.getPlayer1();
+            player2 = GameData.getPlayer2();
 
-            System.out.println(player1);
-            System.out.println(player2);
-
+            //button control
             starter.setVisible(false);
             turn.setDisable(true);
             changeTurn.setDisable(true);
             changeTurnLabel.setDisable(true);
             coinInvisible();
-//            shop.setDisable(true);
             cart.setDisable(true);
             cart.setOpacity(0.25);
             shopRec.setDisable(true);
-
+            disableButton();
             turnCounter.setText("Turn Number : 0");
 
-            disableButton();
-
-            System.out.println(GAMESTATE);
-            player1.setPlayerFacing(facing.SOUTH);
-            player2.setPlayerFacing(facing.NORTH);
+            //initial player
+            player1.setPlayerFacing(Facing.SOUTH);
+            player2.setPlayerFacing(Facing.NORTH);
             System.out.println("GAME START");
-            System.out.println(player1.getMove());
-            player1.setMove(0);
-            player2.setMove(0);
+            System.out.println(player1.getMoveLeft());
+            player1.setMoveLeft(0);
+            player2.setMoveLeft(0);
 
             player1.setCurrentX(0);
             player1.setCurrentY(0);
@@ -229,54 +195,50 @@ public class Navigator {
 
             money.setText("x " + getCurrentBasePlayer().getMoney());
 
-            player.setGameState(this.GAMESTATE);
+            GameData.setGameState(this.GAMESTATE);
             randomCoin();
-            player.setHavePlayed(true);
-            System.out.println("AFTER INIT  : " + player.isHavePlayed());
+            GameData.setHavePlayed(true);
+
         } else {
 
-            GAMESTATE = player.getGameState();
+            GAMESTATE = GameData.getGameState();
 
             drawDice.setDisable(true);
             diceBox.setDisable(true);
             drawDice.setOpacity(0.25);
+            starter.setVisible(false);
 
             layoutContainer.getChildren().remove(playerOne);
             layoutContainer.getChildren().remove(playerTwo);
 
-            starter.setVisible(false);
-            player1 = player.getPlayer1();
-            player2 = player.getPlayer2();
+            player1 = GameData.getPlayer1();
+            player2 = GameData.getPlayer2();
 
-            player1.setMoney(player.getPlayer1Money());
-            player2.setMoney(player.getPlayer2Money());
+            player1.setMoney(GameData.getPlayer1Money());
+            player2.setMoney(GameData.getPlayer2Money());
 
-            layoutContainer.add(playerOne,player.getPlayer1().getCurrentY(),player.getPlayer1().getCurrentX());
-            layoutContainer.add(playerTwo,player.getPlayer2().getCurrentY(),player.getPlayer2().getCurrentX());
+            layoutContainer.add(playerOne, GameData.getPlayer1().getCurrentY(), GameData.getPlayer1().getCurrentX());
+            layoutContainer.add(playerTwo, GameData.getPlayer2().getCurrentY(), GameData.getPlayer2().getCurrentX());
 
             coinInvisible();
-//            shop.setDisable(true);
             cart.setDisable(true);
             cart.setOpacity(0.25);
             shopRec.setDisable(true);
 
 
-            if (player.getGameState().equals(gameState.PLAYER1_TURN)) {
-                player1.setMove(player.getMoveLeft());
-                System.out.println("player 1 move is " + player1.getMove());
-                if (player1.getMove() == 0) {
+            if (GameData.getGameState().equals(GameState.PLAYER1_TURN)) {
+                player1.setMoveLeft(GameData.getNumberOfMoveLeft());
+                if (player1.getMoveLeft() == 0) {
                     disableButton();
-//                    shop.setDisable(false);
                     cart.setDisable(false);
                     cart.setOpacity(1);
                     shopRec.setDisable(false);
                 };
             } else {
-                player2.setMove(player.getMoveLeft());
-                System.out.println("player 2 move is " + player2.getMove());
-                if (player2.getMove() == 0) {
+                player2.setMoveLeft(GameData.getNumberOfMoveLeft());
+                System.out.println("player 2 move is " + player2.getMoveLeft());
+                if (player2.getMoveLeft() == 0) {
                     disableButton();
-//                    shop.setDisable(false);
                     cart.setDisable(false);
                     cart.setOpacity(1);
                     shopRec.setDisable(false);
@@ -284,102 +246,83 @@ public class Navigator {
             }
 
             //update facing
+            Facing player1Facing = player1.getPlayerFacing();
+            Facing player2Facing = player2.getPlayerFacing();
 
-            facing player1Facing = player1.getPlayerFacing();
-            facing player2Facing = player2.getPlayerFacing();
-
-            if (player1Facing.equals(facing.NORTH)) {
+            if (player1Facing.equals(Facing.NORTH)) {
                 playerOne.setImage(facingUp);
-            } else if (player1Facing.equals(facing.EAST)) {
+            } else if (player1Facing.equals(Facing.EAST)) {
                 playerOne.setImage(facingRight);
-            } else if (player1Facing.equals(facing.SOUTH)) {
+            } else if (player1Facing.equals(Facing.SOUTH)) {
                 playerOne.setImage(facingDown);
-            } else if (player1Facing.equals(facing.WEST)) {
+            } else if (player1Facing.equals(Facing.WEST)) {
                 playerOne.setImage(facingLeft);
             }
 
-            if (player2Facing.equals(facing.NORTH)) {
+            if (player2Facing.equals(Facing.NORTH)) {
                 playerTwo.setImage(facingUp);
-            } else if (player2Facing.equals(facing.EAST)) {
+            } else if (player2Facing.equals(Facing.EAST)) {
                 playerTwo.setImage(facingRight);
-            } else if (player2Facing.equals(facing.SOUTH)) {
+            } else if (player2Facing.equals(Facing.SOUTH)) {
                 playerTwo.setImage(facingDown);
-            } else if (player2Facing.equals(facing.WEST)) {
+            } else if (player2Facing.equals(Facing.WEST)) {
                 playerTwo.setImage(facingLeft);
             }
         }
 
-        turnNumber = player.getTurnNumber();
+        turnNumber = GameData.getTurnNumber();
         turnCounter.setText("Turn Number : " + turnNumber);
 
-        turn.setText(player.getDescription());
+        turn.setText(GameData.getDescription());
 
-        player.setPlayer1Money(player1.getMoney());
-        player.setPlayer2Money(player2.getMoney());
+        GameData.setPlayer1Money(player1.getMoney());
+        GameData.setPlayer2Money(player2.getMoney());
         resetDisplay();
         player1StatUpdate();
         player2StatUpdate();
         randomCoin();
         updatePlayerSlot();
-
     }
 
     public void decreaseMove() {
 
-        System.out.println("PLAYER1 ROW: " + player1.getCurrentX());
-        System.out.println("PLAYER1 COL: " + player1.getCurrentY());
-        System.out.println("PLAYER2 ROW: " + player2.getCurrentX());
-        System.out.println("PLAYER2 COL: " + player2.getCurrentY());
+        if (GAMESTATE.equals(GameState.PLAYER1_TURN)) {
 
+            player1.setMoveLeft(player1.getMoveLeft() - 1);
+            turn.setText("Player 1 Turn : " + "You got " + player1.getMoveLeft() + " move(s) left !");
+            detectDeath(getCurrentBasePlayer().getCurrentX(), getCurrentBasePlayer().getCurrentY() , player1);
+            isAttackable();
+            money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
+            GameData.setPlayer1Money(getCurrentBasePlayer().getMoney());
+            GameData.setNumberOfMoveLeft(player1.getMoveLeft());
+            checkCoin();
 
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
-            System.out.println(player1.getMove());
-            if (player1.getMove() == 7) {
-                notification("please roll dice first");
-            } else {
-                player1.setMove(player1.getMove() - 1);
-                System.out.println("YOU GOT " + player1.getMove() + " LEFT");
-                turn.setText("Player 1 Turn : " + "You got " + player1.getMove() + " move(s) left !");
-                detectDeath(getCurrentBasePlayer().getCurrentX(), getCurrentBasePlayer().getCurrentY() , player1);
-                isAttackable();
-                money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
-                player.setPlayer1Money(getCurrentBasePlayer().getMoney());
-                checkCoin();
-                player.setMoveLeft(player1.getMove());
-            }
-
-            if (player1.getMove() <= 0 ) {
+            if (player1.getMoveLeft() <= 0 ) {
                 changeTurn.setDisable(false);
                 changeTurnLabel.setDisable(false);
-                player2.setMove(7);
-//                shop.setDisable(false);
+                player2.setMoveLeft(7);
                 cart.setDisable(false);
                 cart.setOpacity(1);
                 shopRec.setDisable(false);
                 disableButton();
             }
         }
-        if (GAMESTATE.equals(gameState.PLAYER2_TURN)) {
 
-            if (player2.getMove() == 7) {
-                notification("please roll dice first");
-            } else {
-                player2.setMove(player2.getMove() - 1);
-                System.out.println("YOU GOT " + player2.getMove() + " LEFT");
-                turn.setText("Player 2 Turn : " + "You got " + player2.getMove() + " move(s) left !");
-                detectDeath(getCurrentBasePlayer().getCurrentX(), getCurrentBasePlayer().getCurrentY() , player2);
-                isAttackable();
-                money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
-                player.setPlayer2Money(getCurrentBasePlayer().getMoney());
-                checkCoin();
-                player.setMoveLeft(player2.getMove());
-            }
+        if (GAMESTATE.equals(GameState.PLAYER2_TURN)) {
 
-            if (player2.getMove() <= 0) {
+            player2.setMoveLeft(player2.getMoveLeft() - 1);
+            turn.setText("Player 2 Turn : " + "You got " + player2.getMoveLeft() + " move(s) left !");
+            detectDeath(getCurrentBasePlayer().getCurrentX(), getCurrentBasePlayer().getCurrentY() , player2);
+            isAttackable();
+            money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
+            GameData.setPlayer2Money(getCurrentBasePlayer().getMoney());
+            GameData.setNumberOfMoveLeft(player2.getMoveLeft());
+            checkCoin();
+
+            if (player2.getMoveLeft() <= 0) {
                 changeTurn.setDisable(false);
                 changeTurnLabel.setDisable(false);
-                player1.setMove(7);
-//                shop.setDisable(false);
+                player1.setMoveLeft(7);
                 cart.setDisable(false);
                 cart.setOpacity(1);
                 shopRec.setDisable(false);
@@ -389,8 +332,8 @@ public class Navigator {
         }
     }
 
-    public void updateFacing(facing face) {
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
+    public void updateFacing(Facing face) {
+        if (GAMESTATE.equals(GameState.PLAYER1_TURN)) {
             player1.setPlayerFacing(face);
         } else {
             player2.setPlayerFacing(face);
@@ -398,153 +341,126 @@ public class Navigator {
     }
 
     @FXML public void UP() {
-        ImageView currentPlayer = getCurrentPlayerRectangle();
-        basePlayer player = (GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2);
+        ImageView currentPlayer = getCurrentPlayerImage();
+        BasePlayer player = (GAMESTATE.equals(GameState.PLAYER1_TURN) ? player1 : player2);
 
         int rowIndex = player.getCurrentX();
         int colIndex = player.getCurrentY();
 
-        if (canMoveTo(rowIndex - 1, colIndex) && (player.getMove() > 0) && (player.getPlayerFacing() != facing.SOUTH)) {
+        if (canMoveTo(rowIndex - 1, colIndex) && (player.getMoveLeft() > 0) && (player.getPlayerFacing() != Facing.SOUTH)) {
 
             if (rowIndex <= 0) {
                 detectDeath(1,1, getCurrentBasePlayer());
                 return;
             }
 
-//            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p4.png");
-//            Image image = new Image(file.toURI().toString());
             currentPlayer.setImage(facingUp);
             GridPane.setRowIndex(currentPlayer, rowIndex - 1);
             player.setCurrentX(rowIndex - 1);
             player.setCurrentY(colIndex);
-
-            System.out.println("MOVING TO X: " + player.getCurrentX() );
-            System.out.println("MOVING TO Y: " + player.getCurrentY() );
-
-            updateFacing(facing.NORTH);
+            updateFacing(Facing.NORTH);
             decreaseMove();
         }
     }
 
     @FXML public void DOWN() {
-        ImageView currentPlayer = getCurrentPlayerRectangle();
-        basePlayer player = (GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2);
+        ImageView currentPlayer = getCurrentPlayerImage();
+        BasePlayer player = (GAMESTATE.equals(GameState.PLAYER1_TURN) ? player1 : player2);
 
         int rowIndex = player.getCurrentX();
         int colIndex = player.getCurrentY();
 
-        if ((canMoveTo(rowIndex + 1, colIndex)) && (player.getPlayerFacing() != facing.NORTH)) {
+        if ((canMoveTo(rowIndex + 1, colIndex)) && (player.getPlayerFacing() != Facing.NORTH)) {
 
             if (rowIndex >= 4) {
                 detectDeath(1,1 , getCurrentBasePlayer());
                 return;
             }
 
-//            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p2.png");
-//            Image image = new Image(file.toURI().toString());
             currentPlayer.setImage(facingDown);
             GridPane.setRowIndex(currentPlayer, rowIndex + 1);
             player.setCurrentX(rowIndex + 1);
             player.setCurrentY(colIndex);
-
-            System.out.println("MOVING TO : " + player.getCurrentX() );
-            System.out.println("MOVING TO : " + player.getCurrentY() );
-
-            updateFacing(facing.SOUTH);
+            updateFacing(Facing.SOUTH);
             decreaseMove();
         }
     }
 
     @FXML public void LEFT() {
-        ImageView currentPlayer = getCurrentPlayerRectangle();
-        basePlayer player = (GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2);
+        ImageView currentPlayer = getCurrentPlayerImage();
+        BasePlayer player = (GAMESTATE.equals(GameState.PLAYER1_TURN) ? player1 : player2);
 
         int rowIndex = player.getCurrentX();
         int colIndex = player.getCurrentY();
 
-        if ((canMoveTo(rowIndex, colIndex - 1)) && (player.getPlayerFacing() != facing.EAST)) {
+        if ((canMoveTo(rowIndex, colIndex - 1)) && (player.getPlayerFacing() != Facing.EAST)) {
 
             if (colIndex <= 0) {
                 detectDeath(1,1 , getCurrentBasePlayer());
                 return;
             }
 
-//            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p3.png");
-//            Image image = new Image(file.toURI().toString());
             currentPlayer.setImage(facingLeft);
             GridPane.setColumnIndex(currentPlayer, colIndex - 1);
             player.setCurrentX(rowIndex);
             player.setCurrentY(colIndex -1 );
-
-            System.out.println("MOVING TO : " + player.getCurrentX() );
-            System.out.println("MOVING TO : " + player.getCurrentY() );
-
-            updateFacing(facing.WEST);
+            updateFacing(Facing.WEST);
             decreaseMove();
         }
     }
 
     @FXML public void RIGHT() {
-        ImageView currentPlayer = getCurrentPlayerRectangle();
-        basePlayer player = (GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2);
+        ImageView currentPlayer = getCurrentPlayerImage();
+        BasePlayer player = (GAMESTATE.equals(GameState.PLAYER1_TURN) ? player1 : player2);
 
         int rowIndex = player.getCurrentX();
         int colIndex = player.getCurrentY();
 
-        if ((canMoveTo(rowIndex, colIndex + 1)) && (player.getPlayerFacing() != facing.WEST)) {
+        if ((canMoveTo(rowIndex, colIndex + 1)) && (player.getPlayerFacing() != Facing.WEST)) {
 
             if (colIndex >= 5) {
                 detectDeath(1,1 , getCurrentBasePlayer());
                 return;
             }
 
-//            File file = new File("C:/Users/sakol/Desktop/PMPJ/src/res/p1.png");
-//            Image image = new Image(file.toURI().toString());
             currentPlayer.setImage(facingRight);
             GridPane.setColumnIndex(currentPlayer, colIndex + 1);
             player.setCurrentX(rowIndex);
             player.setCurrentY(colIndex + 1 );
-
-            System.out.println("MOVING TO : " + player.getCurrentX() );
-            System.out.println("MOVING TO : " + player.getCurrentY() );
-
-
-            updateFacing(facing.EAST);
+            updateFacing(Facing.EAST);
             decreaseMove();
         }
     }
 
-    private ImageView getCurrentPlayerRectangle() {
-        return GAMESTATE.equals(gameState.PLAYER1_TURN) ? playerOne : playerTwo;
+    private ImageView getCurrentPlayerImage() {
+        return GAMESTATE.equals(GameState.PLAYER1_TURN) ? playerOne : playerTwo;
     }
 
-    private ImageView getOpponentPlayer() {
-        return GAMESTATE.equals(gameState.PLAYER1_TURN) ? playerTwo : playerOne;
+    private ImageView getOpponentPlayerImage() {
+        return GAMESTATE.equals(GameState.PLAYER1_TURN) ? playerTwo : playerOne;
     }
 
-    private basePlayer getOpponentBasePlayer() {
-        return GAMESTATE.equals(gameState.PLAYER1_TURN) ? player2 : player1;
+    private BasePlayer getOpponentBasePlayer() {
+        return GAMESTATE.equals(GameState.PLAYER1_TURN) ? player2 : player1;
     }
 
-    private basePlayer getCurrentBasePlayer() {
-        return GAMESTATE.equals(gameState.PLAYER1_TURN) ? player1 : player2;
+    private BasePlayer getCurrentBasePlayer() {
+        return GAMESTATE.equals(GameState.PLAYER1_TURN) ? player1 : player2;
     }
 
     private boolean canMoveTo(int rowIndex, int colIndex) {
-        if (rowIndex >= -1 && rowIndex < layoutContainer.getRowCount()+1 &&
-                colIndex >= -1 && colIndex < layoutContainer.getColumnCount()+1) {
+        if (rowIndex >= -1 && rowIndex < layoutContainer.getRowCount() + 1 &&
+                colIndex >= -1 && colIndex < layoutContainer.getColumnCount() + 1) {
 
             if ((getOpponentBasePlayer().getCurrentX() == rowIndex) && (getOpponentBasePlayer().getCurrentY() == colIndex)) {
-                System.out.println("HEY");
                 return false;
             }
             return true;
         }
-        return false; // Destination tile is out of bounds
+        return false;
     }
 
     public void resetDisplay() {
-        System.out.println("RESET DISPLAY");
         p1_hp1.setVisible(false);
         p1_hp2.setVisible(false);
         p1_hp3.setVisible(false);
@@ -611,7 +527,6 @@ public class Navigator {
         int opponentPlayerRow = getOpponentBasePlayer().getCurrentX();
         int opponentPlayerCol = getOpponentBasePlayer().getCurrentY();
 
-        // Define the coordinates of adjacent tiles around the current player
         int[][] adjacentTiles = {
                 {currentPlayerRow - 1, currentPlayerCol}, // Up
                 {currentPlayerRow + 1, currentPlayerCol}, // Down
@@ -619,22 +534,17 @@ public class Navigator {
                 {currentPlayerRow, currentPlayerCol + 1}  // Right
         };
 
-        facing playerFacing = getCurrentBasePlayer().getPlayerFacing();
+        Facing playerFacing = getCurrentBasePlayer().getPlayerFacing();
 
-        // Check if any adjacent tile contains the opponent player
         for (int[] tile : adjacentTiles) {
             int row = tile[0];
             int col = tile[1];
 
-            System.out.println("CHECKING..........");
-
-            if ((row == opponentPlayerRow && col == opponentPlayerCol) && (getCurrentBasePlayer().getMove() == 0)) {
-                if ((playerFacing == facing.NORTH && row < currentPlayerRow) ||
-                        (playerFacing == facing.SOUTH && row > currentPlayerRow) ||
-                        (playerFacing == facing.WEST && col < currentPlayerCol) ||
-                        (playerFacing == facing.EAST && col > currentPlayerCol)) {
-//                    System.out.println(getCurrentBasePlayer().getMove());
-                    System.out.println("ATTACK!!!!!");
+            if ((row == opponentPlayerRow && col == opponentPlayerCol) && (getCurrentBasePlayer().getMoveLeft() == 0)) {
+                if ((playerFacing == Facing.NORTH && row < currentPlayerRow) ||
+                        (playerFacing == Facing.SOUTH && row > currentPlayerRow) ||
+                        (playerFacing == Facing.WEST && col < currentPlayerCol) ||
+                        (playerFacing == Facing.EAST && col > currentPlayerCol)) {
                     attack.setOpacity(1);
                 }
             }
@@ -648,7 +558,6 @@ public class Navigator {
         int opponentPlayerRow = getOpponentBasePlayer().getCurrentX();
         int opponentPlayerCol = getOpponentBasePlayer().getCurrentY();
 
-        // Define the coordinates of adjacent tiles around the current player
         int[][] adjacentTiles = {
                 {currentPlayerRow - 1, currentPlayerCol}, // Up
                 {currentPlayerRow + 1, currentPlayerCol}, // Down
@@ -656,84 +565,52 @@ public class Navigator {
                 {currentPlayerRow, currentPlayerCol + 1}  // Right
         };
 
-        facing playerFacing = getCurrentBasePlayer().getPlayerFacing();
+        Facing playerFacing = getCurrentBasePlayer().getPlayerFacing();
 
-        // Check if any adjacent tile contains the opponent player
         for (int[] tile : adjacentTiles) {
             int row = tile[0];
             int col = tile[1];
 
-            System.out.println("CHECKING..........");
-
-            if ((row == opponentPlayerRow && col == opponentPlayerCol) && (getCurrentBasePlayer().getMove() == 0)){
-                if ((playerFacing == facing.NORTH && row < currentPlayerRow) ||
-                        (playerFacing == facing.SOUTH && row > currentPlayerRow) ||
-                        (playerFacing == facing.WEST && col < currentPlayerCol) ||
-                        (playerFacing == facing.EAST && col > currentPlayerCol)) {
-//                    System.out.println(getCurrentBasePlayer().getMove());
-                    System.out.println("ATTACK!!!!!");
+            if ((row == opponentPlayerRow && col == opponentPlayerCol) && (getCurrentBasePlayer().getMoveLeft() == 0)){
+                if ((playerFacing == Facing.NORTH && row < currentPlayerRow) ||
+                        (playerFacing == Facing.SOUTH && row > currentPlayerRow) ||
+                        (playerFacing == Facing.WEST && col < currentPlayerCol) ||
+                        (playerFacing == Facing.EAST && col > currentPlayerCol)) {
                     attack.setOpacity(0.25);
-                    gotKnockback(getCurrentBasePlayer() , getOpponentBasePlayer() , getOpponentPlayer());
+                    gotKnockback(getCurrentBasePlayer() , getOpponentBasePlayer() , getOpponentPlayerImage());
 
                     getOpponentBasePlayer().setHp(getOpponentBasePlayer().getHp() - getCurrentBasePlayer().getAtk());
-                    System.out.println("CurrentPlayerHP" + getCurrentBasePlayer().getHp() );
-                    System.out.println("OpponentPlayerHP" + getOpponentBasePlayer().getHp() );
-
-                    System.out.println("Attack Power of Player " + getCurrentBasePlayer().getAtk());
-
-                    System.out.println("ATTACKABLE");
-
                     resetDisplay();
                     player1StatUpdate();
                     player2StatUpdate();
                     detectDeath(getOpponentBasePlayer().getCurrentX() , getOpponentBasePlayer().getCurrentY() , getOpponentBasePlayer());
-//                    return;
-                } else {
-                    System.out.println("Cannot attack, not facing the opponent.");
-                    return;
                 }
             }
         }
     }
 
-    private void gotKnockback(basePlayer currentPlayer , basePlayer opponentPlayer, ImageView opponentImageView) {
+    private void gotKnockback(BasePlayer currentPlayer , BasePlayer opponentPlayer, ImageView opponentImageView) {
 
-        System.out.println("--------calculating knockback--------");
-
-        int currentPlayerRow = getCurrentBasePlayer().getCurrentX();
-        int currentPlayerCol = getCurrentBasePlayer().getCurrentY();
         int opponentPlayerRow = getOpponentBasePlayer().getCurrentX();
         int opponentPlayerCol = getOpponentBasePlayer().getCurrentY();
 
-        // Calculate the direction of knockback based on the current player's facing direction
         int knockbackRow = opponentPlayerRow;
         int knockbackCol = opponentPlayerCol;
         switch (currentPlayer.getPlayerFacing()) {
-            case NORTH:
-                knockbackRow--;
-                break;
-            case SOUTH:
-                knockbackRow++;
-                break;
-            case WEST:
-                knockbackCol--;
-                break;
-            case EAST:
-                knockbackCol++;
-                break;
+            case NORTH: knockbackRow--; break;
+            case SOUTH: knockbackRow++; break;
+            case WEST:  knockbackCol--; break;
+            case EAST:  knockbackCol++; break;
         }
 
         if (knockbackRow < 0 || knockbackCol < 0 || knockbackCol > 5 || knockbackRow > 4) {
-            System.out.println("CHECK THIS CASE");
             detectDeath(1,1 , getOpponentBasePlayer());
         }
 
         if ((knockbackRow == 1 && knockbackCol == 1) || (knockbackRow == 4 && knockbackCol == 2) || (knockbackRow == 0 && knockbackCol == 3) || (knockbackRow == 3 && knockbackCol == 4)) {
-            System.out.println("HELLO");
             detectDeath(1,1 , getOpponentBasePlayer());
         }
 
-        // Update the position of the opponent player's ImageView to simulate knockback
         else {
 
             detectDeath(knockbackRow , knockbackCol , getOpponentBasePlayer());
@@ -746,8 +623,6 @@ public class Navigator {
 
             knockbackWithCoin();
 
-            System.out.println("Opponent Got throw to X : " +  getOpponentBasePlayer().getCurrentX());
-            System.out.println("Opponent Got throw to Y : " +  getOpponentBasePlayer().getCurrentY());
         }
 
 
@@ -755,14 +630,14 @@ public class Navigator {
 
     @FXML private void changePlayerTurn() {
 
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
-            if (player1.getMove() != 0) {
+        if (GAMESTATE.equals(GameState.PLAYER1_TURN)) {
+            if (player1.getMoveLeft() != 0) {
                 changeTurn.setDisable(true);
                 changeTurnLabel.setDisable(true);
                 return;
             };
         } else  {
-            if (player2.getMove() != 0) {
+            if (player2.getMoveLeft() != 0) {
                 changeTurn.setDisable(true);
                 changeTurnLabel.setDisable(true);
                 return;
@@ -774,21 +649,19 @@ public class Navigator {
         diceBox.setDisable(false);
         drawDice.setDisable(false);
 
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
-            GAMESTATE = gameState.PLAYER2_TURN;
+        if (GAMESTATE.equals(GameState.PLAYER1_TURN)) {
+            GAMESTATE = GameState.PLAYER2_TURN;
             System.out.println("PLAYER 2 CurrentX : " + player2.getCurrentX());
             System.out.println("PLAYER 2 CurrentY : " + player2.getCurrentY());
             turn.setText("PLAYER2 TURN");
-//            shop.setDisable(true);
             cart.setDisable(true);
             cart.setOpacity(0.25);
             shopRec.setDisable(true);
         } else {
-            GAMESTATE = gameState.PLAYER1_TURN;
+            GAMESTATE = GameState.PLAYER1_TURN;
             System.out.println("PLAYER 1 CurrentX : " + player1.getCurrentX());
             System.out.println("PLAYER 1 CurrentY : " + player1.getCurrentY());
             turn.setText("PLAYER1 TURN");
-//            shop.setDisable(true);
             cart.setDisable(true);
             cart.setOpacity(0.25);
             shopRec.setDisable(true);
@@ -805,19 +678,23 @@ public class Navigator {
         money.setText("x " +String.valueOf(getCurrentBasePlayer().getMoney()));
         updatePlayerSlot();
         System.out.println("CHANGE TURNNNNN");
-        player.setGameState(this.GAMESTATE);
+        GameData.setGameState(this.GAMESTATE);
     }
 
-    private void detectDeath(int rowIndex , int colIndex , basePlayer checkDeathOfThisPlayer) {
+    private void detectDeath(int rowIndex , int colIndex , BasePlayer checkDeathOfThisPlayer) {
 
         checkCoin();
 
-        if (((rowIndex == 1 && colIndex == 1) || (rowIndex == 4 && colIndex == 2) || (rowIndex == 0 && colIndex == 3) || (rowIndex == 3 && colIndex == 4)) && checkDeathOfThisPlayer.equals(player1)) {player.setGameState(gameState.PLAYER2_WIN);}
-        else if (((rowIndex == 1 && colIndex == 1) || (rowIndex == 4 && colIndex == 2) || (rowIndex == 0 && colIndex == 3) || (rowIndex == 3 && colIndex == 4)) && checkDeathOfThisPlayer.equals(player2)) {player.setGameState(gameState.PLAYER1_WIN);}
-        else if (((rowIndex >= 5 || colIndex >= 6) || (rowIndex < 0 || colIndex < 0)) && checkDeathOfThisPlayer.equals(player1)) {player.setGameState(gameState.PLAYER2_WIN);}
-        else if (((rowIndex >= 5 || colIndex >= 6) || (rowIndex < 0 || colIndex < 0)) && checkDeathOfThisPlayer.equals(player2)) {player.setGameState(gameState.PLAYER1_WIN);}
-        else if (player1.getHp() <= 0) { player.setGameState(gameState.PLAYER2_WIN);}
-        else if (player2.getHp() <= 0) { player.setGameState(gameState.PLAYER1_WIN);}
+        if (((rowIndex == 1 && colIndex == 1) || (rowIndex == 4 && colIndex == 2) || (rowIndex == 0 && colIndex == 3) || (rowIndex == 3 && colIndex == 4)) && checkDeathOfThisPlayer.equals(player1)) {
+            GameData.setGameState(GameState.PLAYER2_WIN);}
+        else if (((rowIndex == 1 && colIndex == 1) || (rowIndex == 4 && colIndex == 2) || (rowIndex == 0 && colIndex == 3) || (rowIndex == 3 && colIndex == 4)) && checkDeathOfThisPlayer.equals(player2)) {
+            GameData.setGameState(GameState.PLAYER1_WIN);}
+        else if (((rowIndex >= 5 || colIndex >= 6) || (rowIndex < 0 || colIndex < 0)) && checkDeathOfThisPlayer.equals(player1)) {
+            GameData.setGameState(GameState.PLAYER2_WIN);}
+        else if (((rowIndex >= 5 || colIndex >= 6) || (rowIndex < 0 || colIndex < 0)) && checkDeathOfThisPlayer.equals(player2)) {
+            GameData.setGameState(GameState.PLAYER1_WIN);}
+        else if (player1.getHp() <= 0) { GameData.setGameState(GameState.PLAYER2_WIN);}
+        else if (player2.getHp() <= 0) { GameData.setGameState(GameState.PLAYER1_WIN);}
         else return;
 
         try {
@@ -828,27 +705,25 @@ public class Navigator {
         }
     }
 
-    //debug button
-    @FXML private void debug() {
+    @FXML private void goToShop() {
         System.out.println("GOTO SHOPPPPP");
-        player.setPlayer1(player1);
-        player.setPlayer2(player2);
-        player.setPlayer1Money(player1.getMoney());
-        player.setPlayer2Money(player2.getMoney());
-        player.setGameState(GAMESTATE);
-        player.setTurnNumber(turnNumber);
-        player.setDescription(turn.getText());
+        GameData.setPlayer1(player1);
+        GameData.setPlayer2(player2);
+        GameData.setPlayer1Money(player1.getMoney());
+        GameData.setPlayer2Money(player2.getMoney());
+        GameData.setGameState(GAMESTATE);
+        GameData.setTurnNumber(turnNumber);
+        GameData.setDescription(turn.getText());
 
         try {
             Stage stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("shop.fxml")))));
+            stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Shop.fxml")))));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private int[][] coinPos = new int[][]{{0,0}, {4,0}, {2,1}, {0,2}, {4,3}, {2,4}, {0,5}, {4,5}};
-
     private int currentCoinPosX;
     private int currentCoinPosY;
 
@@ -872,11 +747,7 @@ public class Navigator {
             coinIndex = random.nextInt(8);
         }
 
-        System.out.println("COIN index: " + coinIndex);
-        System.out.println("x : " + coinPos[coinIndex][0]);
-        System.out.println("y : " + coinPos[coinIndex][1]);
-
-        coinInvisible(); // First, make all coins invisible
+        coinInvisible();
         if (coinIndex == 0) {
             coin1.setVisible(true);
         } else if (coinIndex == 1) {
@@ -901,12 +772,6 @@ public class Navigator {
 
     private void checkCoin() {
 
-        System.out.println("player posX " + getCurrentBasePlayer().getCurrentX());
-        System.out.println("player posY " + getCurrentBasePlayer().getCurrentY());
-        System.out.println("coin pos " + currentCoinPosX);
-        System.out.println("coin pos " + currentCoinPosY);
-
-
         if (currentCoinPosX == getCurrentBasePlayer().getCurrentX() && currentCoinPosY == getCurrentBasePlayer().getCurrentY()) {
             coinInvisible();
             randomCoin();
@@ -915,8 +780,6 @@ public class Navigator {
     }
 
     private void knockbackWithCoin() {
-
-        System.out.println("------KNOCKBACK WITH COIN------");
 
         int opponentX = getOpponentBasePlayer().getCurrentX();
         int opponentY = getOpponentBasePlayer().getCurrentY();
@@ -934,85 +797,84 @@ public class Navigator {
     @FXML private Label appleAmount;
 
     private void updatePlayerSlot() {
-//        System.out.println("slot update");
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
-            money.setText("x " + player.getPlayer1Money());
-            appleAmount.setText("x " + player.getPlayer1Slot()[0]);
-            robAmount.setText("x " + player.getPlayer1Slot()[1]);
-            diceAmount.setText("x " + player.getPlayer1Slot()[2]);
-            winningTicket.setText("x " + player.getPlayer1Slot()[3]);
-        } else if (GAMESTATE.equals(gameState.PLAYER2_TURN)) {
-            money.setText("x " + player.getPlayer2Money());
-            appleAmount.setText("x " + player.getPlayer2Slot()[0]);
-            robAmount.setText("x " + player.getPlayer2Slot()[1]);
-            diceAmount.setText("x " + player.getPlayer2Slot()[2]);
-            winningTicket.setText("x " + player.getPlayer2Slot()[3]);
+
+        if (GAMESTATE.equals(GameState.PLAYER1_TURN)) {
+            money.setText("x " + GameData.getPlayer1Money());
+            appleAmount.setText("x " + GameData.getPlayer1Slot()[0]);
+            robAmount.setText("x " + GameData.getPlayer1Slot()[1]);
+            diceAmount.setText("x " + GameData.getPlayer1Slot()[2]);
+            winningTicket.setText("x " + GameData.getPlayer1Slot()[3]);
+        } else if (GAMESTATE.equals(GameState.PLAYER2_TURN)) {
+            money.setText("x " + GameData.getPlayer2Money());
+            appleAmount.setText("x " + GameData.getPlayer2Slot()[0]);
+            robAmount.setText("x " + GameData.getPlayer2Slot()[1]);
+            diceAmount.setText("x " + GameData.getPlayer2Slot()[2]);
+            winningTicket.setText("x " + GameData.getPlayer2Slot()[3]);
         }
     }
 
     private void updateAmount(int slot) {
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
-            int[] inventory = player.getPlayer1Slot();
+        if (GAMESTATE.equals(GameState.PLAYER1_TURN)) {
+            int[] inventory = GameData.getPlayer1Slot();
             if (slot == 0) {
                 inventory[0]--;
-                player.setPlayer1Slot(inventory);
+                GameData.setPlayer1Slot(inventory);
             } else if (slot == 1) {
                 inventory[1]--;
-                player.setPlayer1Slot(inventory);
+                GameData.setPlayer1Slot(inventory);
             } else if (slot == 2) {
                 inventory[2]--;
-                player.setPlayer1Slot(inventory);
+                GameData.setPlayer1Slot(inventory);
             } else if (slot == 3) {
                 inventory[3]--;
-                player.setPlayer1Slot(inventory);
+                GameData.setPlayer1Slot(inventory);
             }
-        } else if (GAMESTATE.equals(gameState.PLAYER2_TURN)) {
-            int[] inventory = player.getPlayer2Slot();
+        } else if (GAMESTATE.equals(GameState.PLAYER2_TURN)) {
+            int[] inventory = GameData.getPlayer2Slot();
             if (slot == 0) {
                 inventory[0]--;
-                player.setPlayer2Slot(inventory);
+                GameData.setPlayer2Slot(inventory);
             } else if (slot == 1) {
                 inventory[1]--;
-                player.setPlayer2Slot(inventory);
+                GameData.setPlayer2Slot(inventory);
             } else if (slot == 2) {
                 inventory[2]--;
-                player.setPlayer2Slot(inventory);
+                GameData.setPlayer2Slot(inventory);
             } else if (slot == 3) {
                 inventory[3]--;
-                player.setPlayer2Slot(inventory);
+                GameData.setPlayer2Slot(inventory);
             }
         }
         updatePlayerSlot();
     }
 
     private int getItem(int slotNumber) {
-        if (GAMESTATE.equals(gameState.PLAYER1_TURN)) {
-            return player.getPlayer1Slot()[slotNumber];
+        if (GAMESTATE.equals(GameState.PLAYER1_TURN)) {
+            return GameData.getPlayer1Slot()[slotNumber];
         } else {
-            return player.getPlayer2Slot()[slotNumber];
+            return GameData.getPlayer2Slot()[slotNumber];
         }
     }
 
 
 
     @FXML private void useTicket() {
-        //using player got 66% to win and lose instantly
         if ((getItem(3) <= 0)) return;
         Random random = new Random();
         int rand = random.nextInt(10);
 
-        gameState userGameState = null;
-        gameState opponentGamestate = null;
+        GameState userGameState = null;
+        GameState opponentGamestate = null;
         if (getCurrentBasePlayer().equals(player1)) {
-            userGameState = gameState.PLAYER1_WIN;
-            opponentGamestate = gameState.PLAYER2_WIN;
+            userGameState = GameState.PLAYER1_WIN;
+            opponentGamestate = GameState.PLAYER2_WIN;
         };
         if (getCurrentBasePlayer().equals(player2)) {
-            userGameState = gameState.PLAYER2_WIN;
-            opponentGamestate = gameState.PLAYER1_WIN;
+            userGameState = GameState.PLAYER2_WIN;
+            opponentGamestate = GameState.PLAYER1_WIN;
         }
-        if (rand >= 0 && rand < 7) player.setGameState(userGameState);
-        else player.setGameState(opponentGamestate);
+        if (rand >= 0 && rand < 7) GameData.setGameState(userGameState);
+        else GameData.setGameState(opponentGamestate);
 
         try {
             Stage stage = (Stage) root.getScene().getWindow();
@@ -1025,7 +887,7 @@ public class Navigator {
     @FXML private void useDice() {
         if ((getItem(2) <= 0)) return;
         System.out.println("USE DICE");
-        if (getCurrentBasePlayer().getMove() == 0) {
+        if (getCurrentBasePlayer().getMoveLeft() == 0) {
             drawDice.setOpacity(1);
             diceBox.setDisable(false);
             drawDice.setDisable(false);
@@ -1037,8 +899,8 @@ public class Navigator {
         if (getItem(1) <= 0) return;
         getCurrentBasePlayer().setMoney(getCurrentBasePlayer().getMoney() + (int)(getOpponentBasePlayer().getMoney()/2));
         getOpponentBasePlayer().setMoney((int)(getOpponentBasePlayer().getMoney()/2));
-        player.setPlayer1Money(player1.getMoney());
-        player.setPlayer2Money(player2.getMoney());
+        GameData.setPlayer1Money(player1.getMoney());
+        GameData.setPlayer2Money(player2.getMoney());
 
         System.out.println("PLAYER 1 MONEY" + player1.getMoney());
         System.out.println("PLAYER 2 MONEY" + player2.getMoney());
@@ -1067,15 +929,15 @@ public class Navigator {
     @FXML private ImageView mute;
 
     @FXML private void playMusic() {
-        if (!player.getMusicPlayed()) {
+        if (!GameData.getIsMusicPlayed()) {
             mediaPlayer.play();
             mediaPlayer.setCycleCount(10);
             unmute.setVisible(true);
             mute.setVisible(false);
-            player.setMusicPlayed(true);
+            GameData.setIsMusicPlayed(true);
         } else {
             mediaPlayer.pause();
-            player.setMusicPlayed(false);
+            GameData.setIsMusicPlayed(false);
             unmute.setVisible(false);
             mute.setVisible(true);
         }

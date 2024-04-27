@@ -1,6 +1,6 @@
-package gameData;
+package GameInstance;
 
-public enum gameState {
+public enum GameState {
     PLAYER1_TURN,
     PLAYER2_TURN,
     PLAYER1_WIN,

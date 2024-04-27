@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fx:id="root" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Scene.shopLogic">
+<ScrollPane fx:id="root" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Scene.ShopLogic">
 
     <content>
         <AnchorPane prefHeight="1000.0" prefWidth="1280.0">
@@ -25,7 +25,7 @@
                <Font name="Californian FB" size="48.0" />
             </font>
          </Label>
-         <Group layoutX="182.0" layoutY="197.0" onMouseClicked="#purchase1">
+         <Group layoutX="182.0" layoutY="197.0" onMouseClicked="#purchaseApple">
             <children>
                <Rectangle fx:id="slot1" arcHeight="5.0" arcWidth="5.0" fill="#789fc4" height="188.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="916.0" />
                <Rectangle arcHeight="100.0" arcWidth="100.0" fill="#949494" height="50.0" layoutX="27.0" layoutY="121.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="150.0" />
@@ -56,7 +56,7 @@
                </Label>
             </children> 
          </Group>
-         <Group layoutX="178.0" layoutY="406.0" onMouseClicked="#purchase2">
+         <Group layoutX="178.0" layoutY="406.0" onMouseClicked="#purchaseRob">
             <children>
                <Rectangle fx:id="slot2" arcHeight="5.0" arcWidth="5.0" fill="#789fc4" height="188.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="916.0" />
                <Rectangle arcHeight="100.0" arcWidth="100.0" fill="#949494" height="50.0" layoutX="24.0" layoutY="128.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="150.0" />
@@ -87,7 +87,7 @@
                </ImageView>
             </children>
          </Group>
-         <Group layoutX="180.0" layoutY="610.0" onMouseClicked="#purchase3">
+         <Group layoutX="180.0" layoutY="610.0" onMouseClicked="#purchaseDice">
             <children>
                <Rectangle fx:id="slot3" arcHeight="5.0" arcWidth="5.0" fill="#789fc4" height="188.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="916.0" />
                <Rectangle arcHeight="100.0" arcWidth="100.0" fill="#949494" height="50.0" layoutX="21.0" layoutY="121.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="150.0" />
@@ -118,7 +118,7 @@
                </ImageView>
             </children>
          </Group>
-         <Group layoutX="181.0" layoutY="815.0" onMouseClicked="#purchase4">
+         <Group layoutX="181.0" layoutY="815.0" onMouseClicked="#purchaseTicket">
             <children>
                <Rectangle fx:id="slot4" arcHeight="5.0" arcWidth="5.0" fill="#789fc4" height="188.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="916.0" />
                <Rectangle arcHeight="100.0" arcWidth="100.0" fill="#949494" height="50.0" layoutX="41.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="150.0" />

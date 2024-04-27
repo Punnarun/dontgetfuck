@@ -11,92 +11,74 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import Player.*;
-import gameData.player;
+import GameInstance.GameData;
 
 import java.io.IOException;
 
-public class choosingPlayer {
+public class Character {
 
-    basePlayer player1 = null;
-    basePlayer player2 = null;
+    private BasePlayer player1 = null;
+    private BasePlayer player2 = null;
 
     @FXML private Rectangle startGameButton;
+    @FXML private Label description;
+    @FXML private Label startLabel;
+    @FXML private AnchorPane root;
 
     private Timeline onClickAnimation;
     private int currentIndex = 0;
-    @FXML private Label description;
-    @FXML private Label startLabel;
 
     public void initialize() {
         startTypingAnimation("Player 1 choose you Character");
     }
 
-    @FXML
-    private void onClick() {
+    @FXML private void onClick() {
         startTypingAnimation("Player 2 choose you Character");
     }
 
-    @FXML
-    private void onClickWarrior() {
+    @FXML private void onClickWarrior() {
         if (player1 == null) {
             onClick();
-            player1 = new warrior();
-            player.setPlayer1(player1);
-            System.out.println("CHOSE");
+            player1 = new Warrior();
+            GameData.setPlayer1(player1);
             startTypingAnimation("Player 2 choose you Character");
         } else if (player2 == null) {
-            player2 = new warrior();
-            player.setPlayer2(player2);
+            player2 = new Warrior();
+            GameData.setPlayer2(player2);
             startGameButton.setDisable(false);
             startGameButton.setVisible(true);
             startLabel.setVisible(true);
-            System.out.println("CHOSE");
         }
-
-        System.out.println(player1);
-        System.out.println(player2);
     }
 
-    @FXML
-    private void onClickTank() {
+    @FXML private void onClickTank() {
         if (player1 == null) {
             onClick();
-            player1 = new tank();
-            player.setPlayer1(player1);
-            System.out.println("CHOSE");
+            player1 = new Tank();
+            GameData.setPlayer1(player1);
             startTypingAnimation("Player 2 choose you Character");
         } else if (player2 == null) {
-            player2 = new tank();
-            player.setPlayer2(player2);
+            player2 = new Tank();
+            GameData.setPlayer2(player2);
             startGameButton.setDisable(false);
             startGameButton.setVisible(true);
             startLabel.setVisible(true);
-            System.out.println("CHOSE");
         }
-
-        System.out.println(player1);
-        System.out.println(player2);
     }
 
-    @FXML
-    private void onClickTheif() {
+    @FXML private void onClickThief() {
         if (player1 == null) {
             onClick();
-            player1 = new theif();
-            player.setPlayer1(player1);
-            System.out.println("CHOSE");
+            player1 = new Thief();
+            GameData.setPlayer1(player1);
             startTypingAnimation("Player 2 choose you Character");
         } else if (player2 == null) {
-            player2 = new theif();
-            player.setPlayer2(player2);
+            player2 = new Thief();
+            GameData.setPlayer2(player2);
             startGameButton.setDisable(false);
             startGameButton.setVisible(true);
             startLabel.setVisible(true);
-            System.out.println("CHOSE");
         }
-
-        System.out.println(player1);
-        System.out.println(player2);
     }
 
     private void startTypingAnimation(String targetText) {
@@ -112,11 +94,7 @@ public class choosingPlayer {
         onClickAnimation.play();
     }
 
-    @FXML private AnchorPane root;
-
-    @FXML
-    private void startGame() {
-
+    @FXML private void startGame() {
         try {
             Stage stage = (Stage) root.getScene().getWindow();
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Game.fxml"))));
@@ -125,19 +103,19 @@ public class choosingPlayer {
         }
     }
 
-    public basePlayer getPlayer1() {
+    public BasePlayer getPlayer1() {
         return player1;
     }
 
-    public void setPlayer1(basePlayer player1) {
+    public void setPlayer1(BasePlayer player1) {
         this.player1 = player1;
     }
 
-    public basePlayer getPlayer2() {
+    public BasePlayer getPlayer2() {
         return player2;
     }
 
-    public void setPlayer2(basePlayer player2) {
+    public void setPlayer2(BasePlayer player2) {
         this.player2 = player2;
     }
 

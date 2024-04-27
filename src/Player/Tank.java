@@ -1,19 +1,17 @@
 package Player;
 
-public class tank extends basePlayer{
+public class Tank extends BasePlayer {
 
-    public tank() {
+    public Tank() {
         super( 5, 1);
         this.setMoney(5);
     }
 
     @Override
     public void usePassiveSkill() {
-        // Warrior-specific passive skill behavior
-        // Tank will increase the HP by 1 every 5 turn
+        //Tank can regen HP every 10 turns
         if (this.getHp() < 5) {
             super.setHp(super.getHp() + 1);
         }
-
     }
 }

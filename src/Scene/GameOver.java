@@ -1,17 +1,17 @@
 package Scene;
 
-import gameData.gameState;
+import GameInstance.GameState;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import gameData.player;
+import GameInstance.GameData;
 
-public class gameOver {
+public class GameOver {
 
     @FXML Label winningPlayer;
 
     @FXML
     private void initialize() {
-        if (player.getGameState().equals(gameState.PLAYER1_WIN)) {
+        if (GameData.getGameState().equals(GameState.PLAYER1_WIN)) {
             winningPlayer.setText("PLAYER1 WIN!");
         } else winningPlayer.setText("PLAYER2 WIN!");
     }

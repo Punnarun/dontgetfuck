@@ -1,17 +1,16 @@
 package Player;
 
-import gameData.facing;
+import GameInstance.Facing;
 
-public abstract class basePlayer {
+public abstract class BasePlayer {
 
-    private String name;
     private int hp;
     private int atk;
     private int diceValue = -1;
-    private int move = 0;
+    private int moveLeft = 0;
     private int currentX = 0;
     private int currentY = 0;
-    private facing playerFacing;
+    private Facing playerFacing;
     private int money = 0;
 
     public int getMoney() {
@@ -22,33 +21,25 @@ public abstract class basePlayer {
         this.money = money;
     }
 
-    public basePlayer(int hp, int atk) {
+    public BasePlayer(int hp, int atk) {
         this.hp = hp;
         this.atk = atk;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public facing getPlayerFacing() {
+    public Facing getPlayerFacing() {
         return playerFacing;
     }
 
-    public void setPlayerFacing(facing playerFacing) {
+    public void setPlayerFacing(Facing playerFacing) {
         this.playerFacing = playerFacing;
     }
 
-    public int getMove() {
-        return move;
+    public int getMoveLeft() {
+        return moveLeft;
     }
 
-    public void setMove(int move) {
-        this.move = move;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setMoveLeft(int moveLeft) {
+        this.moveLeft = moveLeft;
     }
 
     public int getHp() {

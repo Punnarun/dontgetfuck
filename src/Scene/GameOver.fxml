@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Scene.gameOver">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Scene.GameOver">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="870.0" layoutX="-46.0" layoutY="-147.0" stroke="BLACK" strokeType="INSIDE" width="1336.0" />
       <Label layoutX="429.0" layoutY="194.0" text="GameOver" textAlignment="CENTER" textFill="WHITE">
