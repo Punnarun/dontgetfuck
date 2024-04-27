@@ -13,6 +13,24 @@ public class player {
     private static int moveLeft;
     private static int turnNumber;
     private static String description;
+    private static boolean musicPlayed = false;
+    private static int coinNumber;
+
+    public static int getCoinNumber() {
+        return coinNumber;
+    }
+
+    public static void setCoinNumber(int coinNumber) {
+        player.coinNumber = coinNumber;
+    }
+
+    public static boolean getMusicPlayed() {
+        return musicPlayed;
+    }
+
+    public static void setMusicPlayed(boolean musicPlayed) {
+        player.musicPlayed = musicPlayed;
+    }
 
     public static String getDescription() {
         return description;

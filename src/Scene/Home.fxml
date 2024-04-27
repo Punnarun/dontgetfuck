@@ -50,5 +50,6 @@
             <Blend />
          </effect>
       </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutX="24.0" layoutY="21.0" onMouseClicked="#playMusic" stroke="BLACK" strokeType="INSIDE" width="42.0" />
    </children>
 </AnchorPane>

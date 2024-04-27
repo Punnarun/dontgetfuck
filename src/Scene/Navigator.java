@@ -17,6 +17,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -39,10 +41,10 @@ public class Navigator {
     @FXML private AnchorPane root;
     @FXML private Rectangle starter;
 
-    Image facingUp = new Image((new File("C:/Users/sakol/Desktop/PMPJ/src/res/p4.png")).toURI().toString());
-    Image facingDown = new Image((new File("C:/Users/sakol/Desktop/PMPJ/src/res/p2.png")).toURI().toString());
-    Image facingLeft = new Image((new File("C:/Users/sakol/Desktop/PMPJ/src/res/p3.png")).toURI().toString());
-    Image facingRight = new Image((new File("C:/Users/sakol/Desktop/PMPJ/src/res/p1.png")).toURI().toString());
+        Image facingUp = new Image(getClass().getResource("/res/p4.png").toString());
+        Image facingDown = new Image(getClass().getResource("/res/p2.png").toString());
+        Image facingLeft = new Image(getClass().getResource("/res/p3.png").toString());
+        Image facingRight = new Image(getClass().getResource("/res/p1.png").toString());
 
     //other FXML component
     @FXML private Rectangle up;
@@ -686,6 +688,11 @@ public class Navigator {
             detectDeath(1,1 , getOpponentBasePlayer());
         }
 
+        if ((knockbackRow == 1 && knockbackCol == 1) || (knockbackRow == 4 && knockbackCol == 2) || (knockbackRow == 0 && knockbackCol == 3) || (knockbackRow == 3 && knockbackCol == 4)) {
+            System.out.println("HELLO");
+            detectDeath(1,1 , getOpponentBasePlayer());
+        }
+
         // Update the position of the opponent player's ImageView to simulate knockback
         else {
 
@@ -697,9 +704,10 @@ public class Navigator {
             getOpponentBasePlayer().setCurrentX(knockbackRow);
             getOpponentBasePlayer().setCurrentY(knockbackCol);
 
+            knockbackWithCoin();
+
             System.out.println("Opponent Got throw to X : " +  getOpponentBasePlayer().getCurrentX());
             System.out.println("Opponent Got throw to Y : " +  getOpponentBasePlayer().getCurrentY());
-
         }
 
 
@@ -765,8 +773,9 @@ public class Navigator {
 
         try {
             Stage stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Scene/GameOver.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("GameOver.fxml"))));
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -783,7 +792,7 @@ public class Navigator {
 
         try {
             Stage stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Scene/shop.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("shop.fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -853,6 +862,20 @@ public class Navigator {
             coinInvisible();
             randomCoin();
             getCurrentBasePlayer().setMoney(getCurrentBasePlayer().getMoney() + 1);
+        }
+    }
+
+    private void knockbackWithCoin() {
+
+        System.out.println("------KNOCKBACK WITH COIN------");
+
+        int opponentX = getOpponentBasePlayer().getCurrentX();
+        int opponentY = getOpponentBasePlayer().getCurrentY();
+
+        if (opponentX == currentCoinPosX && opponentY == currentCoinPosY) {
+            coinInvisible();
+            randomCoin();
+            getOpponentBasePlayer().setMoney(getOpponentBasePlayer().getMoney() + 1);
         }
     }
 
@@ -944,7 +967,7 @@ public class Navigator {
 
         try {
             Stage stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Scene/GameOver.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("GameOver.fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -985,4 +1008,21 @@ public class Navigator {
         player2StatUpdate();
         updateAmount(0);
     }
+
+
+    Media media = new Media(getClass().getResource("/res/revengeSong.mp3").toExternalForm());
+    MediaPlayer mediaPlayer = new MediaPlayer(media);
+
+    @FXML private void playMusic() {
+        if (!player.getMusicPlayed()) {
+            mediaPlayer.play();
+            mediaPlayer.setCycleCount(10);
+            player.setMusicPlayed(true);
+        } else {
+            mediaPlayer.pause();
+            player.setMusicPlayed(false);
+        }
+
+    }
+
 }

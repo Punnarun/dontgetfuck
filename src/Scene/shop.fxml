@@ -54,13 +54,13 @@
                      <Font name="Californian FB Bold" size="24.0" />
                   </font>
                </Label>
-            </children>
+            </children> 
          </Group>
          <Group layoutX="178.0" layoutY="406.0" onMouseClicked="#purchase2">
             <children>
                <Rectangle fx:id="slot2" arcHeight="5.0" arcWidth="5.0" fill="#789fc4" height="188.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="916.0" />
                <Rectangle arcHeight="100.0" arcWidth="100.0" fill="#949494" height="50.0" layoutX="24.0" layoutY="128.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="150.0" />
-               <Label layoutX="223.0" layoutY="46.0" text="NIGGA">
+               <Label layoutX="223.0" layoutY="46.0" text="Robber">
                   <font>
                      <Font name="Californian FB Bold" size="48.0" />
                   </font>

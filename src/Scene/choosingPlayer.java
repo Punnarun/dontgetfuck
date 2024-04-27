@@ -130,7 +130,7 @@ public class choosingPlayer {
 
         try {
             Stage stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Scene/Game.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Game.fxml"))));
         } catch (IOException e) {
             e.printStackTrace(); // Handle or log the exception appropriately
         }

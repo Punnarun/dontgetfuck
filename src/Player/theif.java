@@ -4,7 +4,7 @@ public class theif extends basePlayer{
 
     public theif() {
         super( 3, 1);
-        this.setMoney(10);
+        this.setMoney(1000);
     }
 
     @Override
