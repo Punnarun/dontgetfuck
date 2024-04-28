@@ -2,6 +2,9 @@ package Scene;
 
 import GameInstance.GameState;
 import GameInstance.GameData;
+import Item.Dice;
+import Item.Rob;
+import Item.Ticket;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import Item.Apple;
+import Item.Buyable;
 
 import java.io.IOException;
 
@@ -22,16 +26,52 @@ public class ShopLogic {
     @FXML private Rectangle slot3;
     @FXML private Rectangle slot4;
 
+    @FXML Label LabelSlot1;
+    @FXML Label DescriptionSlot1;
+    @FXML Label LabelSlot2;
+    @FXML Label DescriptionSlot2;
+    @FXML Label LabelSlot3;
+    @FXML Label DescriptionSlot3;
+    @FXML Label LabelSlot4;
+    @FXML Label DescriptionSlot4;
+
+    @FXML Label priceSlot1;
+    @FXML Label priceSlot2;
+    @FXML Label priceSlot3;
+    @FXML Label priceSlot4;
+
     private int playerMoney;
+    private Apple apple = new Apple();
+    private Rob rob = new Rob();
+    private Dice dice = new Dice();
+    private Ticket ticket = new Ticket();
 
     @FXML private void initialize() {
-        updatePlayerMoney();
+        updatePlayerMoney(0,false);
+        LabelSlot1.setText(apple.getName());
+        DescriptionSlot1.setText(apple.getDescription());
+        priceSlot1.setText("x " + apple.getPrice());
+
+        LabelSlot2.setText(rob.getName());
+        DescriptionSlot2.setText(rob.getDescription());
+        priceSlot2.setText("x " + rob.getPrice());
+
+        LabelSlot3.setText(dice.getName());
+        DescriptionSlot3.setText(dice.getDescription());
+        priceSlot3.setText("x " + dice.getPrice());
+
+        LabelSlot4.setText(ticket.getName());
+        DescriptionSlot4.setText(ticket.getDescription());
+        priceSlot4.setText("x " + ticket.getPrice());
     }
 
-    private void updatePlayerMoney() {
+    private void updatePlayerMoney(int moneyLeft , boolean isBoughtOrder) {
+
         if (GameData.getGameState().equals(GameState.PLAYER1_TURN)) {
+            if (isBoughtOrder) GameData.setPlayer1Money(moneyLeft);
             playerMoney = GameData.getPlayer1Money();
         } else {
+            if (isBoughtOrder) GameData.setPlayer2Money(moneyLeft);
             playerMoney = GameData.getPlayer2Money();
         }
         currentMoney.setText("x " + playerMoney);
@@ -56,69 +96,30 @@ public class ShopLogic {
         }
     }
 
-    @FXML private boolean purchase(int cost) {
-        if (playerMoney >= cost) {
-            System.out.println("PLAYER MONEY " + playerMoney);
-            if (GameData.getGameState().equals(GameState.PLAYER1_TURN)) {
-                GameData.setPlayer1Money(playerMoney - cost);
-            } else {
-                GameData.setPlayer2Money(playerMoney - cost);
-            }
-            updatePlayerMoney();
-            return true;
-        }
-        return false;
-    }
-
-    @FXML private void purchase2(int moneyLeft) {
-        if (GameData.getGameState().equals(GameState.PLAYER1_TURN)) {
-            GameData.setPlayer1Money(moneyLeft);
-        } else {
-            GameData.setPlayer2Money(moneyLeft);
-        }
-        updatePlayerMoney();
-
-    }
 
     @FXML private void purchaseApple() {
-        System.out.println("APPLE BUY!");
         Apple apple = new Apple();
         int moneyLeft = apple.buy(playerMoney);
-        System.out.println("MONEY LEFT" + moneyLeft);
-        purchase2(moneyLeft);
+        updatePlayerMoney(moneyLeft , true);
     }
 
     @FXML private void purchaseRob() {
-        if (purchase(10)) {
-            if (GameData.getGameState().equals(GameState.PLAYER1_TURN)) {
-                GameData.setPlayer1Slot(new int[]{GameData.getPlayer1Slot()[0], GameData.getPlayer1Slot()[1] + 1, GameData.getPlayer1Slot()[2], GameData.getPlayer1Slot()[3]});
-            } else {
-                GameData.setPlayer2Slot(new int[]{GameData.getPlayer2Slot()[0], GameData.getPlayer2Slot()[1] + 1, GameData.getPlayer2Slot()[2], GameData.getPlayer2Slot()[3]});
-            }
-        }
+        Rob rob = new Rob();
+        int moneyLeft = rob.buy(playerMoney);
+        updatePlayerMoney(moneyLeft , true);
 
     }
 
     @FXML private void purchaseDice() {
-        if (purchase(15)) {
-            if (GameData.getGameState().equals(GameState.PLAYER1_TURN)) {
-                GameData.setPlayer1Slot(new int[]{GameData.getPlayer1Slot()[0], GameData.getPlayer1Slot()[1], GameData.getPlayer1Slot()[2] + 1, GameData.getPlayer1Slot()[3]});
-            } else {
-                GameData.setPlayer2Slot(new int[]{GameData.getPlayer2Slot()[0], GameData.getPlayer2Slot()[1], GameData.getPlayer2Slot()[2] + 1, GameData.getPlayer2Slot()[3]});
-            }
-        }
-
+        Dice dice = new Dice();
+        int moneyLeft = dice.buy(playerMoney);
+        updatePlayerMoney(moneyLeft , true);
     }
 
     @FXML private void purchaseTicket() {
-        if (purchase(20)) {
-            if (GameData.getGameState().equals(GameState.PLAYER1_TURN)) {
-                GameData.setPlayer1Slot(new int[]{GameData.getPlayer1Slot()[0], GameData.getPlayer1Slot()[1], GameData.getPlayer1Slot()[2], GameData.getPlayer1Slot()[3] + 1});
-            } else {
-                GameData.setPlayer2Slot(new int[]{GameData.getPlayer2Slot()[0], GameData.getPlayer2Slot()[1], GameData.getPlayer2Slot()[2], GameData.getPlayer2Slot()[3] + 1});
-            }
-        }
-
+        Ticket ticket = new Ticket();
+        int moneyLeft = ticket.buy(playerMoney);
+        updatePlayerMoney(moneyLeft , true);
     }
 
     @FXML private ScrollPane root;

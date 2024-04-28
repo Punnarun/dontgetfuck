@@ -12,7 +12,7 @@
 <ScrollPane fx:id="root" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Scene.ShopLogic">
 
     <content>
-        <AnchorPane prefHeight="1000.0" prefWidth="1280.0">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1280.0">
             <!-- Your content goes here -->
             <ImageView fitHeight="1146.0" fitWidth="2046.0" layoutX="-17.0" layoutY="5.0" opacity="0.6">
                 <image>
@@ -34,7 +34,7 @@
                      <Image url="@../res/goldenApple.png" />
                   </image>
                </ImageView>
-               <Label layoutX="223.0" layoutY="46.0" text="Golden Apple">
+               <Label fx:id="LabelSlot1" layoutX="223.0" layoutY="46.0" text="Golden Apple">
                   <font>
                      <Font name="Californian FB Bold" size="48.0" />
                   </font>
@@ -44,12 +44,12 @@
                      <Image url="@../res/coin.png" />
                   </image>
                </ImageView>
-               <Label fx:id="money" layoutX="587.0" layoutY="63.0" text="x 5">
+               <Label fx:id="priceSlot1" layoutX="587.0" layoutY="63.0" text="x 5">
                   <font>
                      <Font name="Californian FB Bold" size="24.0" />
                   </font>
                </Label>
-               <Label layoutX="226.0" layoutY="111.0" text="- when use player will instantly heal you HP by 2 (maximum)">
+               <Label fx:id="DescriptionSlot1" layoutX="226.0" layoutY="111.0" text="- when use , player will instantly heal you HP by maximum">
                   <font>
                      <Font name="Californian FB Bold" size="24.0" />
                   </font>
@@ -60,7 +60,7 @@
             <children>
                <Rectangle fx:id="slot2" arcHeight="5.0" arcWidth="5.0" fill="#789fc4" height="188.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="916.0" />
                <Rectangle arcHeight="100.0" arcWidth="100.0" fill="#949494" height="50.0" layoutX="24.0" layoutY="128.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="150.0" />
-               <Label layoutX="223.0" layoutY="46.0" text="Robber">
+               <Label fx:id="LabelSlot2" layoutX="223.0" layoutY="46.0" text="Robber">
                   <font>
                      <Font name="Californian FB Bold" size="48.0" />
                   </font>
@@ -70,12 +70,12 @@
                      <Image url="@../res/coin.png" />
                   </image>
                </ImageView>
-               <Label fx:id="money1" layoutX="470.0" layoutY="63.0" text="x 10">
+               <Label fx:id="priceSlot2" layoutX="470.0" layoutY="63.0" text="x 10">
                   <font>
                      <Font name="Californian FB Bold" size="24.0" />
                   </font>
                </Label>
-               <Label layoutX="226.0" layoutY="111.0" text="- steal 50% of your Opponent Money">
+               <Label fx:id="DescriptionSlot2" layoutX="226.0" layoutY="111.0" text="- steal 50% of your Opponent Money">
                   <font>
                      <Font name="Californian FB Bold" size="24.0" />
                   </font>
@@ -91,7 +91,7 @@
             <children>
                <Rectangle fx:id="slot3" arcHeight="5.0" arcWidth="5.0" fill="#789fc4" height="188.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="916.0" />
                <Rectangle arcHeight="100.0" arcWidth="100.0" fill="#949494" height="50.0" layoutX="21.0" layoutY="121.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="150.0" />
-               <Label layoutX="223.0" layoutY="46.0" text="Cheating Dice">
+               <Label fx:id="LabelSlot3" layoutX="223.0" layoutY="46.0" text="Cheating Dice">
                   <font>
                      <Font name="Californian FB Bold" size="48.0" />
                   </font>
@@ -101,12 +101,12 @@
                      <Image url="@../res/coin.png" />
                   </image>
                </ImageView>
-               <Label layoutX="226.0" layoutY="111.0" text="- when use player will able to throw the dice twice">
+               <Label fx:id="DescriptionSlot3" layoutX="226.0" layoutY="111.0" text="- when use player will able to throw the dice twice">
                   <font>
                      <Font name="Californian FB Bold" size="24.0" />
                   </font>
                </Label>
-               <Label fx:id="money11" layoutX="593.0" layoutY="60.0" text="x 15">
+               <Label fx:id="priceSlot3" layoutX="593.0" layoutY="60.0" text="x 15">
                   <font>
                      <Font name="Californian FB Bold" size="24.0" />
                   </font>
@@ -122,7 +122,7 @@
             <children>
                <Rectangle fx:id="slot4" arcHeight="5.0" arcWidth="5.0" fill="#789fc4" height="188.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="916.0" />
                <Rectangle arcHeight="100.0" arcWidth="100.0" fill="#949494" height="50.0" layoutX="41.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="150.0" />
-               <Label layoutX="223.0" layoutY="46.0" text="Winning Ticket">
+               <Label fx:id="LabelSlot4" layoutX="223.0" layoutY="46.0" text="Winning Ticket">
                   <font>
                      <Font name="Californian FB Bold" size="48.0" />
                   </font>
@@ -132,12 +132,12 @@
                      <Image url="@../res/coin.png" />
                   </image>
                </ImageView>
-               <Label fx:id="money111" layoutX="644.0" layoutY="60.0" text="x 20">
+               <Label fx:id="priceSlot4" layoutX="644.0" layoutY="60.0" text="x 20">
                   <font>
                      <Font name="Californian FB Bold" size="24.0" />
                   </font>
                </Label>
-               <Label layoutX="226.0" layoutY="111.0" text="- when use gain chance to instantly win by 70%">
+               <Label fx:id="DescriptionSlot4" layoutX="226.0" layoutY="111.0" text="- when use gain chance to instantly win by 70%">
                   <font>
                      <Font name="Californian FB Bold" size="24.0" />
                   </font>

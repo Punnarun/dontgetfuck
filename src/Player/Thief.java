@@ -4,7 +4,7 @@ public class Thief extends BasePlayer {
 
     public Thief() {
         super( 3, 1);
-        this.setMoney(5);
+        this.setMoney(500);
     }
 
     @Override

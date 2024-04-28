@@ -1,6 +1,7 @@
 package Scene;
 
 import GameInstance.Facing;
+import Item.*;
 import Player.BasePlayer;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
@@ -705,8 +706,7 @@ public class GameLogic {
         }
     }
 
-    @FXML private void goToShop() {
-        System.out.println("GOTO SHOPPPPP");
+    private void saveGameDate() {
         GameData.setPlayer1(player1);
         GameData.setPlayer2(player2);
         GameData.setPlayer1Money(player1.getMoney());
@@ -714,7 +714,10 @@ public class GameLogic {
         GameData.setGameState(GAMESTATE);
         GameData.setTurnNumber(turnNumber);
         GameData.setDescription(turn.getText());
+    }
 
+    @FXML private void goToShop() {
+        saveGameDate();
         try {
             Stage stage = (Stage) root.getScene().getWindow();
             stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Shop.fxml")))));
@@ -813,41 +816,6 @@ public class GameLogic {
         }
     }
 
-    private void updateAmount(int slot) {
-        if (GAMESTATE.equals(GameState.PLAYER1_TURN)) {
-            int[] inventory = GameData.getPlayer1Slot();
-            if (slot == 0) {
-                inventory[0]--;
-                GameData.setPlayer1Slot(inventory);
-            } else if (slot == 1) {
-                inventory[1]--;
-                GameData.setPlayer1Slot(inventory);
-            } else if (slot == 2) {
-                inventory[2]--;
-                GameData.setPlayer1Slot(inventory);
-            } else if (slot == 3) {
-                inventory[3]--;
-                GameData.setPlayer1Slot(inventory);
-            }
-        } else if (GAMESTATE.equals(GameState.PLAYER2_TURN)) {
-            int[] inventory = GameData.getPlayer2Slot();
-            if (slot == 0) {
-                inventory[0]--;
-                GameData.setPlayer2Slot(inventory);
-            } else if (slot == 1) {
-                inventory[1]--;
-                GameData.setPlayer2Slot(inventory);
-            } else if (slot == 2) {
-                inventory[2]--;
-                GameData.setPlayer2Slot(inventory);
-            } else if (slot == 3) {
-                inventory[3]--;
-                GameData.setPlayer2Slot(inventory);
-            }
-        }
-        updatePlayerSlot();
-    }
-
     private int getItem(int slotNumber) {
         if (GAMESTATE.equals(GameState.PLAYER1_TURN)) {
             return GameData.getPlayer1Slot()[slotNumber];
@@ -856,25 +824,12 @@ public class GameLogic {
         }
     }
 
-
-
     @FXML private void useTicket() {
         if ((getItem(3) <= 0)) return;
-        Random random = new Random();
-        int rand = random.nextInt(10);
+        saveGameDate();
 
-        GameState userGameState = null;
-        GameState opponentGamestate = null;
-        if (getCurrentBasePlayer().equals(player1)) {
-            userGameState = GameState.PLAYER1_WIN;
-            opponentGamestate = GameState.PLAYER2_WIN;
-        };
-        if (getCurrentBasePlayer().equals(player2)) {
-            userGameState = GameState.PLAYER2_WIN;
-            opponentGamestate = GameState.PLAYER1_WIN;
-        }
-        if (rand >= 0 && rand < 7) GameData.setGameState(userGameState);
-        else GameData.setGameState(opponentGamestate);
+        Ticket ticket = new Ticket();
+        ticket.useEffect();
 
         try {
             Stage stage = (Stage) root.getScene().getWindow();
@@ -885,40 +840,47 @@ public class GameLogic {
     }
 
     @FXML private void useDice() {
+
+        saveGameDate();
+
         if ((getItem(2) <= 0)) return;
-        System.out.println("USE DICE");
         if (getCurrentBasePlayer().getMoveLeft() == 0) {
+
+            Dice dice = new Dice();
+            dice.useEffect();
             drawDice.setOpacity(1);
             diceBox.setDisable(false);
             drawDice.setDisable(false);
-            updateAmount(2);
+            updatePlayerSlot();
         }
     }
 
     @FXML private void useRob() {
-        if (getItem(1) <= 0) return;
-        getCurrentBasePlayer().setMoney(getCurrentBasePlayer().getMoney() + (int)(getOpponentBasePlayer().getMoney()/2));
-        getOpponentBasePlayer().setMoney((int)(getOpponentBasePlayer().getMoney()/2));
-        GameData.setPlayer1Money(player1.getMoney());
-        GameData.setPlayer2Money(player2.getMoney());
 
-        System.out.println("PLAYER 1 MONEY" + player1.getMoney());
-        System.out.println("PLAYER 2 MONEY" + player2.getMoney());
-        updatePlayerSlot();
-        updateAmount(1);
+        saveGameDate();
+
+        if (getItem(1) <= 0) return;
+        Rob rob = new Rob();
+        rob.useEffect();
+
         money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
+        updatePlayerSlot();
     }
 
     @FXML private void useApple() {
-        System.out.println("USE APPLE");
+
+        saveGameDate();
+
         if ((getItem(0) <= 0 ) || getCurrentBasePlayer().getHp() >= 5) return;
-        System.out.println("HP BEFORE ADD" + getCurrentBasePlayer().getHp());
-        getCurrentBasePlayer().setHp(5);
-        System.out.println("HP AFTER ADD" + getCurrentBasePlayer().getHp());
+        Apple apple = new Apple();
+        apple.useEffect();
+        player1 = GameData.getPlayer1();
+        player2 = GameData.getPlayer2();
+
         resetDisplay();
         player1StatUpdate();
         player2StatUpdate();
-        updateAmount(0);
+        updatePlayerSlot();
     }
 
 
