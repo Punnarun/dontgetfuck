@@ -1,9 +1,8 @@
-package GameController;
+package Scene;
 
 import GameInstance.Facing;
 import Item.*;
 import Player.BasePlayer;
-import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,14 +13,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Random;
 import GameInstance.GameState;
 import GameInstance.GameData;
@@ -34,11 +29,10 @@ public class GameLogic {
     private GameState GAMESTATE = GameState.PLAYER1_TURN;
 
     //Image of player facing to each Direction
-    Image facingUp = new Image(getClass().getResource("/res/p4.png").toString());
-    Image facingDown = new Image(getClass().getResource("/res/p2.png").toString());
-    Image facingLeft = new Image(getClass().getResource("/res/p3.png").toString());
-    Image facingRight = new Image(getClass().getResource("/res/p1.png").toString());
-
+    private Image facingUp = new Image(getClass().getResource("/Resource/p4.png").toString());
+    private Image facingDown = new Image(getClass().getResource("/Resource/p2.png").toString());
+    private Image facingLeft = new Image(getClass().getResource("/Resource/p3.png").toString());
+    private Image facingRight = new Image(getClass().getResource("/Resource/p1.png").toString());
 
     @FXML private AnchorPane root;
     @FXML private Rectangle starter;
@@ -107,7 +101,7 @@ public class GameLogic {
     private int turnNumber = 1;
 
     @FXML private void goToGame() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../Scene/Character.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Character.fxml"));
         Parent gameRoot = loader.load();
         Scene gameScene = new Scene(gameRoot);
         Stage stage = (Stage) root.getScene().getWindow();
@@ -184,8 +178,7 @@ public class GameLogic {
             //initial player
             player1.setPlayerFacing(Facing.SOUTH);
             player2.setPlayerFacing(Facing.NORTH);
-            System.out.println("GAME START");
-            System.out.println(player1.getMoveLeft());
+
             player1.setMoveLeft(0);
             player2.setMoveLeft(0);
 
@@ -238,7 +231,7 @@ public class GameLogic {
                 };
             } else {
                 player2.setMoveLeft(GameData.getNumberOfMoveLeft());
-                System.out.println("player 2 move is " + player2.getMoveLeft());
+
                 if (player2.getMoveLeft() == 0) {
                     disableButton();
                     cart.setDisable(false);
@@ -286,7 +279,7 @@ public class GameLogic {
         updatePlayerSlot();
     }
 
-    public void decreaseMove() {
+    private void decreaseMove() {
 
         if (GAMESTATE.equals(GameState.PLAYER1_TURN)) {
 
@@ -334,7 +327,7 @@ public class GameLogic {
         }
     }
 
-    public void updateFacing(Facing face) {
+    private void updateFacing(Facing face) {
         if (GAMESTATE.equals(GameState.PLAYER1_TURN)) {
             player1.setPlayerFacing(face);
         } else {
@@ -342,7 +335,7 @@ public class GameLogic {
         }
     }
 
-    @FXML public void UP() {
+    @FXML private void UP() {
         ImageView currentPlayer = getCurrentPlayerImage();
         BasePlayer player = (GAMESTATE.equals(GameState.PLAYER1_TURN) ? player1 : player2);
 
@@ -365,7 +358,7 @@ public class GameLogic {
         }
     }
 
-    @FXML public void DOWN() {
+    @FXML private void DOWN() {
         ImageView currentPlayer = getCurrentPlayerImage();
         BasePlayer player = (GAMESTATE.equals(GameState.PLAYER1_TURN) ? player1 : player2);
 
@@ -388,7 +381,7 @@ public class GameLogic {
         }
     }
 
-    @FXML public void LEFT() {
+    @FXML private void LEFT() {
         ImageView currentPlayer = getCurrentPlayerImage();
         BasePlayer player = (GAMESTATE.equals(GameState.PLAYER1_TURN) ? player1 : player2);
 
@@ -411,7 +404,7 @@ public class GameLogic {
         }
     }
 
-    @FXML public void RIGHT() {
+    @FXML private void RIGHT() {
         ImageView currentPlayer = getCurrentPlayerImage();
         BasePlayer player = (GAMESTATE.equals(GameState.PLAYER1_TURN) ? player1 : player2);
 
@@ -462,7 +455,7 @@ public class GameLogic {
         return false;
     }
 
-    public void resetDisplay() {
+    private void resetDisplay() {
         p1_hp1.setVisible(false);
         p1_hp2.setVisible(false);
         p1_hp3.setVisible(false);
@@ -488,7 +481,7 @@ public class GameLogic {
         p2_hp5.setVisible(false);
     }
 
-    public void player1StatUpdate() {
+    private void player1StatUpdate() {
         int player1HP = player1.getHp();
         int player1ATK = player1.getAtk();
 
@@ -505,7 +498,7 @@ public class GameLogic {
         if (player1HP >= 5) p1_hp5.setVisible(true);
     }
 
-    public void player2StatUpdate() {
+    private void player2StatUpdate() {
         int player2HP = player2.getHp();
         int player2ATK = player2.getAtk();
 
@@ -522,7 +515,7 @@ public class GameLogic {
         if (player2HP >= 5) p2_hp5.setVisible(true);
     }
 
-    public void isAttackable() {
+    private void isAttackable() {
 
         int currentPlayerRow = getCurrentBasePlayer().getCurrentX();
         int currentPlayerCol = getCurrentBasePlayer().getCurrentY();
@@ -655,16 +648,14 @@ public class GameLogic {
 
         if (GAMESTATE.equals(GameState.PLAYER1_TURN)) {
             GAMESTATE = GameState.PLAYER2_TURN;
-            System.out.println("PLAYER 2 CurrentX : " + player2.getCurrentX());
-            System.out.println("PLAYER 2 CurrentY : " + player2.getCurrentY());
+
             turn.setText("PLAYER2 TURN");
             cart.setDisable(true);
             cart.setOpacity(0.25);
             shopRec.setDisable(true);
         } else {
             GAMESTATE = GameState.PLAYER1_TURN;
-            System.out.println("PLAYER 1 CurrentX : " + player1.getCurrentX());
-            System.out.println("PLAYER 1 CurrentY : " + player1.getCurrentY());
+
             turn.setText("PLAYER1 TURN");
             cart.setDisable(true);
             cart.setOpacity(0.25);
@@ -681,7 +672,7 @@ public class GameLogic {
 
         money.setText("x " +String.valueOf(getCurrentBasePlayer().getMoney()));
         updatePlayerSlot();
-        System.out.println("CHANGE TURNNNNN");
+
         GameData.setGameState(this.GAMESTATE);
     }
 
@@ -703,7 +694,7 @@ public class GameLogic {
 
         try {
             Stage stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Scene/GameOver.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("GameOver.fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -722,7 +713,7 @@ public class GameLogic {
     @FXML private void goToShop() throws IOException {
         saveGameDate();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../Scene/Shop.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Shop.fxml"));
         Parent gameRoot = loader.load();
         Scene gameScene = new Scene(gameRoot);
         Stage stage = (Stage) root.getScene().getWindow();
@@ -836,7 +827,7 @@ public class GameLogic {
 
         try {
             Stage stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Scene/GameOver.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("GameOver.fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -863,7 +854,7 @@ public class GameLogic {
         saveGameDate();
 
         if (getItem(1) <= 0) return;
-        Rob rob = new Rob();
+        Robbing rob = new Robbing();
         rob.useEffect();
 
         money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
@@ -886,7 +877,7 @@ public class GameLogic {
         updatePlayerSlot();
     }
 
-    AudioClip song = new AudioClip(getClass().getResource("/res/revengeSong.mp3").toExternalForm());
+    private AudioClip song = new AudioClip(getClass().getResource("/Resource/revengeSong.mp3").toExternalForm());
 
     @FXML private ImageView unmute;
     @FXML private ImageView mute;

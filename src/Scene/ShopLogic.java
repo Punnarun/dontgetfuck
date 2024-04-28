@@ -1,9 +1,9 @@
-package GameController;
+package Scene;
 
 import GameInstance.GameState;
 import GameInstance.GameData;
 import Item.Dice;
-import Item.Rob;
+import Item.Robbing;
 import Item.Ticket;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import Item.Apple;
-import Item.Buyable;
 
 import java.io.IOException;
 
@@ -26,23 +25,23 @@ public class ShopLogic {
     @FXML private Rectangle slot3;
     @FXML private Rectangle slot4;
 
-    @FXML Label LabelSlot1;
-    @FXML Label DescriptionSlot1;
-    @FXML Label LabelSlot2;
-    @FXML Label DescriptionSlot2;
-    @FXML Label LabelSlot3;
-    @FXML Label DescriptionSlot3;
-    @FXML Label LabelSlot4;
-    @FXML Label DescriptionSlot4;
+    @FXML private Label LabelSlot1;
+    @FXML private Label DescriptionSlot1;
+    @FXML private Label LabelSlot2;
+    @FXML private Label DescriptionSlot2;
+    @FXML private Label LabelSlot3;
+    @FXML private Label DescriptionSlot3;
+    @FXML private Label LabelSlot4;
+    @FXML private Label DescriptionSlot4;
 
-    @FXML Label priceSlot1;
-    @FXML Label priceSlot2;
-    @FXML Label priceSlot3;
-    @FXML Label priceSlot4;
+    @FXML private Label priceSlot1;
+    @FXML private Label priceSlot2;
+    @FXML private Label priceSlot3;
+    @FXML private Label priceSlot4;
 
     private int playerMoney;
     private Apple apple = new Apple();
-    private Rob rob = new Rob();
+    private Robbing rob = new Robbing();
     private Dice dice = new Dice();
     private Ticket ticket = new Ticket();
 
@@ -104,7 +103,7 @@ public class ShopLogic {
     }
 
     @FXML private void purchaseRob() {
-        Rob rob = new Rob();
+        Robbing rob = new Robbing();
         int moneyLeft = rob.buy(playerMoney);
         updatePlayerMoney(moneyLeft , true);
 
@@ -127,7 +126,7 @@ public class ShopLogic {
     @FXML private void goBack() {
         try {
             Stage stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Scene/Game.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Game.fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
         }

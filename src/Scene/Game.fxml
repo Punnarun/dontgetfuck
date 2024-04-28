@@ -13,11 +13,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameController.GameLogic">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Scene.GameLogic">
    <children>
       <ImageView fitHeight="727.0" fitWidth="1298.0" layoutX="-14.0" layoutY="-1.0" opacity="0.6">
          <image>
-            <Image url="@../res/castleBg.png" />
+            <Image url="@../Resource/castleBg.png" />
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff2d1f" height="538.0" layoutX="31.0" layoutY="26.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="761.0" />
@@ -26,7 +26,7 @@
       <Rectangle fx:id="diceBox" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="121.0" layoutX="1079.0" layoutY="565.0" onMouseClicked="#drawDice" opacity="0.16" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="124.0" />
       <ImageView fx:id="drawDice" fitHeight="75.0" fitWidth="77.0" layoutX="1100.0" layoutY="586.0" onMouseClicked="#drawDice">
          <image>
-            <Image url="@../res/dice.png" />
+            <Image url="@../Resource/dice.png" />
          </image>
       </ImageView>
       <Rectangle fx:id="atkBox" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="121.0" layoutX="947.0" layoutY="565.0" onMouseClicked="#isAttack" opacity="0.16" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="124.0" />
@@ -49,7 +49,7 @@
          <children>
             <ImageView fx:id="onezero" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -57,7 +57,7 @@
             </ImageView>
             <ImageView fx:id="twozero" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -65,7 +65,7 @@
             </ImageView>
             <ImageView fx:id="threezero" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -73,7 +73,7 @@
             </ImageView>
             <ImageView fx:id="fourzero" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -81,7 +81,7 @@
             </ImageView>
             <ImageView fx:id="o1" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -89,7 +89,7 @@
             </ImageView>
             <ImageView fx:id="o2" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -97,7 +97,7 @@
             </ImageView>
             <ImageView fx:id="o4" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -105,7 +105,7 @@
             </ImageView>
             <ImageView fx:id="o5" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -113,7 +113,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -121,7 +121,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -129,7 +129,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -137,7 +137,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -145,7 +145,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -153,7 +153,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -161,7 +161,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -169,7 +169,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -177,7 +177,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -185,7 +185,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -193,7 +193,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -201,7 +201,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -209,7 +209,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -217,7 +217,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -225,7 +225,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -233,7 +233,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -241,7 +241,7 @@
             </ImageView>
             <ImageView fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -249,7 +249,7 @@
             </ImageView>
             <ImageView fx:id="oo" fitHeight="83.0" fitWidth="83.0" opacity="0.7" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/Granite.png" />
+                  <Image url="@../Resource/Granite.png" />
                </image>
                <effect>
                   <DropShadow />
@@ -257,7 +257,7 @@
             </ImageView>
             <ImageView fx:id="playerTwo" fitHeight="100.0" fitWidth="56.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../res/p4.png" />
+                  <Image url="@../Resource/p4.png" />
                </image>
                <GridPane.columnIndex>5</GridPane.columnIndex>
                <GridPane.rowIndex>4</GridPane.rowIndex>
@@ -267,7 +267,7 @@
             </ImageView>
             <ImageView fx:id="playerOne" fitHeight="100.0" fitWidth="56.0" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../res/p2.png" />
+                  <Image url="@../Resource/p2.png" />
                </image>
                <effect>
                   <ColorAdjust hue="0.4" />
@@ -275,42 +275,42 @@
             </ImageView>
             <ImageView fx:id="coin3" fitHeight="50.0" fitWidth="39.0" opacity="0.8" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../res/coin.png" />
+                  <Image url="@../Resource/coin.png" />
                </image>
             </ImageView>
             <ImageView fx:id="coin6" fitHeight="50.0" fitWidth="39.0" opacity="0.8" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../res/coin.png" />
+                  <Image url="@../Resource/coin.png" />
                </image>
             </ImageView>
             <ImageView fx:id="coin5" fitHeight="50.0" fitWidth="39.0" opacity="0.8" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../res/coin.png" />
+                  <Image url="@../Resource/coin.png" />
                </image>
             </ImageView>
             <ImageView fx:id="coin4" fitHeight="50.0" fitWidth="39.0" opacity="0.8" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../res/coin.png" />
+                  <Image url="@../Resource/coin.png" />
                </image>
             </ImageView>
             <ImageView fx:id="coin2" fitHeight="50.0" fitWidth="39.0" opacity="0.8" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../res/coin.png" />
+                  <Image url="@../Resource/coin.png" />
                </image>
             </ImageView>
             <ImageView fx:id="coin1" fitHeight="50.0" fitWidth="39.0" opacity="0.8" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../res/coin.png" />
+                  <Image url="@../Resource/coin.png" />
                </image>
             </ImageView>
             <ImageView fx:id="coin7" fitHeight="50.0" fitWidth="39.0" opacity="0.8" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../res/coin.png" />
+                  <Image url="@../Resource/coin.png" />
                </image>
             </ImageView>
             <ImageView fx:id="coin8" fitHeight="50.0" fitWidth="39.0" opacity="0.8" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../res/coin.png" />
+                  <Image url="@../Resource/coin.png" />
                </image>
             </ImageView>
          </children>
@@ -339,7 +339,7 @@
          <children>
             <ImageView fx:id="p1_atk1" fitHeight="26.0" fitWidth="26.0" layoutX="53.0" layoutY="1.0">
                <image>
-                  <Image url="@../res/sword.png" />
+                  <Image url="@../Resource/sword.png" />
                </image>
             </ImageView>
             <Label layoutY="2.0" text="ATK : ">
@@ -349,22 +349,22 @@
             </Label>
             <ImageView fx:id="p1_atk2" fitHeight="26.0" fitWidth="26.0" layoutX="81.0" layoutY="1.0">
                <image>
-                  <Image url="@../res/sword.png" />
+                  <Image url="@../Resource/sword.png" />
                </image>
             </ImageView>
             <ImageView fx:id="p1_atk3" fitHeight="26.0" fitWidth="26.0" layoutX="109.0" layoutY="1.0">
                <image>
-                  <Image url="@../res/sword.png" />
+                  <Image url="@../Resource/sword.png" />
                </image>
             </ImageView>
             <ImageView fx:id="p1_atk4" fitHeight="26.0" fitWidth="26.0" layoutX="139.0">
                <image>
-                  <Image url="@../res/sword.png" />
+                  <Image url="@../Resource/sword.png" />
                </image>
             </ImageView>
             <ImageView fx:id="p1_atk5" fitHeight="26.0" fitWidth="26.0" layoutX="168.0" layoutY="1.0">
                <image>
-                  <Image url="@../res/sword.png" />
+                  <Image url="@../Resource/sword.png" />
                </image>
             </ImageView>
          </children>
@@ -378,27 +378,27 @@
             </Label>
             <ImageView fx:id="p1_hp1" fitHeight="27.0" fitWidth="33.0" layoutX="44.0">
                <image>
-                  <Image url="@../res/heart.png" />
+                  <Image url="@../Resource/heart.png" />
                </image>
             </ImageView>
             <ImageView fx:id="p1_hp2" fitHeight="27.0" fitWidth="33.0" layoutX="73.0" layoutY="1.0">
                <image>
-                  <Image url="@../res/heart.png" />
+                  <Image url="@../Resource/heart.png" />
                </image>
             </ImageView>
             <ImageView fx:id="p1_hp3" fitHeight="27.0" fitWidth="33.0" layoutX="102.0" layoutY="1.0">
                <image>
-                  <Image url="@../res/heart.png" />
+                  <Image url="@../Resource/heart.png" />
                </image>
             </ImageView>
             <ImageView fx:id="p1_hp4" fitHeight="27.0" fitWidth="33.0" layoutX="131.0" layoutY="1.0">
                <image>
-                  <Image url="@../res/heart.png" />
+                  <Image url="@../Resource/heart.png" />
                </image>
             </ImageView>
             <ImageView fx:id="p1_hp5" fitHeight="27.0" fitWidth="33.0" layoutX="161.0" layoutY="1.0">
                <image>
-                  <Image url="@../res/heart.png" />
+                  <Image url="@../Resource/heart.png" />
                </image>
             </ImageView>
          </children>
@@ -407,7 +407,7 @@
          <children>
             <ImageView fx:id="p2_atk1" fitHeight="26.0" fitWidth="26.0" layoutX="50.0" layoutY="1.0">
                <image>
-                  <Image url="@../res/sword.png" />
+                  <Image url="@../Resource/sword.png" />
                </image>
             </ImageView>
             <Label layoutY="2.0" text="ATK : ">
@@ -417,22 +417,22 @@
             </Label>
             <ImageView fx:id="p2_atk2" fitHeight="26.0" fitWidth="26.0" layoutX="81.0" layoutY="1.0">
                <image>
-                  <Image url="@../res/sword.png" />
+                  <Image url="@../Resource/sword.png" />
                </image>
             </ImageView>
             <ImageView fx:id="p2_atk3" fitHeight="26.0" fitWidth="26.0" layoutX="109.0" layoutY="1.0">
                <image>
-                  <Image url="@../res/sword.png" />
+                  <Image url="@../Resource/sword.png" />
                </image>
             </ImageView>
             <ImageView fx:id="p2_atk4" fitHeight="26.0" fitWidth="26.0" layoutX="139.0">
                <image>
-                  <Image url="@../res/sword.png" />
+                  <Image url="@../Resource/sword.png" />
                </image>
             </ImageView>
             <ImageView fx:id="p2_atk5" fitHeight="26.0" fitWidth="26.0" layoutX="168.0" layoutY="1.0">
                <image>
-                  <Image url="@../res/sword.png" />
+                  <Image url="@../Resource/sword.png" />
                </image>
             </ImageView>
          </children>
@@ -446,34 +446,34 @@
             </Label>
             <ImageView fx:id="p2_hp1" fitHeight="27.0" fitWidth="33.0" layoutX="454.0" layoutY="66.0">
                <image>
-                  <Image url="@../res/heart.png" />
+                  <Image url="@../Resource/heart.png" />
                </image>
             </ImageView>
             <ImageView fx:id="p2_hp2" fitHeight="27.0" fitWidth="33.0" layoutX="483.0" layoutY="67.0">
                <image>
-                  <Image url="@../res/heart.png" />
+                  <Image url="@../Resource/heart.png" />
                </image>
             </ImageView>
             <ImageView fx:id="p2_hp4" fitHeight="27.0" fitWidth="33.0" layoutX="541.0" layoutY="67.0">
                <image>
-                  <Image url="@../res/heart.png" />
+                  <Image url="@../Resource/heart.png" />
                </image>
             </ImageView>
             <ImageView fx:id="p2_hp5" fitHeight="27.0" fitWidth="33.0" layoutX="571.0" layoutY="67.0">
                <image>
-                  <Image url="@../res/heart.png" />
+                  <Image url="@../Resource/heart.png" />
                </image>
             </ImageView>
             <ImageView fx:id="p2_hp3" fitHeight="27.0" fitWidth="33.0" layoutX="512.0" layoutY="67.0">
                <image>
-                  <Image url="@../res/heart.png" />
+                  <Image url="@../Resource/heart.png" />
                </image>
             </ImageView>
          </children>
       </Group>
       <ImageView fx:id="attack" fitHeight="105.0" fitWidth="105.0" layoutX="957.0" layoutY="575.0" onMouseClicked="#isAttack" opacity="0.25">
          <image>
-            <Image url="@../res/sword.png" />
+            <Image url="@../Resource/sword.png" />
          </image>
       </ImageView>
       <Label fx:id="turn1" layoutX="829.0" layoutY="204.0" text="Inventory">
@@ -490,7 +490,7 @@
          <children>
             <ImageView fitHeight="44.0" fitWidth="44.0">
                <image>
-                  <Image url="@../res/goldenApple.png" />
+                  <Image url="@../Resource/goldenApple.png" />
                </image>
             </ImageView>
             <Label fx:id="appleAmount" layoutX="46.0" layoutY="12.0" text="x 0">
@@ -509,14 +509,14 @@
             </Label>
             <ImageView fitHeight="40.0" fitWidth="30.0">
                <image>
-                  <Image url="@../res/theif.png" />
+                  <Image url="@../Resource/theif.png" />
                </image>
             </ImageView>
          </children>
       </Group>
       <ImageView fitHeight="33.0" fitWidth="26.0" layoutX="861.0" layoutY="169.0">
          <image>
-            <Image url="@../res/coin.png" />
+            <Image url="@../Resource/coin.png" />
          </image>
       </ImageView>
       <Label fx:id="money" layoutX="898.0" layoutY="171.0" text="x 0">
@@ -538,7 +538,7 @@
          <children>
             <ImageView fitHeight="44.0" fitWidth="44.0">
                <image>
-                  <Image url="@../res/dice.png" />
+                  <Image url="@../Resource/dice.png" />
                </image>
             </ImageView>
             <Label fx:id="diceAmount" layoutX="73.0" layoutY="10.0" text="x 0">
@@ -552,7 +552,7 @@
          <children>
             <ImageView fitHeight="36.0" fitWidth="84.0">
                <image>
-                  <Image url="@../res/winningTicket.png" />
+                  <Image url="@../Resource/winningTicket.png" />
                </image>
             </ImageView>
             <Label fx:id="winningTicket" layoutX="92.0" layoutY="4.0" text="x 0">
@@ -564,27 +564,27 @@
       </Group>
       <ImageView fx:id="cart" fitHeight="116.0" fitWidth="116.0" layoutX="817.0" layoutY="572.0" onMouseClicked="#goToShop">
          <image>
-            <Image url="@../res/cart.png" />
+            <Image url="@../Resource/cart.png" />
          </image>
       </ImageView>
       <ImageView fx:id="upimg" fitHeight="36.0" fitWidth="36.0" layoutX="982.0" layoutY="367.0" onMouseClicked="#UP">
          <image>
-            <Image url="@../res/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
+            <Image url="@../Resource/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
          </image>
       </ImageView>
       <ImageView fx:id="downimg" fitHeight="36.0" fitWidth="36.0" layoutX="982.0" layoutY="416.0" onMouseClicked="#DOWN" rotate="180.0">
          <image>
-            <Image url="@../res/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
+            <Image url="@../Resource/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
          </image>
       </ImageView>
       <ImageView fx:id="leftimg" fitHeight="36.0" fitWidth="36.0" layoutX="857.0" layoutY="394.0" onMouseClicked="#LEFT" rotate="270.0">
          <image>
-            <Image url="@../res/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
+            <Image url="@../Resource/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
          </image>
       </ImageView>
       <ImageView fx:id="rightimg" fitHeight="36.0" fitWidth="36.0" layoutX="1108.0" layoutY="392.0" onMouseClicked="#RIGHT" rotate="90.0">
          <image>
-            <Image url="@../res/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
+            <Image url="@../Resource/arrows-set-up-down-left-260nw-2357014921-removebg-preview.png" />
          </image>
       </ImageView>
       <Label fx:id="changeTurnLabel" layoutX="919.0" layoutY="489.0" onMouseClicked="#changePlayerTurn" text="Change Player Turn" textAlignment="CENTER" textFill="WHITE">

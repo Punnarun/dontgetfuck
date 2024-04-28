@@ -1,4 +1,4 @@
-package GameController;
+package Scene;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -97,11 +97,12 @@ public class Character {
     @FXML private void startGame() {
         try {
             Stage stage = (Stage) root.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../Scene/Game.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("Game.fxml"))));
         } catch (IOException e) {
             e.printStackTrace(); // Handle or log the exception appropriately
         }
     }
+
 
     public BasePlayer getPlayer1() {
         return player1;
@@ -118,6 +119,5 @@ public class Character {
     public void setPlayer2(BasePlayer player2) {
         this.player2 = player2;
     }
-
 
 }

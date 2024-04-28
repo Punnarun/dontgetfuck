@@ -9,7 +9,7 @@ public class Ticket implements Buyable{
 
     private String name = "Winning Ticket";
     private String description = "- When use, gain chance to instantly win by 70% instantly";
-    int price = 20;
+    private int price = 20;
 
     public String getName() {
         return name;

@@ -5,21 +5,21 @@ class GameController.ShopLogic {
 - Rectangle slot2
 - Rectangle slot3
 - Rectangle slot4
-~ Label LabelSlot1
-~ Label DescriptionSlot1
-~ Label LabelSlot2
-~ Label DescriptionSlot2
-~ Label LabelSlot3
-~ Label DescriptionSlot3
-~ Label LabelSlot4
-~ Label DescriptionSlot4
-~ Label priceSlot1
-~ Label priceSlot2
-~ Label priceSlot3
-~ Label priceSlot4
+- Label LabelSlot1
+- Label DescriptionSlot1
+- Label LabelSlot2
+- Label DescriptionSlot2
+- Label LabelSlot3
+- Label DescriptionSlot3
+- Label LabelSlot4
+- Label DescriptionSlot4
+- Label priceSlot1
+- Label priceSlot2
+- Label priceSlot3
+- Label priceSlot4
 - int playerMoney
 - Apple apple
-- Rob rob
+- Robbing rob
 - Dice dice
 - Ticket ticket
 - ScrollPane root
@@ -53,13 +53,13 @@ class Player.Warrior {
 + void usePassiveSkill()
 }
 class GameController.GameOver {
-~ Label winningPlayer
+- Label winningPlayer
 - void initialize()
 }
 class Item.Ticket {
 - String name
 - String description
-~ int price
+- int price
 + String getName()
 + void setName(String)
 + String getDescription()
@@ -110,17 +110,17 @@ enum GameInstance.Facing {
 +  WEST
 }
 interface Item.Buyable {
-~ int buy(int)
-~ void useEffect()
++ int buy(int)
++ void useEffect()
 }
 class GameController.GameLogic {
 - BasePlayer player1
 - BasePlayer player2
 - GameState GAMESTATE
-~ Image facingUp
-~ Image facingDown
-~ Image facingLeft
-~ Image facingRight
+- Image facingUp
+- Image facingDown
+- Image facingLeft
+- Image facingRight
 - AnchorPane root
 - Rectangle starter
 - Rectangle up
@@ -181,7 +181,7 @@ class GameController.GameLogic {
 - Label diceAmount
 - Label robAmount
 - Label appleAmount
-~ AudioClip song
+- AudioClip song
 - ImageView unmute
 - ImageView mute
 - void goToGame()
@@ -189,21 +189,21 @@ class GameController.GameLogic {
 - void disableButton()
 - void enableButton()
 + void gameStart()
-+ void decreaseMove()
-+ void updateFacing(Facing)
-+ void UP()
-+ void DOWN()
-+ void LEFT()
-+ void RIGHT()
+- void decreaseMove()
+- void updateFacing(Facing)
+- void UP()
+- void DOWN()
+- void LEFT()
+- void RIGHT()
 - ImageView getCurrentPlayerImage()
 - ImageView getOpponentPlayerImage()
 - BasePlayer getOpponentBasePlayer()
 - BasePlayer getCurrentBasePlayer()
 - boolean canMoveTo(int,int)
-+ void resetDisplay()
-+ void player1StatUpdate()
-+ void player2StatUpdate()
-+ void isAttackable()
+- void resetDisplay()
+- void player1StatUpdate()
+- void player2StatUpdate()
+- void isAttackable()
 + void isAttack()
 - void gotKnockback(BasePlayer,BasePlayer,ImageView)
 - void changePlayerTurn()
@@ -228,19 +228,6 @@ class GameController.Home {
 }
 class Player.Tank {
 + void usePassiveSkill()
-}
-class Item.Rob {
-- String name
-- String description
-~ int price
-+ String getName()
-+ void setName(String)
-+ String getDescription()
-+ void setDescription(String)
-+ int getPrice()
-+ void setPrice(int)
-+ int buy(int)
-+ void useEffect()
 }
 abstract class Player.BasePlayer {
 - int hp
@@ -307,6 +294,19 @@ class GameInstance.GameData {
 + {static} GameState getGameState()
 + {static} void setGameState(GameState)
 }
+class Item.Robbing {
+- String name
+- String description
+- int price
++ String getName()
++ void setName(String)
++ String getDescription()
++ void setDescription(String)
++ int getPrice()
++ void setPrice(int)
++ int buy(int)
++ void useEffect()
+}
 enum GameInstance.GameState {
 +  PLAYER1_TURN
 +  PLAYER2_TURN
@@ -322,5 +322,5 @@ Item.Buyable <|.. Item.Ticket
 Item.Buyable <|.. Item.Dice
 javafx.application.Application <|-- GameController.Home
 Player.BasePlayer <|-- Player.Tank
-Item.Buyable <|.. Item.Rob
+Item.Buyable <|.. Item.Robbing
 @enduml

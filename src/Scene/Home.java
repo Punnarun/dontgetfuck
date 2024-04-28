@@ -1,4 +1,4 @@
-package GameController;
+package Scene;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +16,7 @@ public class Home extends Application {
     public void start(Stage primaryStage) throws Exception {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("../Scene/Home.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
             Scene scene = new Scene(root, 1280, 720);
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
@@ -26,9 +26,6 @@ public class Home extends Application {
             e.printStackTrace();
         }
     }
-
-
-
 
     public static void main(String[] args) {
         launch(args);

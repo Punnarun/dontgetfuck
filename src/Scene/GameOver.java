@@ -1,4 +1,4 @@
-package GameController;
+package Scene;
 
 import GameInstance.GameState;
 import javafx.fxml.FXML;
@@ -7,7 +7,7 @@ import GameInstance.GameData;
 
 public class GameOver {
 
-    @FXML Label winningPlayer;
+    @FXML private Label winningPlayer;
 
     @FXML
     private void initialize() {

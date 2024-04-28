@@ -3,11 +3,11 @@ package Item;
 import GameInstance.GameData;
 import GameInstance.GameState;
 
-public class Rob implements Buyable{
+public class Robbing implements Buyable{
 
     private String name = "Robber";
     private String description = "- When use, he will steal 50% of your Opponent Money for you";
-    int price = 10;
+    private int price = 10;
 
     public String getName() {
         return name;

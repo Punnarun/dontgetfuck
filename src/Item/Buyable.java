@@ -4,7 +4,7 @@ import GameInstance.GameData;
 
 public interface Buyable {
 
-    int buy(int playerMoney);
+    public int buy(int playerMoney);
 
-    void useEffect();
+    public void useEffect();
 }

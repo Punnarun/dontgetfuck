@@ -9,8 +9,6 @@ public class Apple implements Buyable{
     private String description = "- When use, player will instantly heal you HP by maximum";
     private int price = 5;
 
-
-
     @Override
     public int buy(int playerMoney) {
         if (playerMoney >= price) {
