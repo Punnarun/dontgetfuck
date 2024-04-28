@@ -1,0 +1,326 @@
+@startuml
+class GameController.ShopLogic {
+- Label currentMoney
+- Rectangle slot1
+- Rectangle slot2
+- Rectangle slot3
+- Rectangle slot4
+~ Label LabelSlot1
+~ Label DescriptionSlot1
+~ Label LabelSlot2
+~ Label DescriptionSlot2
+~ Label LabelSlot3
+~ Label DescriptionSlot3
+~ Label LabelSlot4
+~ Label DescriptionSlot4
+~ Label priceSlot1
+~ Label priceSlot2
+~ Label priceSlot3
+~ Label priceSlot4
+- int playerMoney
+- Apple apple
+- Rob rob
+- Dice dice
+- Ticket ticket
+- ScrollPane root
+- void initialize()
+- void updatePlayerMoney(int,boolean)
+- void updateSlotColors()
+- void setSlotColor(Rectangle,boolean)
+- void purchaseApple()
+- void purchaseRob()
+- void purchaseDice()
+- void purchaseTicket()
+- void goBack()
+}
+class Item.Apple {
+- String name
+- String description
+- int price
++ int buy(int)
++ void useEffect()
++ String getName()
++ void setName(String)
++ String getDescription()
++ void setDescription(String)
++ int getPrice()
++ void setPrice(int)
+}
+class Player.Thief {
++ void usePassiveSkill()
+}
+class Player.Warrior {
++ void usePassiveSkill()
+}
+class GameController.GameOver {
+~ Label winningPlayer
+- void initialize()
+}
+class Item.Ticket {
+- String name
+- String description
+~ int price
++ String getName()
++ void setName(String)
++ String getDescription()
++ void setDescription(String)
++ int getPrice()
++ void setPrice(int)
++ int buy(int)
++ void useEffect()
+}
+class Item.Dice {
+- String name
+- String description
+- int price
++ String getName()
++ void setName(String)
++ String getDescription()
++ void setDescription(String)
++ int getPrice()
++ void setPrice(int)
++ int buy(int)
++ void useEffect()
+}
+class GameController.Character {
+- BasePlayer player1
+- BasePlayer player2
+- Rectangle startGameButton
+- Label description
+- Label startLabel
+- AnchorPane root
+- Timeline onClickAnimation
+- int currentIndex
++ void initialize()
+- void onClick()
+- void onClickWarrior()
+- void onClickTank()
+- void onClickThief()
+- void startTypingAnimation(String)
+- void startGame()
++ BasePlayer getPlayer1()
++ void setPlayer1(BasePlayer)
++ BasePlayer getPlayer2()
++ void setPlayer2(BasePlayer)
+}
+enum GameInstance.Facing {
++  NORTH
++  EAST
++  SOUTH
++  WEST
+}
+interface Item.Buyable {
+~ int buy(int)
+~ void useEffect()
+}
+class GameController.GameLogic {
+- BasePlayer player1
+- BasePlayer player2
+- GameState GAMESTATE
+~ Image facingUp
+~ Image facingDown
+~ Image facingLeft
+~ Image facingRight
+- AnchorPane root
+- Rectangle starter
+- Rectangle up
+- Rectangle left
+- Rectangle right
+- Rectangle down
+- Label drawValue
+- ImageView playerOne
+- ImageView playerTwo
+- GridPane layoutContainer
+- Label money
+- ImageView attack
+- Rectangle changeTurn
+- Label changeTurnLabel
+- Label turn
+- ImageView drawDice
+- Rectangle diceBox
+- ImageView p1_atk1
+- ImageView p1_atk2
+- ImageView p1_atk3
+- ImageView p1_atk4
+- ImageView p1_atk5
+- ImageView p1_hp1
+- ImageView p1_hp2
+- ImageView p1_hp3
+- ImageView p1_hp4
+- ImageView p1_hp5
+- ImageView p2_atk1
+- ImageView p2_atk2
+- ImageView p2_atk3
+- ImageView p2_atk4
+- ImageView p2_atk5
+- ImageView p2_hp1
+- ImageView p2_hp2
+- ImageView p2_hp3
+- ImageView p2_hp4
+- ImageView p2_hp5
+- ImageView coin1
+- ImageView coin2
+- ImageView coin3
+- ImageView coin4
+- ImageView coin5
+- ImageView coin6
+- ImageView coin7
+- ImageView coin8
+- ImageView upimg
+- ImageView leftimg
+- ImageView rightimg
+- ImageView downimg
+- Label turnCounter
+- ImageView cart
+- Rectangle shopRec
+- int turnNumber
+- int[][] coinPos
+- int currentCoinPosX
+- int currentCoinPosY
+- Label winningTicket
+- Label diceAmount
+- Label robAmount
+- Label appleAmount
+~ AudioClip song
+- ImageView unmute
+- ImageView mute
+- void goToGame()
+- void drawDice()
+- void disableButton()
+- void enableButton()
++ void gameStart()
++ void decreaseMove()
++ void updateFacing(Facing)
++ void UP()
++ void DOWN()
++ void LEFT()
++ void RIGHT()
+- ImageView getCurrentPlayerImage()
+- ImageView getOpponentPlayerImage()
+- BasePlayer getOpponentBasePlayer()
+- BasePlayer getCurrentBasePlayer()
+- boolean canMoveTo(int,int)
++ void resetDisplay()
++ void player1StatUpdate()
++ void player2StatUpdate()
++ void isAttackable()
++ void isAttack()
+- void gotKnockback(BasePlayer,BasePlayer,ImageView)
+- void changePlayerTurn()
+- void detectDeath(int,int,BasePlayer)
+- void saveGameDate()
+- void goToShop()
+- void coinInvisible()
+- void randomCoin()
+- void checkCoin()
+- void knockbackWithCoin()
+- void updatePlayerSlot()
+- int getItem(int)
+- void useTicket()
+- void useDice()
+- void useRob()
+- void useApple()
+- void playMusic()
+}
+class GameController.Home {
++ void start(Stage)
++ {static} void main(String[])
+}
+class Player.Tank {
++ void usePassiveSkill()
+}
+class Item.Rob {
+- String name
+- String description
+~ int price
++ String getName()
++ void setName(String)
++ String getDescription()
++ void setDescription(String)
++ int getPrice()
++ void setPrice(int)
++ int buy(int)
++ void useEffect()
+}
+abstract class Player.BasePlayer {
+- int hp
+- int atk
+- int diceValue
+- int moveLeft
+- int currentX
+- int currentY
+- Facing playerFacing
+- int money
++ int getMoney()
++ void setMoney(int)
++ Facing getPlayerFacing()
++ void setPlayerFacing(Facing)
++ int getMoveLeft()
++ void setMoveLeft(int)
++ int getHp()
++ void setHp(int)
++ int getAtk()
++ void setAtk(int)
++ int getDiceValue()
++ void setDiceValue(int)
++ int getCurrentX()
++ void setCurrentX(int)
++ int getCurrentY()
++ void setCurrentY(int)
++ {abstract}void usePassiveSkill()
+}
+class GameInstance.GameData {
+- {static} GameState gameState
+- {static} BasePlayer player1
+- {static} BasePlayer player2
+- {static} int player1Money
+- {static} int player2Money
+- {static} boolean hasPlayed
+- {static} int numberOfMoveLeft
+- {static} int turnNumber
+- {static} String description
+- {static} boolean isMusicPlayed
+- {static} int[] player1Slot
+- {static} int[] player2Slot
++ {static} boolean getIsMusicPlayed()
++ {static} void setIsMusicPlayed(boolean)
++ {static} String getDescription()
++ {static} void setDescription(String)
++ {static} int getTurnNumber()
++ {static} void setTurnNumber(int)
++ {static} int getNumberOfMoveLeft()
++ {static} void setNumberOfMoveLeft(int)
++ {static} boolean isHavePlayed()
++ {static} void setHavePlayed(boolean)
++ {static} BasePlayer getPlayer1()
++ {static} int[] getPlayer1Slot()
++ {static} void setPlayer1Slot(int[])
++ {static} int[] getPlayer2Slot()
++ {static} void setPlayer2Slot(int[])
++ {static} void setPlayer1(BasePlayer)
++ {static} BasePlayer getPlayer2()
++ {static} void setPlayer2(BasePlayer)
++ {static} int getPlayer1Money()
++ {static} void setPlayer1Money(int)
++ {static} int getPlayer2Money()
++ {static} void setPlayer2Money(int)
++ {static} GameState getGameState()
++ {static} void setGameState(GameState)
+}
+enum GameInstance.GameState {
++  PLAYER1_TURN
++  PLAYER2_TURN
++  PLAYER1_WIN
++  PLAYER2_WIN
+}
+
+
+Item.Buyable <|.. Item.Apple
+Player.BasePlayer <|-- Player.Thief
+Player.BasePlayer <|-- Player.Warrior
+Item.Buyable <|.. Item.Ticket
+Item.Buyable <|.. Item.Dice
+javafx.application.Application <|-- GameController.Home
+Player.BasePlayer <|-- Player.Tank
+Item.Buyable <|.. Item.Rob
+@enduml
