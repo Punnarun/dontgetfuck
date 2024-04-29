@@ -6,7 +6,6 @@ import Player.BasePlayer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -859,7 +858,7 @@ public class GameLogic {
         saveGameDate();
 
         if (getItem(1) <= 0) return;
-        Robbing rob = new Robbing();
+        Robber rob = new Robber();
         rob.useEffect();
 
         player1.setMoney(GameData.getPlayer1Money());

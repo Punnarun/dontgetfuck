@@ -3,9 +3,9 @@ package Item;
 import GameInstance.GameData;
 import GameInstance.GameState;
 
-public class Robbing extends BaseItem implements Buyable{
+public class Robber extends BaseItem implements Buyable{
 
-    public Robbing() {
+    public Robber() {
         super("Robber" , "- When use, he will steal 50% of your Opponent Money for you" , 10);
     }
 

@@ -9,7 +9,7 @@ public class Thief extends BasePlayer {
 
     @Override
     public void usePassiveSkill() {
-        //theif can double their coin every 10 turns
+        //thief can double their coin every 10 turns
         super.setMoney(this.getMoney()*2);
     }
 }

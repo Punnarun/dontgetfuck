@@ -8,7 +8,7 @@ import java.util.Random;
 public class Ticket extends BaseItem implements Buyable{
 
     public Ticket() {
-        super("Winning Ticket", "- When use, gain chance to instantly win by 70% instantly",20);
+        super("Winning Ticket", "- When use, gain chance to instantly win by 60% instantly",20);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Ticket extends BaseItem implements Buyable{
             GameData.setPlayer2Slot(new int[]{GameData.getPlayer1Slot()[0], GameData.getPlayer1Slot()[1],
                     GameData.getPlayer1Slot()[2], GameData.getPlayer1Slot()[3] - 1});
         }
-        if (rand < 7) GameData.setGameState(userGameState);
+        if (rand < 6) GameData.setGameState(userGameState);
         else GameData.setGameState(opponentGamestate);
 
     }

@@ -3,7 +3,7 @@ package Scene;
 import GameInstance.GameState;
 import GameInstance.GameData;
 import Item.Dice;
-import Item.Robbing;
+import Item.Robber;
 import Item.Ticket;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +41,7 @@ public class ShopLogic {
 
     private int playerMoney;
     private Apple apple = new Apple();
-    private Robbing rob = new Robbing();
+    private Robber rob = new Robber();
     private Dice dice = new Dice();
     private Ticket ticket = new Ticket();
 
@@ -103,7 +103,7 @@ public class ShopLogic {
     }
 
     @FXML private void purchaseRob() {
-        Robbing rob = new Robbing();
+        Robber rob = new Robber();
         int moneyLeft = rob.buy(playerMoney);
         updatePlayerMoney(moneyLeft , true);
 
