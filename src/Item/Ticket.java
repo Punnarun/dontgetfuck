@@ -7,9 +7,15 @@ import java.util.Random;
 
 public class Ticket implements Buyable{
 
-    private String name = "Winning Ticket";
-    private String description = "- When use, gain chance to instantly win by 70% instantly";
-    private int price = 20;
+    private String name;
+    private String description;
+    private int price;
+
+    public Ticket() {
+        this.name = "Winning Ticket";
+        this.description = "- When use, gain chance to instantly win by 70% instantly";
+        this.price = 20;
+    }
 
     public String getName() {
         return name;

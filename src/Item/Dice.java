@@ -5,9 +5,15 @@ import GameInstance.GameState;
 
 public class Dice implements Buyable{
 
-    private String name = "Cheating Dice";
-    private String description = "- When use, player will able to throw the dice twice";
-    private int price = 15;
+    private String name;
+    private String description;
+    private int price;
+
+    public Dice() {
+        this.name = "Cheating Dice";
+        this.description = "- When use, player will able to throw the dice twice";
+        this.price = 15;
+    }
 
     public String getName() {
         return name;

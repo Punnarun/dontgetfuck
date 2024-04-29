@@ -1,5 +1,58 @@
 @startuml
-class GameController.ShopLogic {
+class Scene.Character {
+- BasePlayer player1
+- BasePlayer player2
+- Rectangle startGameButton
+- Label description
+- Label startLabel
+- AnchorPane root
+- Timeline onClickAnimation
+- int currentIndex
++ void initialize()
+- void onClick()
+- void onClickWarrior()
+- void onClickTank()
+- void onClickThief()
+- void startTypingAnimation(String)
+- void startGame()
++ BasePlayer getPlayer1()
++ void setPlayer1(BasePlayer)
++ BasePlayer getPlayer2()
++ void setPlayer2(BasePlayer)
+}
+class Item.Apple {
+- String name
+- String description
+- int price
++ int buy(int)
++ void useEffect()
++ String getName()
++ void setName(String)
++ String getDescription()
++ void setDescription(String)
++ int getPrice()
++ void setPrice(int)
+}
+class Player.Thief {
++ void usePassiveSkill()
+}
+class Player.Warrior {
++ void usePassiveSkill()
+}
+class Item.Ticket {
+- String name
+- String description
+- int price
++ String getName()
++ void setName(String)
++ String getDescription()
++ void setDescription(String)
++ int getPrice()
++ void setPrice(int)
++ int buy(int)
++ void useEffect()
+}
+class Scene.ShopLogic {
 - Label currentMoney
 - Rectangle slot1
 - Rectangle slot2
@@ -33,42 +86,6 @@ class GameController.ShopLogic {
 - void purchaseTicket()
 - void goBack()
 }
-class Item.Apple {
-- String name
-- String description
-- int price
-+ int buy(int)
-+ void useEffect()
-+ String getName()
-+ void setName(String)
-+ String getDescription()
-+ void setDescription(String)
-+ int getPrice()
-+ void setPrice(int)
-}
-class Player.Thief {
-+ void usePassiveSkill()
-}
-class Player.Warrior {
-+ void usePassiveSkill()
-}
-class GameController.GameOver {
-- Label winningPlayer
-- void initialize()
-}
-class Item.Ticket {
-- String name
-- String description
-- int price
-+ String getName()
-+ void setName(String)
-+ String getDescription()
-+ void setDescription(String)
-+ int getPrice()
-+ void setPrice(int)
-+ int buy(int)
-+ void useEffect()
-}
 class Item.Dice {
 - String name
 - String description
@@ -82,38 +99,11 @@ class Item.Dice {
 + int buy(int)
 + void useEffect()
 }
-class GameController.Character {
-- BasePlayer player1
-- BasePlayer player2
-- Rectangle startGameButton
-- Label description
-- Label startLabel
-- AnchorPane root
-- Timeline onClickAnimation
-- int currentIndex
-+ void initialize()
-- void onClick()
-- void onClickWarrior()
-- void onClickTank()
-- void onClickThief()
-- void startTypingAnimation(String)
-- void startGame()
-+ BasePlayer getPlayer1()
-+ void setPlayer1(BasePlayer)
-+ BasePlayer getPlayer2()
-+ void setPlayer2(BasePlayer)
+class Scene.GameOver {
+- Label winningPlayer
+- void initialize()
 }
-enum GameInstance.Facing {
-+  NORTH
-+  EAST
-+  SOUTH
-+  WEST
-}
-interface Item.Buyable {
-+ int buy(int)
-+ void useEffect()
-}
-class GameController.GameLogic {
+class Scene.GameLogic {
 - BasePlayer player1
 - BasePlayer player2
 - GameState GAMESTATE
@@ -222,9 +212,15 @@ class GameController.GameLogic {
 - void useApple()
 - void playMusic()
 }
-class GameController.Home {
-+ void start(Stage)
-+ {static} void main(String[])
+enum GameInstance.Facing {
++  NORTH
++  EAST
++  SOUTH
++  WEST
+}
+interface Item.Buyable {
++ int buy(int)
++ void useEffect()
 }
 class Player.Tank {
 + void usePassiveSkill()
@@ -313,6 +309,10 @@ enum GameInstance.GameState {
 +  PLAYER1_WIN
 +  PLAYER2_WIN
 }
+class Scene.Home {
++ void start(Stage)
++ {static} void main(String[])
+}
 
 
 Item.Buyable <|.. Item.Apple
@@ -320,7 +320,7 @@ Player.BasePlayer <|-- Player.Thief
 Player.BasePlayer <|-- Player.Warrior
 Item.Buyable <|.. Item.Ticket
 Item.Buyable <|.. Item.Dice
-javafx.application.Application <|-- GameController.Home
 Player.BasePlayer <|-- Player.Tank
 Item.Buyable <|.. Item.Robbing
+javafx.application.Application <|-- Scene.Home
 @enduml

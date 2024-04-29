@@ -5,9 +5,15 @@ import GameInstance.GameState;
 
 public class Robbing implements Buyable{
 
-    private String name = "Robber";
-    private String description = "- When use, he will steal 50% of your Opponent Money for you";
-    private int price = 10;
+    private String name;
+    private String description;
+    private int price;
+
+    public Robbing() {
+        this.name = "Robber";
+        this.description = "- When use, he will steal 50% of your Opponent Money for you";
+        this.price = 10;
+    }
 
     public String getName() {
         return name;

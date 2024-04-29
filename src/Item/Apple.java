@@ -5,9 +5,15 @@ import GameInstance.GameState;
 
 public class Apple implements Buyable{
 
-    private String name = "Golden Apple";
-    private String description = "- When use, player will instantly heal you HP by maximum";
-    private int price = 5;
+    private String name;
+    private String description;
+    private int price;
+
+    public Apple() {
+        this.name = "Golden Apple";
+        this.description = "- When use, player will instantly heal you HP by maximum";
+        this.price = 5;
+    }
 
     @Override
     public int buy(int playerMoney) {
