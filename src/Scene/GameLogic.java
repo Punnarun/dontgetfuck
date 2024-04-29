@@ -3,6 +3,10 @@ package Scene;
 import GameInstance.Facing;
 import Item.*;
 import Player.BasePlayer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,6 +24,7 @@ import java.io.IOException;
 import java.util.Random;
 import GameInstance.GameState;
 import GameInstance.GameData;
+import javafx.util.Duration;
 
 public class GameLogic {
 
@@ -857,6 +862,9 @@ public class GameLogic {
         Robbing rob = new Robbing();
         rob.useEffect();
 
+        player1.setMoney(GameData.getPlayer1Money());
+        player2.setMoney(GameData.getPlayer2Money());
+
         money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
         updatePlayerSlot();
     }
@@ -878,23 +886,39 @@ public class GameLogic {
     }
 
     private AudioClip song = new AudioClip(getClass().getResource("/Resource/revengeSong.mp3").toExternalForm());
-
+    private final int SONGLENGTH = 220;
     @FXML private ImageView unmute;
     @FXML private ImageView mute;
+    private Timeline timeline;
 
     @FXML private void playMusic() {
         if (!GameData.getIsMusicPlayed()) {
             song.play();
-            song.setCycleCount(10);
             unmute.setVisible(true);
             mute.setVisible(false);
             GameData.setIsMusicPlayed(true);
+
+            // Create a timeline to loop the song
+            timeline = new Timeline(
+                    new KeyFrame(
+                            Duration.seconds(SONGLENGTH), // Duration of the song
+                            (ActionEvent event) -> {
+                                song.play(); // Play the song again when the timeline triggers
+                            }
+                    )
+            );
+            timeline.setCycleCount(Timeline.INDEFINITE); // Set the timeline to loop indefinitely
+            timeline.play();
         } else {
             song.stop();
             GameData.setIsMusicPlayed(false);
             unmute.setVisible(false);
             mute.setVisible(true);
+
+            // Stop the timeline when stopping the song
+            if (timeline != null) {
+                timeline.stop();
+            }
         }
     }
-
 }

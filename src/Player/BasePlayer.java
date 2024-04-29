@@ -6,12 +6,20 @@ public abstract class BasePlayer {
 
     private int hp;
     private int atk;
-    private int diceValue = -1;
-    private int moveLeft = 0;
-    private int currentX = 0;
-    private int currentY = 0;
+    private int diceValue;
+    private int moveLeft;
+    private int currentX;
+    private int currentY;
     private Facing playerFacing;
-    private int money = 0;
+    private int money;
+
+    public BasePlayer() {
+        this.diceValue = -1;
+        this.currentX = 0;
+        this.currentY = 0;
+        this.money = 0;
+        this.moveLeft = 0;
+    }
 
     public int getMoney() {
         return money;
