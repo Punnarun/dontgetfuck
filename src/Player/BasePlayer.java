@@ -13,13 +13,13 @@ public abstract class BasePlayer {
     private Facing playerFacing;
     private int money;
 
-    public BasePlayer() {
-        this.diceValue = -1;
-        this.currentX = 0;
-        this.currentY = 0;
-        this.money = 0;
-        this.moveLeft = 0;
-    }
+//    public BasePlayer() {
+//        this.diceValue = -1;
+//        this.currentX = 0;
+//        this.currentY = 0;
+//        this.money = 0;
+//        this.moveLeft = 0;
+//    }
 
     public int getMoney() {
         return money;

@@ -46,7 +46,7 @@ public class GameLogic {
     @FXML private Rectangle left;
     @FXML private Rectangle right;
     @FXML private Rectangle down;
-    @FXML private Label drawValue;
+//    @FXML private Label drawValue;
     @FXML private ImageView playerOne;
     @FXML private ImageView playerTwo;
     @FXML private GridPane layoutContainer;
@@ -862,7 +862,6 @@ public class GameLogic {
         rob.useEffect();
 
         player1.setMoney(GameData.getPlayer1Money());
-        player2.setMoney(GameData.getPlayer2Money());
 
         money.setText("x " + String.valueOf(getCurrentBasePlayer().getMoney()));
         updatePlayerSlot();
@@ -897,7 +896,6 @@ public class GameLogic {
             mute.setVisible(false);
             GameData.setIsMusicPlayed(true);
 
-            // Create a timeline to loop the song
             timeline = new Timeline(
                     new KeyFrame(
                             Duration.seconds(SONGLENGTH), // Duration of the song
@@ -906,7 +904,7 @@ public class GameLogic {
                             }
                     )
             );
-            timeline.setCycleCount(Timeline.INDEFINITE); // Set the timeline to loop indefinitely
+            timeline.setCycleCount(Timeline.INDEFINITE);
             timeline.play();
         } else {
             song.stop();
